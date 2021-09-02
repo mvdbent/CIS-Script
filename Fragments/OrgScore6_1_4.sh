@@ -21,15 +21,12 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Allow guests to connect to shared folders: Disabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "False" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "False" ]]
 		then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Allow guests to connect to shared folders: Enabled"
 		fi

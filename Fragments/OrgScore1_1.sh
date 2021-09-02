@@ -16,11 +16,9 @@ runAudit
 if [[ "${auditResult}" == "1" ]]; then
 	countAvailableSUS=$(softwareupdate -l 2>&1 | grep -c "*")
 	if [[ "${countAvailableSUS}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Apple Software is Current"
 	else
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Available Updates: ${countAvailableSUS}, verify all Apple provided software is current"
 	fi

@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	screenSharing=$(runAsUser launchctl list | grep com.apple.RemoteDesktop.agent | awk '{ print $1 }')
 	if [[ "$screenSharing" == "-" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Remote Management: Disabled"
 	else
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Remote Management: Enabled"
 	fi

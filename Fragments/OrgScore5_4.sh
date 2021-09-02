@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 	
 	keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "no-timeout")"
 	if [[ "${keyTimeout}" == "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Automatically lock the login keychain for inactivity: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Automatically lock the login keychain for inactivity: Disabled"
 	fi

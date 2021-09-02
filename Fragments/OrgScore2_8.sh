@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 	
 	wakeNetwork=$(pmset -g | awk '/womp/ { sum+=$2 } END {print sum}')
 	if [[ "${wakeNetwork}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Wake for network access: Disabled"
 	else
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Wake for network access: Enabled"
 	fi

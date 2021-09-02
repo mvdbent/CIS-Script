@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	appPermissions="$(find /Applications -iname "*\.app" -type d -perm -2 -ls 2>&1 | wc -l | xargs)"
 	if [[ "${appPermissions}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="All System Wide Applications have appropriate permissions"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Check permissions of ${appPermissions} system wide Applications"
 	fi

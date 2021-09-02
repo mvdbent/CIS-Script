@@ -16,16 +16,13 @@ if [[ "${auditResult}" == "1" ]]; then
 	if [[ "$apfsyes" != "No APFS Containers found" ]]; then
 		startupEncrypted=$(diskutil info / | awk '/FileVault/ {print $2}')
 		if [[ "$startupEncrypted" == "Yes" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 			comment="Startup Volume: Encrypted"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Ensure all user storage APFS Volumes are encrypted"
 		fi 
 	else 
-		countNotice=$((countNotice + 1))
 		result="Not applicable"
 		comment="Volumes: CoreStorage"
 	fi

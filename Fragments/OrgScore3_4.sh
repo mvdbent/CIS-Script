@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	auditRetention="$(grep -c expire-after /etc/security/audit_control)"	
 	if [[  "${auditRetention}" == "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Security auditing retention: Configured"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Security auditing retention: Unconfigured"
 	fi

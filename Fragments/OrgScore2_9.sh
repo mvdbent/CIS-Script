@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 	
 	powerNap=$(pmset -g custom | awk '/powernap/ { sum+=$2 } END {print sum}')
 	if [[ "${powerNap}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Power Nap: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Power Nap: Disabled"
 	fi

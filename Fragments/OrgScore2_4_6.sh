@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	discSharing=$(launchctl list | grep -Ec ODSAgent)
 	if [[ "${discSharing}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="DVD or CD Sharing: Disabled"
 	else
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="DVD or CD Sharing: Enabled"
 	fi

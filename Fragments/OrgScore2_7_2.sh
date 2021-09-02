@@ -19,16 +19,13 @@ if [[ "${auditResult}" == "1" ]]; then
 	tmDrives=$(tmutil destinationinfo | grep -c "NAME")
 	tmVolumeEncrypted=$(diskutil info "${tmDestination}" 2>&1 | grep -c "Encrypted: Yes")
 	if [[ "${tmDrives}" -gt "0" && "${tmVolumeEncrypted}" -gt "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Time Machine Volumes: Encrypted"
 	else 
 		if [[ "${tmDrives}" == "0" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 			comment="No Time Machine Volumes available"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Time Machine Volumes: Unencrypted"
 		fi

@@ -21,15 +21,12 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Guest account: Disabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "True" ]]
 		then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Guest account: Enabled"
 		fi

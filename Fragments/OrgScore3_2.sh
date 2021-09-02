@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	auditFlags="$(grep -c "^flags:" /etc/security/audit_control)"
 	if [[ "${auditFlags}" == "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Security Auditing Flags: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Security Auditing Flags: Disabled"
 	fi

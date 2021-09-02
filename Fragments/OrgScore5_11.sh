@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	adminSysPrefs="$(security authorizationdb read system.preferences 2> /dev/null | grep -A 1 "<key>shared</key>" | grep -c "<false/>")"
 	if [[ "${adminSysPrefs}" == "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Require an administrator password to access system-wide preferences: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Require an administrator password to access system-wide preferences: Disabled"
 	fi

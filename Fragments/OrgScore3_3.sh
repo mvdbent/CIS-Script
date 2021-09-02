@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 	
 	installRetention="$(grep -c ttl=365 /etc/asl/com.apple.install)"
 	if [[ "${installRetention}" = "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Retain install.log: 365 or more days"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Retain install.log: Less than 365 days"
 	fi

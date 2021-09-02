@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 	
 	locationServices=$(defaults read /var/db/locationd/Library/Preferences/ByHost/com.apple.locationd.plist LocationServicesEnabled 2>&1)
 	if [[ "${locationServices}" != "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Location Services: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Location Services: Disabled"
 	fi

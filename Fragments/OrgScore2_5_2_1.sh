@@ -21,19 +21,15 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Gatekeeper: Enabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "1" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
 			gatekeeperEnabled=$(spctl --status 2>&1 | grep -c "assessments enabled")
 			if [[ "$gatekeeperEnabled" = "1" ]]; then
-				countPassed=$((countPassed + 1))
 				result="Passed"
 			else
-				countFailed=$((countFailed + 1))
 				result="Failed"
 				comment="Gatekeeper: Disabled"
 			fi

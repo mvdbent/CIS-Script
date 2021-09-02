@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	appsInbound=$(/usr/libexec/ApplicationFirewall/socketfilterfw --listapps | grep ALF | awk '{print $7}')
 	if [[ "${appsInbound}" -le "10" || -z "${appsInbound}" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Application Firewall Rules: ${appsInbound} Application Managed"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Application Firewall Rules: ${appsInbound} Application Managed"
 	fi

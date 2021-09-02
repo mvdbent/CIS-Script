@@ -30,22 +30,17 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged4=$(getPrefIsManagedrunAsUser "${appidentifier}" "${value4}")
 	comment="Secure screen saver corners: enabled"
 	if [[ "${prefIsManaged}" == "True" ]] || [[ "${prefIsManaged2}" == "True" ]] || [[ "${prefIsManaged3}" == "True" ]] || [[ "${prefIsManaged4}" == "True" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" == "5" ]] || [[ "${prefValue2AsUser}" == "5" ]] || [[ "${prefValue3AsUser}" == "5" ]] || [[ "${prefValue4AsUser}" == "5" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		elif
 			[[ "${prefValueAsUser}" == "10" ]] || [[ "${prefValue2AsUser}" == "10" ]] || [[ "${prefValue3AsUser}" == "10" ]] || [[ "${prefValue4AsUser}" == "10" ]]; then
-				countPassed=$((countPassed + 1))
 				result="Passed"
 			elif
 				[[ "${prefValueAsUser}" == "13" ]] || [[ "${prefValue2AsUser}" == "13" ]] || [[ "${prefValue3AsUser}" == "13" ]] || [[ "${prefValue4AsUser}" == "13" ]]; then
-					countPassed=$((countPassed + 1))
 					result="Passed"
 				else
-					countFailed=$((countFailed + 1))
 					result="Failed"
 					comment="Secure screen saver corners: Disabled"
 				fi

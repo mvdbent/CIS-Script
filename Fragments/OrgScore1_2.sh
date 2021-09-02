@@ -21,14 +21,11 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Auto Update: Enabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "True" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Auto Update: Disabled"
 			

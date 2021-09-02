@@ -20,19 +20,15 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Sending diagnostic and usage data to Apple: Disabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "False" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "False" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
 			diagnosticEnabled=$(defaults read /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist AutoSubmit)
 			if [[ "${diagnosticEnabled}" == "0" ]]; then
-				countPassed=$((countPassed + 1))
 				result="Passed"
 			else
-				countFailed=$((countFailed + 1))
 				result="Failed"
 				comment="Sending diagnostic and usage data to Apple: Enabled"
 			fi

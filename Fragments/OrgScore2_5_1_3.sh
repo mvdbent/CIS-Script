@@ -19,16 +19,13 @@ if [[ "${auditResult}" == "1" ]]; then
 		# Check encryption status is complete
 		EncryptStatus=$(diskutil cs "$LFV" | awk '/Conversion Status/ {print $3}')
 		if [[ "$EncryptStatus" != "Complete" ]]; then
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Ensure all user CoreStorage volumes encrypted"
 		else 
-			countPassed=$((countPassed + 1))
 			result="Passed"
 			comment="All user CoreStorage volumes encrypted"
 		fi
 	else 
-		countNotice=$((countNotice + 1))
 		result="Not applicable"
 		comment="Volumes: APFS"
 	fi

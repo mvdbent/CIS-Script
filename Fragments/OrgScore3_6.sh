@@ -17,27 +17,22 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	FWlog=$(/usr/libexec/ApplicationFirewall/socketfilterfw --getloggingmode | grep -c "Log mode is on")
 	if [[ "$FWlog" = "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Firewall logging: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Firewall logging: Disabled"
 
 		# Remediation
 		/usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
-		countRemediated=$((countRemediated + 1))
 		# re-check
 		FWlog=$(/usr/libexec/ApplicationFirewall/socketfilterfw --getloggingmode | grep -c "Log mode is on")
 		printCLIResult=$(systemsetup -getnetworktimeserver)
 		if [[ "$FWlog" = "1" ]]; then
-			Remediated
 			result="Passed After Remdiation"
 			comment="Firewall logging: Enabled"
 		else
-			countFailedAfterRemediation=$((countFailedAfterRemediation + 1))
-			result="FailedAfterRemediation"
+			result="Failed After Remediation"
 			comment="Firewall logging: Disabled"
 		fi
 	fi

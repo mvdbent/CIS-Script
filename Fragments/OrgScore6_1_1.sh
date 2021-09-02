@@ -21,15 +21,12 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Display login window as name and password: Enabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" == "True" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" == "True" ]]
 		then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Display login window as name and password: Disabled"
 		fi

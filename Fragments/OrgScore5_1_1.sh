@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	homeFolders="$(find /Users -mindepth 1 -maxdepth 1 -type d -perm -1 2>&1 | grep -v "Shared" | grep -v "Guest" | wc -l | xargs)"
 	if [[ "${homeFolders}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Home Folders: Secure"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Home Folders: Insecure"
 	fi

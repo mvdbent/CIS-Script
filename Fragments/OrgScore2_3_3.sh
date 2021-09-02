@@ -27,14 +27,11 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="End-users are familiar with screen lock tools or Hot Corners"
 	if [[ "${prefIsManaged}" == "True" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" != "1" ]] || [[ "${prefValue2AsUser}" != "1" ]] || [[ "${prefValue3AsUser}" != "1" ]] || [[ "${prefValue4AsUser}" != "1" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Familiarise users with screen lock tools or corner to Start Screen Saver"
 		fi

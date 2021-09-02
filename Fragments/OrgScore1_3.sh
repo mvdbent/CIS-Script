@@ -21,14 +21,11 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Download new updates when available: Enabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
-		countPassed=$((countPassed + 1))		
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "True" ]]; then
-			countPassed=$((countPassed + 1))		
 			result="Passed"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Download new updates when available: Disabled"
 		fi

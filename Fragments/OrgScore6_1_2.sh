@@ -21,15 +21,12 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Show password hints: Disabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" == "0" ]]
 		then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Show password hints: Enabled"
 		fi

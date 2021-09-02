@@ -25,15 +25,12 @@ if [[ "${auditResult}" == "1" ]]; then
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "False" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
 			contentCacheStatus=$(AssetCacheManagerUtil status 2>&1 | grep -c "Activated: true")
 			if [[ "${contentCacheStatus}" == 0 ]]; then
-				countPassed=$((countPassed + 1))
 				result="Passed"
 			else
-				countFailed=$((countFailed + 1))
 				result="Failed"
 				comment="Content Caching: Enabled"
 			fi

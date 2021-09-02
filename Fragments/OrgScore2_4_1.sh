@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	remoteAppleEvents=$(systemsetup -getremoteappleevents)
 	if [[ "$remoteAppleEvents" == "Remote Apple Events: Off" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Remote Apple Events: Disabled"
 	else
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Remote Apple Events: Enabled"
 	fi

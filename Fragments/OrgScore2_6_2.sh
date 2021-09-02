@@ -21,14 +21,11 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="iCloud keychain: Disabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "False" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "False" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 	else
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="iCloud keychain: Enabled"
 		fi

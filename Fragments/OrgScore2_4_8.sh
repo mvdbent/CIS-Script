@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	smbEnabled=$(launchctl print-disabled system | grep -c '"com.apple.smbd" => false')
 	if [[ "${smbEnabled}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="File Sharing: Disabled"
 	else
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="File Sharing: Enabled"
 

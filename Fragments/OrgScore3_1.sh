@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	auditdEnabled=$(launchctl list 2>&1 | grep -c auditd)
 	if [[ "${auditdEnabled}" -gt "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Security auditing: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Security auditing: Disabled"
 	fi

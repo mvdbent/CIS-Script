@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 	
 	locationServices=$(defaults read /var/db/locationd/clients.plist 2>&1 | grep -c "Authorized")
 	if [[ "${locationServices}" != "0" ]]; then
-		countNotice=$((countNotice + 1))
 		result="Notice"
 		comment="${locationServices} applications can accessing location services"
 	else 
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="No Location Services Access"
 	fi

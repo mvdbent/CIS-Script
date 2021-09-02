@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	sipEnabled="$(csrutil status 2>&1 | awk '{print $5}')"
 	if [[ "${sipEnabled}" == "enabled." ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="System Integrity Protection: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="System Integrity Protection: Disabled"
 	fi

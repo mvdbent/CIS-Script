@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	guestHomeFolder="$(ls /Users/ 2>&1 | grep -c Guest)"
 	if [[ "${guestHomeFolder}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Guest home folder: Not Available"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Guest home folder: Available"
 	fi

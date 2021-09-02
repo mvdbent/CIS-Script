@@ -21,19 +21,15 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="FileVault: Enabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "On" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "On" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
 			filevaultEnabled=$(fdesetup status | grep -c "FileVault is On.")
 			if [[ "$filevaultEnabled" == "1" ]]; then
-				countPassed=$((countPassed + 1))
 				result="Passed"
 			else
-				countFailed=$((countFailed + 1))
 				result="Failed"
 				comment="FileVault: Disabled"
 			fi

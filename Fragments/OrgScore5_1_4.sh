@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	libPermissions="$(find /Library -type d -perm -2 -ls 2>&1 | grep -v Caches | grep -v Adobe | grep -v VMware | grep -v "/Audio/Data" | wc -l | xargs)"
 	if [[ "${libPermissions}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="All Library folder for world are not writable files"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Check ${libPermissions} Library folders for world writable files"
 	fi

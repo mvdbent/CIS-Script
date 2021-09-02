@@ -22,18 +22,14 @@ if [[ "${auditResult}" == "1" ]]; then
 	connectable=$(system_profiler SPBluetoothDataType 2>&1 | grep -c Connectable)
 	comment="Paired Devices: ${connectable}"
 	if [[ "${prefIsManaged}" == "True" &&  "${prefValue}" == "True" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "True" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
 			if [[ "${connectable}" != "0" ]]; then
-				countPassed=$((countPassed + 1))
 				result="Passed"
 			else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="No Paired Devices"
 			fi

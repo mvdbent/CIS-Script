@@ -22,15 +22,12 @@ if [[ "${auditResult}" == "1" ]]; then
 		natPrimary=$(/usr/libexec/PlistBuddy -c "print :NAT:PrimaryInterface:Enabled" /Library/Preferences/SystemConfiguration/com.apple.nat.plist > /dev/null 2>&1)
 		forwarding=$(sysctl net.inet.ip.forwarding 2>&1| awk '{ print $NF }')
 		if [[ "$natAirport" != "1" ]] || [[ "$natEnabled" != "1" ]] || [[ "$natPrimary" != "1" ]] || [[ "$forwarding" != "1" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Internet Sharing: Enabled"
 		fi
 	fi
-	countPassed=$((countPassed + 1))
 	result="Passed"
 fi
 printReport

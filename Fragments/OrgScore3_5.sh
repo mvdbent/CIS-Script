@@ -18,11 +18,9 @@ if [[ "${auditResult}" == "1" ]]; then
 	controlAccess=$(grep '^dir' /etc/security/audit_control | awk -F: '{print $2}')
 	accessCheck=$(find "${controlAccess}" | awk '{s+=$3} END {print s}')
 	if [[ "${accessCheck}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Control access to audit records: Correct ownership"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Control access to audit records: Incorrect ownership"
 	fi

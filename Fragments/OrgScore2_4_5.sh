@@ -16,11 +16,9 @@ runAudit
 if [[ "${auditResult}" == "1" ]]; then
 	screenSharing=$(systemsetup -getremotelogin | grep -c 'Remote Login: Off')
 	if [[ "$screenSharing" == "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Remote Login: Disabled"
 	else
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Remote Login: Enabled"
 	fi

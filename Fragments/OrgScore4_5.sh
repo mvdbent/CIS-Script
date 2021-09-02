@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	httpServer=$(launchctl print-disabled system 2>&1 | grep -c '"com.apple.nfsd" => true')
 	if [[ "${httpServer}" == "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="NFS server service: Disabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="NFS server service: Enabled"
 	fi

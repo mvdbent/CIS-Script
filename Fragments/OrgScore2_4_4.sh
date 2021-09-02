@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	printerSharing=$(cupsctl | grep "share_printers")
 	if [[ "${printerSharing}" == "_share_printers=0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Printer Sharing: Disabled"
 	else
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Printer Sharing: Enabled"
 	fi

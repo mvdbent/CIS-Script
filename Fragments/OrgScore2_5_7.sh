@@ -21,14 +21,11 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Limited Ad Tracking: Disabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" == "False" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" == "False" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Limited Ad Tracking: Enabled"
 		fi

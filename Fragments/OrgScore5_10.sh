@@ -20,15 +20,12 @@ if [[ "${auditResult}" == "1" ]]; then
 	comment="Hibernate: Enabled"
 	if [[ "$macType" -ge 0 ]]; then
 		if [[ "$hibernateValue" == "" ]] || [[ "$hibernateValue" -gt 600 ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else 
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="Hibernate: Disabled"
 		fi
 	else
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	fi
 fi

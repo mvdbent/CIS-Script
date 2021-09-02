@@ -21,19 +21,15 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Time and date automatically: Enabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "1" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
 			networkTime=$(systemsetup -getusingnetworktime)
 			if [[ "${networkTime}" = "Network Time: On" ]]; then
-				countPassed=$((countPassed + 1))
 				result="Passed"
 			else
-				countFailed=$((countFailed + 1))
 				result="Failed"
 				comment="Time and date automatically: Disabled"
 			fi

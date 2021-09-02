@@ -23,14 +23,11 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="System data files and security update installs: Enabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" && "${prefValue2}" == "True" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "True" && "${prefValue2}" == "True" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="System data files and security update installs: Disabled"
 		fi

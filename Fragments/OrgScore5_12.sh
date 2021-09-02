@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	screensaverRules="$(security authorizationdb read system.login.screensaver 2>&1 | grep -c 'use-login-window-ui')"
 	if [[ "${screensaverRules}" == "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Ability to login to another user's active and locked session: Disabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Ability to login to another user's active and locked session: Enabled"
 	fi

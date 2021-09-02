@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	timeMachineAuto=$(defaults read /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 2>&1)
 	if [[ "$timeMachineAuto" != "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Time Machine Auto-Backup: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Time Machine Auto-Backup: Disabled"
 	fi

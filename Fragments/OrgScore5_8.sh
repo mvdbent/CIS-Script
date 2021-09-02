@@ -21,19 +21,15 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Automatic login: Disabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" == "True" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" == "True" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
 			automaticLogin=$(defaults read /Library/Preferences/com.apple.loginwindow | grep -c "autoLoginUser")
 			if [[ "${automaticLogin}" == "0" ]]; then
-				countPassed=$((countPassed + 1))
 				result="Passed"
 			else
-				countFailed=$((countFailed + 1))
 				result="Failed"
 				comment="Automatic login: Enabled"
 			fi

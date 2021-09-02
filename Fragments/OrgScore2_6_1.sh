@@ -19,11 +19,9 @@ if [[ "${auditResult}" == "1" ]]; then
 		CheckForiCloudAccount=$(defaults read "$UserHomeDirectory/Library/Preferences/MobileMeAccounts" Accounts 2>&1 | /usr/bin/grep -c 'AccountDescription = iCloud')
 		# If client fails, then note category in audit file
 		if [[ "${CheckForiCloudAccount}" -gt "0" ]] ; then
-			countFailed=$((countFailed + 1))
 			result="Failed"
 			comment="${CheckForiCloudAccount} iCloud account(s) configured"
 		else
-			countPassed=$((countPassed + 1))
 			result="Passed"
 			comment="no iCloud account(s) configured"
 			fi

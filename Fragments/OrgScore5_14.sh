@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	policyBanner="$(find /Library/Security -name 'PolicyBanner.rtf*' | wc -l)"
 	if [[ "${policyBanner}" == "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Login window banner: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Login window banner: Disabled"
 	fi

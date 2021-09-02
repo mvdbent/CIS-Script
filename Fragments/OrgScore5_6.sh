@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	lockSleep="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "lock-on-sleep")"
 	if [[ "${lockSleep}" == "1" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Login keychain is locked when the computer sleeps: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Login keychain is locked when the computer sleeps: Disabled"
 	fi

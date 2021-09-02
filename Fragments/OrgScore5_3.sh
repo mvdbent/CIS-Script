@@ -16,11 +16,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	sudoTimeout="$(ls /etc/sudoers.d/ 2>&1 | grep -c timestamp )"
 	if [[ "${sudoTimeout}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="The sudo timeout period is reduced: ${sudoTimeout}"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Reduce the sudo timeout period"
 	fi

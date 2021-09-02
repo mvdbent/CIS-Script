@@ -17,11 +17,9 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	ttyTimestamp="$(grep -c tty_tickets /etc/sudoers)"
 	if [[ "${ttyTimestamp}" == "0" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 		comment="Separate timestamp for each user/tty combo: Enabled"
 	else 
-		countFailed=$((countFailed + 1))
 		result="Failed"
 		comment="Separate timestamp for each user/tty combo: Disabled"
 	fi

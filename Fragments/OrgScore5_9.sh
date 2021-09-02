@@ -21,19 +21,15 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Require a password to wake the computer from sleep or screen saver: Enabled"
 	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" == "True" ]]; then
-		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" == "True" ]]; then
-			countPassed=$((countPassed + 1))
 			result="Passed"
 		else
 			passwordWake=$(defaults read /Users/"$currentUser"/Library/Preferences/com.apple.screensaver | grep -c "askForPassword")
 			if [[ "${passwordWake}" == "0" ]]; then
-				countPassed=$((countPassed + 1))
 				result="Passed"
 			else
-				countFailed=$((countFailed + 1))
 				result="Failed"
 				comment="Require a password to wake the computer from sleep or screen saver: Disabled"
 			fi
