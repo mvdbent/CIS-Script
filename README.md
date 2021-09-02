@@ -1,5 +1,11 @@
 # CIS-Script
 
+<!-- ![GitHub](https://img.shields.io/github/v/release/mvdbent/CIS-Script) -->
+<!-- ![GitHub](https://img.shields.io/github/downloads/mvdbent/CIS-Script/latest/total) -->
+<!-- ![GitHub](https://img.shields.io/badge/macOS-10.15%2B-yellow) -->
+![GitHub](https://img.shields.io/badge/macOS-11%2B-success)
+![GitHub](https://img.shields.io/github/license/mvdbent/CIS-Script)
+
 ## CheckList
 
 |   OrgScore   	|   macOS 11 report  	|   macOS 11 remediate  	|   macOS 12 report  	|   macOS 12 remediate  	|
