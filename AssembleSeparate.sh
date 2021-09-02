@@ -3,7 +3,7 @@
 projectfolder=$(dirname "${0:A}")
 
 # loop over fragments
-for filePath in ${projectfolder}/Fragments/OrgScore*.sh; do
+for filePath in ${projectfolder}/Fragments/OrgScores/OrgScore*.sh; do
 
     # fragment name
     fileName=$(basename ${filePath})
