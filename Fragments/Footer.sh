@@ -2,6 +2,6 @@
 echo >> "${CISBenchmarkReport}"
 echo "Security report - $(date -u)" >> "${CISBenchmarkReport}"
 
-open "${CISBenchmarkReport}"
+open "${CISBenchmarkReportPath}"
 # open -a Numbers "${CISBenchmarkReport}"
 # open -a "Microsoft Excel" "${CISBenchmarkReport}"
