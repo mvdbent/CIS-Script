@@ -1544,7 +1544,6 @@ if [[ "${auditResult}" == "1" ]]; then
 		comment="Power Nap: Disabled"
 	fi
 fi
-
 printReport
 
 CISLevel="1"
