@@ -9,7 +9,7 @@ for filePath in ${projectfolder}/Fragments/OrgScore*.sh; do
     fileName=$(basename ${filePath})
 
     # destination
-    cisScript="${projectfolder}/SeparateScripts/${fileName}"
+    cisScript="${projectfolder}/Separate/${fileName}"
 
     # add shebang
     echo "#!/bin/zsh" > ${cisScript}
