@@ -1,3 +1,4 @@
+
 # Creation date CISBenchmarkReport
 echo >> "${CISBenchmarkReport}"
 echo "Security report - $(date -u)" >> "${CISBenchmarkReport}"
