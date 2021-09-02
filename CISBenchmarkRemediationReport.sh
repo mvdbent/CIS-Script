@@ -1,6 +1,6 @@
 #!/bin/zsh
 VERSION="0.1.0b1"
-VERSIONDATE="2021-09-02"
+VERSIONDATE="2021-09-03"
 
 ####################################################################################################
 #        License information
@@ -354,11 +354,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Secure Keyboard Entry in terminal.app: Enabled"
-	# if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "1" ]]; then	
+	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" == "1" ]]; then
+		if [[ "${prefValue}" == "True" ]]; then
 			result="Passed"
 		else
 			result="Failed"
