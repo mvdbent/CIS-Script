@@ -1,4 +1,5 @@
 #!/bin/zsh
+
 VERSION="0.1.0b1"
 VERSIONDATE="2021-09-03"
 
@@ -45,7 +46,6 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
 CISBenchmarkReportPath="/Library/Security/Reports"
 CISBenchmarkReport=${CISBenchmarkReportPath}/CISBenchmarkReport.csv
-CISBenchmarkReportEA=${CISBenchmarkReportPath}/CISBenchmarkReportEA.txt
 plistlocation="/Library/Managed Preferences/com.cis.benchmark.plist"
 currentUser=$(scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ { print $3 }')
 

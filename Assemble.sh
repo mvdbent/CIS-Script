@@ -7,6 +7,7 @@ endResult=${projectfolder}/CISBenchmarkRemediationReport.sh
 
 # add shebang
 echo "#!/bin/zsh" > ${endResult}
+echo >> ${endResult}
 
 # add version and date
 version=$(cat "${projectfolder}/Fragments/Version.sh")

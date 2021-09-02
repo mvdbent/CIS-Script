@@ -9,31 +9,31 @@ for filePath in ${projectfolder}/Fragments/OrgScores/OrgScore*.sh; do
     fileName=$(basename ${filePath})
 
     # destination
-    cisScript="${projectfolder}/Separate/${fileName}"
+    endResult="${projectfolder}/Separate/${fileName}"
 
     # add shebang
-    echo "#!/bin/zsh" > ${cisScript}
-    echo >> ${cisScript}
+    echo "#!/bin/zsh" > ${endResult}
+    echo >> ${endResult}
 
     # add version and date
     version=$(cat "${projectfolder}/Fragments/Version.sh")
     versiondate=$(date +%F)
-    echo "VERSION=\"$version\"" >> ${cisScript}
-    echo "VERSIONDATE=\"$versiondate\"" >> ${cisScript}
-    echo >> ${cisScript}
+    echo "VERSION=\"$version\"" >> ${endResult}
+    echo "VERSIONDATE=\"$versiondate\"" >> ${endResult}
+    echo >> ${endResult}
 
     # add header
-    cat ${projectfolder}/Fragments/Header.sh >> ${cisScript}
+    cat ${projectfolder}/Fragments/Header.sh >> ${endResult}
     
     # add script
-    tail -n +6 ${filePath} >> ${cisScript}
-    echo >> ${cisScript}
+    tail -n +6 ${filePath} >> ${endResult}
+    echo >> ${endResult}
 
     # add footer
-    cat ${projectfolder}/Fragments/Footer.sh >> ${cisScript}
+    cat ${projectfolder}/Fragments/Footer.sh >> ${endResult}
     
     # make script executable
-    chmod +x ${cisScript}
+    chmod +x ${endResult}
 
     echo "${fileName} created"
 
