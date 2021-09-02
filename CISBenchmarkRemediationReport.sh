@@ -18,33 +18,42 @@ VERSIONDATE="2021-09-02"
 #        THE POSSIBILITY OF SUCH DAMAGE.
 #
 ####################################################################################################
+####################################################################################################
 # 
-# Written by: Mischa van der Bent
+#        Written by: Mischa van der Bent
 #
-# DESCRIPTION
-# This script is inspired by the CIS Benchmark script of Jamf here https://github.com/jamf/CIS-for-macOS-Catalina-CP
-# The script will look for a managed Configuration Profile (com.cis.benchmark.plist) and does the check, remediation (if needend) and report.
-# The Security Score can be set with a managed Configuration Profile (com.cis.benchmark.plist)
-# Reports are stored in this location /Library/Security/Reports.
+#        DESCRIPTION
+#        This script is inspired by the CIS Benchmark script of Jamf Professional Services 
+#        https://github.com/jamf/CIS-for-macOS-Catalina-CP
+#        And will look for a managed Configuration Profile (com.cis.benchmark.plist) and checks, 
+#        remediation (if needend) and report.
+#        The Security Score can be set with the Jamf Pro Custom Schema json file.
+#        Reports are stored in /Library/Security/Reports.
 # 
-# REQUIREMENTS
-# Compatible with Big Sure macOS 11.x
-# Compatible with Monterey macOS 12.x 
+#        REQUIREMENTS
+#        Compatible with Big Sure macOS 11.x
+#        Compatible with Monterey macOS 12.x 
 # 
 ####################################################################################################
 ####################################################################################################
 
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
-### Directory/Path/Variables
+####################################################################################################
+#        Directory/Path/Variables
+####################################################################################################
+
 CISBenchmarkReportPath="/Library/Security/Reports"
 CISBenchmarkReport=${CISBenchmarkReportPath}/CISBenchmarkReport.csv
 CISBenchmarkReportEA=${CISBenchmarkReportPath}/CISBenchmarkReportEA.txt
 plistlocation="/Library/Managed Preferences/com.cis.benchmark.plist"
 currentUser=$(scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ { print $3 }')
 
-### Functions
-function runAudit () {
+####################################################################################################
+#        Functions
+####################################################################################################
+
+function runAudit() {
 	## Check if scoring file is present
 	if [[ ! -e ${plistlocation} ]]; then
 		## No scoring file present, reporting all
@@ -69,28 +78,27 @@ function runAsUser() {
 	fi
 }
 
-function getPrefValue { # $1: domain, $2: key
+function getPrefValue() { # $1: domain, $2: key
 	python -c "from Foundation import CFPreferencesCopyAppValue; print(CFPreferencesCopyAppValue('$2', '$1'))"
 }
 
-function getPrefValueNested { # $1: domain, $2: key
+function getPrefValueNested() { # $1: domain, $2: key
 	python -c "from Foundation import CFPreferencesCopyAppValue; print(CFPreferencesCopyAppValue('$2', '$1'))['$3']"
 }
 
-function getPrefValuerunAsUser { # $1: domain, $2: key
+function getPrefValuerunAsUser() { # $1: domain, $2: key
 	runAsUser python -c "from Foundation import CFPreferencesCopyAppValue; print(CFPreferencesCopyAppValue('$2', '$1'))"
 }
 
-function getPrefIsManaged { # $1: domain, $2: key
+function getPrefIsManaged() { # $1: domain, $2: key
 	python -c "from Foundation import CFPreferencesAppValueIsForced; print(CFPreferencesAppValueIsForced('$2', '$1'))"
 }
 
-function getPrefIsManagedrunAsUser { # $1: domain, $2: key
+function getPrefIsManagedrunAsUser() { # $1: domain, $2: key
 	runAsUser python -c "from Foundation import CFPreferencesAppValueIsForced; print(CFPreferencesAppValueIsForced('$2', '$1'))"
 }
 
-### Functions
-function CISBenchmarkReportFolder () {
+function CISBenchmarkReportFolder() {
 	if [[ -d ${CISBenchmarkReportPath} ]]; then
 		rm -Rf "${CISBenchmarkReportPath}"
 		mkdir -p "${CISBenchmarkReportPath}"
@@ -114,7 +122,10 @@ function emptyVariables(){
 	remediate=""
 }
 
-# Start Security report script
+####################################################################################################
+#        Start Security report script
+####################################################################################################
+
 echo ""
 echo "*** Security report started - $(date -u)"
 
@@ -152,11 +163,11 @@ CISBenchmarkReportFolder
 # Create csv file headers
 echo "Audit Number;Level;Scored;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
 
-#####################################################################################################################################
-#####################################################################################################################################
-#################################################### DO NOT EDIT BELOW THIS LINE ####################################################
-#####################################################################################################################################
-#####################################################################################################################################
+####################################################################################################
+####################################################################################################
+################################### DO NOT EDIT BELOW THIS LINE ####################################
+####################################################################################################
+####################################################################################################
 
 CISLevel="1"
 audit="1.1 Verify all Apple-provided software is current (Automated)"
@@ -343,10 +354,11 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Secure Keyboard Entry in terminal.app: Enabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
+	# if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
+	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "1" ]]; then	
 		result="Passed"
 	else
-		if [[ "${prefValue}" == "True" ]]; then
+		if [[ "${prefValue}" == "1" ]]; then
 			result="Passed"
 		else
 			result="Failed"
@@ -2339,6 +2351,9 @@ if [[ "${auditResult}" == "1" ]]; then
 fi
 printReport
 
+####################################################################################################
+####################################################################################################
+
 # Creation date CISBenchmarkReport
 echo >> "${CISBenchmarkReport}"
 echo "Security report - $(date -u)" >> "${CISBenchmarkReport}"
@@ -2346,3 +2361,9 @@ echo "Security report - $(date -u)" >> "${CISBenchmarkReport}"
 open "${CISBenchmarkReportPath}"
 # open -a Numbers "${CISBenchmarkReport}"
 # open -a "Microsoft Excel" "${CISBenchmarkReport}"
+
+####################################################################################################
+####################################################################################################
+######################################## END OF THE SCRIPT #########################################
+####################################################################################################
+####################################################################################################
