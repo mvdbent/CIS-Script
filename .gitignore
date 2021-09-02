@@ -1,2 +1,5 @@
 Fragments/.DS_Store
 .DS_Store
+Scripts/CISBenchmarkRemediationReport.sh
+Scripts/OrgScore1_1.sh
+Scripts/OrgScore1_2.sh
