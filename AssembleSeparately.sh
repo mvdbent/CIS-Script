@@ -11,4 +11,8 @@ cat ${projectfolder}/Fragments/Header.sh >> ${endResult}
 
 tail -n +6 ${fragementName} >> ${endResult}
 
+echo >> ${endResult}
+
+cat ${projectfolder}/Fragments/Footer.sh >> ${endResult}
+
 chmod +x ${endResult}

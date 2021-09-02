@@ -18,4 +18,6 @@ for filePath in ${projectfolder}/Fragments/OrgScore*.sh; do
 
 done
 
+cat ${projectfolder}/Fragments/Footer.sh >> ${endResult}
+
 chmod +x ${endResult}
