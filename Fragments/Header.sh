@@ -42,28 +42,17 @@ CISBenchmarkReportEA=${CISBenchmarkReportPath}/CISBenchmarkReportEA.txt
 plistlocation="/Library/Managed Preferences/com.cis.benchmark.plist"
 currentUser=$(scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ { print $3 }')
 
-# counters
-countChecked=0
-countPassed=0
-countFailed=0
-countNotice=0
-countRemediated=0
-countPassedAfterRemediated=0
-countFailedAfterRemediation=0
-
 ### Functions
 function runAudit () {
 	## Check if scoring file is present
 	if [[ ! -e ${plistlocation} ]]; then
 		## No scoring file present, reporting all
 		auditResult="1"
-		countChecked=$((countChecked + 1))
 		scored=""
 		echo "OrgScore ${audit}"
 	else
 		auditResult=$(defaults read "${plistlocation}" "${orgScore}" 2>&1)
 		if [[ "${auditResult}" == "1" ]]; then
-			countChecked=$((countChecked + 1))
 			scored="Scored"
 			echo "OrgScore ${audit}"
 		else
@@ -107,12 +96,6 @@ function CISBenchmarkReportFolder () {
 		else
 		mkdir -p "${CISBenchmarkReportPath}"
 	fi
-}
-
-function Remediated () {
-	countPassedAfterRemediated=$((countPassedAfterRemediated + 1))
-	countPassed=$((countPassed + 1))
-	countFailed=$((countFailed - 1))
 }
 
 function printReport(){
