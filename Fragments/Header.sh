@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 ####################################################################################################
 #        License information
 ####################################################################################################
@@ -19,11 +21,14 @@
 # Written by: Mischa van der Bent
 #
 # DESCRIPTION
-# This script creates a report of the audit based on orgSecurityScore or for each listed item
-# in the CIS Benchmark script of Jamf here https://github.com/jamf/CIS-for-macOS-Catalina-CP
+# This script is inspired by the CIS Benchmark script of Jamf here https://github.com/jamf/CIS-for-macOS-Catalina-CP
+# The script will look for a managed Configuration Profile (com.cis.benchmark.plist) and does the check, remediation (if needend) and report.
+# The Security Score can be set with a managed Configuration Profile (com.cis.benchmark.plist)
+# Reports are stored in this location /Library/Security/Reports.
 # 
 # REQUIREMENTS
 # Compatible with Big Sure macOS 11.x
+# Compatible with Monterey macOS 12.x 
 # 
 ####################################################################################################
 ####################################################################################################
@@ -31,8 +36,9 @@
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
 ### Directory/Path/Variables
-projectfolder="/Library/Security"
-# projectfolder=$(dirname "$0")
+CISBenchmarkReportPath="/Library/Security/Reports"
+CISBenchmarkReport=${CISBenchmarkReportPath}/CISBenchmarkReport.csv
+CISBenchmarkReportEA=${CISBenchmarkReportPath}/CISBenchmarkReportEA.txt
 plistlocation="/Library/Managed Preferences/com.cis.benchmark.plist"
 currentUser=$(scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ { print $3 }')
 
@@ -94,20 +100,19 @@ function getPrefIsManagedrunAsUser { # $1: domain, $2: key
 }
 
 ### Functions
-function CISBenchmarkReportFile () {
-	CISBenchmarkReportPath=${projectfolder}/Reports
-	CISBenchmarkReport=${CISBenchmarkReportPath}/CISBenchmarkReport-$(date '+%d-%m-%Y_%Hh%Mm%Ss').csv
-	if [[ ! -d ${CISBenchmarkReportPath} ]]; then
-		/bin/mkdir -p "${CISBenchmarkReportPath}"
+function CISBenchmarkReportFolder () {
+	if [[ -d ${CISBenchmarkReportPath} ]]; then
+		rm -Rf "${CISBenchmarkReportPath}"
+		mkdir -p "${CISBenchmarkReportPath}"
+		else
+		mkdir -p "${CISBenchmarkReportPath}"
 	fi
 }
 
-function CISBenchmarkRemediationReport () {
-	CISBenchmarkReportPath=${projectfolder}/Reports
-	CISBenchmarkRemediation=${CISBenchmarkReportPath}/CISBenchmarkRemediationReport.txt
-	if [[ ! -d ${CISBenchmarkReportPath} ]]; then
-		/bin/mkdir -p "${CISBenchmarkReportPath}"
-	fi
+function Remediated () {
+	countPassedAfterRemediated=$((countPassedAfterRemediated + 1))
+	countPassed=$((countPassed + 1))
+	countFailed=$((countFailed - 1))
 }
 
 function printReport(){
@@ -141,19 +146,24 @@ fi
 # Check for Big sur
 osVersion=$(sw_vers -productVersion)
 buildVersion=$(sw_vers -buildVersion)
-if [[ "$osVersion" != "11."* ]]; then
-	echo ""
-	echo "*** This script support macOS Big Sur only"
-	echo "*** Quitting..."
-	echo ""
-	exit 1
+if [[ "$osVersion" != "11."* ]] && [[ "$osVersion" != "12."* ]]; then
+		echo ""
+		echo "*** This script support macOS Big Sur and Monterey only"
+		echo "*** Quitting..."
+		echo ""
+		exit 1
 	else
-	echo "*** Current version - macOS Big Sur ${osVersion} (${buildVersion})" 1>&2
-	echo ""
-fi
+		if [[ "$osVersion" = "11."* ]]; then
+			echo "*** Current version - macOS Big Sur ${osVersion} (${buildVersion})"
+			echo "" 1>&2
+		else
+			echo "*** Current version - macOS Monterey ${osVersion} (${buildVersion})"
+			echo "" 1>&2
+		fi
+	fi
 
-# Create csv file
-CISBenchmarkReportFile
+# Create report Folder/Files
+CISBenchmarkReportFolder
 
 # Create csv file headers
 echo "Audit Number;Level;Scored;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
