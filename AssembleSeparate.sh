@@ -26,7 +26,7 @@ for filePath in ${projectfolder}/Fragments/OrgScores/OrgScore*.sh; do
     cat ${projectfolder}/Fragments/Header.sh >> ${endResult}
     
     # add script
-    tail -n +6 ${filePath} >> ${endResult}
+    tail -n +7 ${filePath} >> ${endResult}
     echo >> ${endResult}
 
     # add footer

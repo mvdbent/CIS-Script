@@ -27,7 +27,7 @@ for filePath in ${projectfolder}/Fragments/OrgScores/OrgScore*.sh; do
     echo "Add ${fileName} to script"
 
     # add script
-    tail -n +6 ${filePath} >> ${endResult}
+    tail -n +7 ${filePath} >> ${endResult}
     echo >> ${endResult}
 
 done
