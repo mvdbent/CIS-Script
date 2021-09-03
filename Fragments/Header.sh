@@ -103,7 +103,7 @@ function CISBenchmarkReportFolder() {
 }
 
 function printReport(){
-	echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${appidentifier};${value};${prefValue};${method};${comment};${remediate}">>"${CISBenchmarkReport}"
+	echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${appidentifier};${value};${prefValue};${method};${comment}">>"${CISBenchmarkReport}"
 }
 
 function emptyVariables(){
@@ -114,7 +114,6 @@ function emptyVariables(){
 	result=""
 	method=""
 	comment=""
-	remediate=""
 }
 
 ####################################################################################################
@@ -124,33 +123,35 @@ function emptyVariables(){
 echo ""
 echo "*** Security report started - $(date -u)"
 
+# Check for macOS version
+osVersion=$(sw_vers -productVersion)
+buildVersion=$(sw_vers -buildVersion)
+if [[ "$osVersion" != "10.15."* ]] && [[ "$osVersion" != "11."* ]] && [[ "$osVersion" != "12."* ]]; then
+		echo ""
+		echo "*** This script support macOS Catalina, Big Sur and Monterey only"
+		echo "*** Quitting..."
+		echo ""
+		exit 1
+	else
+		if [[ "$osVersion" = "10.15."* ]]; then
+			echo "*** Current version - macOS Catalina ${osVersion} (${buildVersion})"
+			echo "" 1>&2
+		elif [[ "$osVersion" = "11."* ]]; then
+			echo "*** Current version - macOS Big Sur ${osVersion} (${buildVersion})"
+			echo "" 1>&2
+		elif [[ "$osVersion" = "12."* ]]; then
+			echo "*** Current version - macOS Monterey ${osVersion} (${buildVersion})"
+			echo "" 1>&2
+		fi
+	fi
+
 # Check for admin/root permissions
 if [[ "$(id -u)" != "0" ]]; then
-	echo ""
 	echo "*** Script must be run as root, or have root privileges (ie. sudo)." 1>&2
 	echo "*** Quitting..."
 	echo ""
 	exit 1
 fi
-
-# Check for Big sur
-osVersion=$(sw_vers -productVersion)
-buildVersion=$(sw_vers -buildVersion)
-if [[ "$osVersion" != "11."* ]] && [[ "$osVersion" != "12."* ]]; then
-		echo ""
-		echo "*** This script support macOS Big Sur and Monterey only"
-		echo "*** Quitting..."
-		echo ""
-		exit 1
-	else
-		if [[ "$osVersion" = "11."* ]]; then
-			echo "*** Current version - macOS Big Sur ${osVersion} (${buildVersion})"
-			echo "" 1>&2
-		else
-			echo "*** Current version - macOS Monterey ${osVersion} (${buildVersion})"
-			echo "" 1>&2
-		fi
-	fi
 
 # Create report Folder/Files
 CISBenchmarkReportFolder
