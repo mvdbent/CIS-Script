@@ -1,2 +1,4 @@
 .DS_Store
 Separate
+Build/Scripts/
+Build/CISBenchmarkRemediationReport.sh
