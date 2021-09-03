@@ -1,6 +1,7 @@
 #!/bin/zsh
 
-projectfolder=$(dirname "${0:A}")
+script_dir=$(dirname ${0:A})
+projectfolder=$(dirname $script_dir)
 
 source ${projectfolder}/Header.sh
 
