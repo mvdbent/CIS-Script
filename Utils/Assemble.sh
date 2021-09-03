@@ -12,7 +12,9 @@ help () {
 
 buildScript () {
     # destination
-    endResult=${projectfolder}/Build/CISBenchmarkRemediationReport.sh
+    endPath=${projectfolder}/Build
+    mkdir -p ${endPath}
+    endResult=${endPath}/CISBenchmarkRemediationReport.sh
 
     # add shebang
     echo "#!/bin/zsh" > ${endResult}
@@ -57,7 +59,9 @@ buildSeperateScript () {
         fileName=$(basename ${filePath})
 
         # destination
-        endResult="${projectfolder}/Build/Scripts/${fileName}"
+        endPath=${projectfolder}/Build/Scripts
+        mkdir -p ${endPath}
+        endResult="${endPath}/${fileName}"
 
         # add shebang
         echo "#!/bin/zsh" > ${endResult}
