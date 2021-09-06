@@ -23,6 +23,20 @@ if [[ "${auditResult}" == "1" ]]; then
 	else
 		result="Failed"
 		comment="Remote Apple Events: Enabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			systemsetup -setremoteappleevents off
+			launchctl disable system/com.apple.AEServer
+
+			# re-check
+			remoteAppleEvents=$(systemsetup -getremoteappleevents)
+			if [[ "$remoteAppleEvents" == "Remote Apple Events: Off" ]]; then
+				result="Passed After Remdiation"
+				comment="Remote Apple Events: Disabled"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport
