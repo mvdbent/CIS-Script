@@ -5,11 +5,20 @@
     "type": "object",
     "properties": {
 
-        "shortReport": {
-            "type": "boolean",
-            "title": "Generate a short report",
-            "description": "This boolean is true or false.",
-            "default": "false"
+        "report": {
+            "title": "Reporting",
+            "description": "Default set to short reporting.",
+            "type": "string",
+            "options": {
+              "enum_titles": [
+                "Short Report",
+                "Full Report"
+              ]
+            },
+            "enum": [
+              "short",
+              "full"
+            ]
         },
 
         "OrgScore1_1": {
