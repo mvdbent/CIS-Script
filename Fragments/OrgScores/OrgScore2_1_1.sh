@@ -39,5 +39,4 @@ if [[ "${auditResult}" == "1" ]]; then
 		fi
 	fi
 fi
-
 printReport
