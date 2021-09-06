@@ -5,6 +5,13 @@
     "type": "object",
     "properties": {
 
+        "shortReport": {
+            "type": "boolean",
+            "title": "Generate a short report",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+
         "OrgScore1_1": {
             "type": "boolean",
             "title": "1.1 Verify all Apple-provided software is current (Automated)",
