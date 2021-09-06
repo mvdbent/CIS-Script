@@ -30,6 +30,7 @@ buildScript () {
     # add header
     cat ${projectfolder}/Fragments/Header.sh >> ${endResult}
 
+    # sort the filenames numerically
     setopt NUMERIC_GLOB_SORT
 
     # loop over fragments
