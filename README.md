@@ -13,7 +13,7 @@
 ## CheckList
 
 |   OrgScore   	|   macOS 10.15  	|   macOS 11  	|   macOS 12	|
-|:---:	|:---:	|:---:	|:---:	|:---:	|     	|
+|:---:	|:---:	|:---:	|:---:	|:---:	|    
 | OrgScore 1.1 | R | R | R | 
 | OrgScore 1.2  	|     	|     	|     	|
 | OrgScore 1.3  	|     	|     	|     	|
