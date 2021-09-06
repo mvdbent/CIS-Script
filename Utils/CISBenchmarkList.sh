@@ -3,7 +3,11 @@
 script_dir=$(dirname ${0:A})
 projectfolder=$(dirname $script_dir)
 
-endResult=${projectfolder}/Build/CISBenchmarkList.csv
+# destination
+endPath=${projectfolder}/Build
+mkdir -p ${endPath}
+endResult=${endPath}/CISBenchmarkList.csv
+
 echo OrgScore > ${endResult}
 
 # loop over fragments
