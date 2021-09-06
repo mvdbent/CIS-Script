@@ -10,6 +10,9 @@ endResult=${endPath}/CISBenchmarkList.csv
 
 echo OrgScore > ${endResult}
 
+# sort the filenames numerically
+setopt NUMERIC_GLOB_SORT
+
 # loop over fragments
 for filePath in ${projectfolder}/Fragments/OrgScores/OrgScore*.sh; do
 
