@@ -14,27 +14,28 @@ runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Profile"
-	remediate="Configuration profile - payload > com.apple.MCXBluetooth > DisableBluetooth=true"
+	remediate="Script - defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool false"
 
-	appidentifier="com.apple.Bluetooth"
-	value="ControllerPowerState"
-	prefValue=$(getPrefValue "${appidentifier}" "${value}")
-	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
-	connectable=$(system_profiler SPBluetoothDataType 2>&1 | grep -c Connectable)
+	connectable=$(system_profiler SPBluetoothDataType 2>&1 | grep -c "Paired: Yes")
+	bluetoothEnabled=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool)
 	comment="Paired Devices: ${connectable}"
-	if [[ "${prefIsManaged}" == "True" &&  "${prefValue}" == "True" ]]; then
+	if [[ "$connectable" -gt 0 ]] && [[ "$bluetoothEnabled" == 1 ]]; then
 		result="Passed"
-	else
-		if [[ "${prefValue}" == "True" ]]; then
-			result="Passed"
 		else
-			if [[ "${connectable}" != "0" ]]; then
-				result="Passed"
-			else
 			result="Failed"
 			comment="No Paired Devices"
-			fi
+			# Remediation
+			defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool false
+			killall -HUP bluetoothd
+			# re-check
+			connectable=$(system_profiler SPBluetoothDataType 2>&1 | grep -c "Paired: Yes")
+			bluetoothEnabled=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool)
+			if [[ "$connectable" == 0 ]] && [[ "$bluetoothEnabled" == 0 ]]; then
+				result="Passed After Remdiation"
+			else
+				result="Failed After Remediation"
 		fi
 	fi
 fi
+
 printReport
