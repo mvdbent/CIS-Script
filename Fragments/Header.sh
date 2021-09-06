@@ -116,11 +116,26 @@ function printReport(){
 		## No scoring file present, default reporting
 		shortReport
 	else
-		reportSetting=$(defaults read "${plistlocation}" shortReport 2>&1)
-		if [[ "${reportSetting}" == "1" ]]; then
-			shortReport
-		else
+		reportSetting=$(defaults read "${plistlocation}" report 2>&1)
+		if [[ "${reportSetting}" == "full" ]]; then
 			fullReport
+		else
+			shortReport
+		fi
+	fi
+}
+
+function printReportHeaders(){
+	## Check if scoring file is present
+	if [[ ! -e ${plistlocation} ]]; then
+		## No scoring file present, default reporting
+		echo "Audit Number;Level;Scored;Result;Managed;Method;Comments" >> "${CISBenchmarkReport}"
+	else
+		reportSetting=$(defaults read "${plistlocation}" report 2>&1)
+		if [[ "${reportSetting}" == "full" ]]; then
+			echo "Audit Number;Level;Scored;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
+		else
+			echo "Audit Number;Level;Scored;Result;Managed;Method;Comments" >> "${CISBenchmarkReport}"
 		fi
 	fi
 }
@@ -177,8 +192,22 @@ fi
 CISBenchmarkReportFolder
 
 # Create csv file headers
-# echo "Audit Number;Level;Scored;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
-echo "Audit Number;Level;Scored;Result;Managed;Method;Comments" >> "${CISBenchmarkReport}"
+printReportHeaders
+
+function printReport(){
+	## Check if scoring file is present
+	if [[ ! -e ${plistlocation} ]]; then
+		## No scoring file present, default reporting
+		shortReport
+	else
+		reportSetting=$(defaults read "${plistlocation}" report 2>&1)
+		if [[ "${reportSetting}" == "full" ]]; then
+			fullReport
+		else
+			shortReport
+		fi
+	fi
+}
 
 ####################################################################################################
 ####################################################################################################
