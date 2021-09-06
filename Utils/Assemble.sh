@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 help () {
   echo "usage: assemble.sh [-s] --separate"
   echo 
-  echo "builds separate CIS BEnchmark script from the fragements."
+  echo "builds separate CIS Benchmark Script from the fragements."
   exit
 }
 
@@ -14,7 +14,7 @@ buildScript () {
     # destination
     endPath=${projectfolder}/Build
     mkdir -p ${endPath}
-    endResult=${endPath}/CISBenchmarkRemediationReport.sh
+    endResult=${endPath}/CISBenchmarkScript.sh
 
     # add shebang
     echo "#!/bin/zsh" > ${endResult}
