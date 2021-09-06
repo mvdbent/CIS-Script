@@ -140,6 +140,21 @@ function printReportHeaders(){
 	fi
 }
 
+function runRemediate() {
+	## Check if scoring file is present
+	if [[ ! -e ${plistlocation} ]]; then
+		## No scoring file present, reporting all
+		remediateResult="disabled"
+	else
+		remediateResult=$(defaults read "${plistlocation}" "remediate" 2>&1)
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			remediateResult="enabled"
+		else
+			remediateResult="disabled"
+		fi
+	fi
+}
+
 function emptyVariables(){
 	prefIsManaged=""
 	appidentifier=""
@@ -194,20 +209,8 @@ CISBenchmarkReportFolder
 # Create csv file headers
 printReportHeaders
 
-function printReport(){
-	## Check if scoring file is present
-	if [[ ! -e ${plistlocation} ]]; then
-		## No scoring file present, default reporting
-		shortReport
-	else
-		reportSetting=$(defaults read "${plistlocation}" report 2>&1)
-		if [[ "${reportSetting}" == "full" ]]; then
-			fullReport
-		else
-			shortReport
-		fi
-	fi
-}
+# check remediation
+runRemediate
 
 ####################################################################################################
 ####################################################################################################
