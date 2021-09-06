@@ -103,7 +103,8 @@ function CISBenchmarkReportFolder() {
 }
 
 function printReport(){
-	echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${appidentifier};${value};${prefValue};${method};${comment}">>"${CISBenchmarkReport}"
+	# echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${appidentifier};${value};${prefValue};${method};${comment};${remediate}">>"${CISBenchmarkReport}"
+	echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${method};${comment}">>"${CISBenchmarkReport}"
 }
 
 function emptyVariables(){
@@ -114,6 +115,7 @@ function emptyVariables(){
 	result=""
 	method=""
 	comment=""
+	remediate=""
 }
 
 ####################################################################################################
@@ -157,7 +159,8 @@ fi
 CISBenchmarkReportFolder
 
 # Create csv file headers
-echo "Audit Number;Level;Scored;Result;Managed;Preference domain;Option;Value;Method;Comments" >> "${CISBenchmarkReport}"
+# echo "Audit Number;Level;Scored;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
+echo "Audit Number;Level;Scored;Result;Managed;Method;Comments" >> "${CISBenchmarkReport}"
 
 ####################################################################################################
 ####################################################################################################
