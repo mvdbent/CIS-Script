@@ -15,7 +15,7 @@ runAudit
 if [[ "${auditResult}" == "1" ]]; then
 	# Check for T2 chip.  
 	securityChip=$(system_profiler SPiBridgeDataType 2>&1 | grep 'Model Name:' | grep -c 'T2')
-	if [[ "${securityChip}" == "0" ]]; then
+	if [[ "${securityChip}" == "1" ]]; then
 		result="Not applicable"
 		comment="EFI Firmware Integrity is not supported by this Mac. T2 Chip found."
 	else
