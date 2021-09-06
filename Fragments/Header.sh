@@ -102,9 +102,27 @@ function CISBenchmarkReportFolder() {
 	fi
 }
 
-function printReport(){
-	# echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${appidentifier};${value};${prefValue};${method};${comment};${remediate}">>"${CISBenchmarkReport}"
+function shortReport(){
 	echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${method};${comment}">>"${CISBenchmarkReport}"
+}
+
+function fullReport(){
+	echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${appidentifier};${value};${prefValue};${method};${comment};${remediate}">>"${CISBenchmarkReport}"
+}
+
+function printReport(){
+	## Check if scoring file is present
+	if [[ ! -e ${plistlocation} ]]; then
+		## No scoring file present, default reporting
+		shortReport
+	else
+		reportSetting=$(defaults read "${plistlocation}" shortReport 2>&1)
+		if [[ "${reportSetting}" == "1" ]]; then
+			shortReport
+		else
+			fullReport
+		fi
+	fi
 }
 
 function emptyVariables(){
