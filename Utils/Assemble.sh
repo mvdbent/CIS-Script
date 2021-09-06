@@ -30,6 +30,8 @@ buildScript () {
     # add header
     cat ${projectfolder}/Fragments/Header.sh >> ${endResult}
 
+    setopt NUMERIC_GLOB_SORT
+
     # loop over fragments
     for filePath in ${projectfolder}/Fragments/OrgScores/OrgScore*.sh; do
 
