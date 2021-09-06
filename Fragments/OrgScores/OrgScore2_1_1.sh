@@ -13,7 +13,7 @@ emptyVariables
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
-	method="Profile"
+	method="Script"
 	remediate="Script - defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool false"
 
 	connectable=$(system_profiler SPBluetoothDataType 2>&1 | grep -c "Paired: Yes")
@@ -21,19 +21,21 @@ if [[ "${auditResult}" == "1" ]]; then
 	comment="Paired Devices: ${connectable}"
 	if [[ "$connectable" -gt 0 ]] && [[ "$bluetoothEnabled" == 1 ]]; then
 		result="Passed"
-		else
-			result="Failed"
-			comment="No Paired Devices"
-			# Remediation
+	else
+		result="Failed"
+		comment="No Paired Devices"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
 			defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool false
 			killall -HUP bluetoothd
 			# re-check
 			connectable=$(system_profiler SPBluetoothDataType 2>&1 | grep -c "Paired: Yes")
 			bluetoothEnabled=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool)
 			if [[ "$connectable" == 0 ]] && [[ "$bluetoothEnabled" == 0 ]]; then
-				result="Passed After Remdiation"
+				result="Passed After Remediation"
 			else
 				result="Failed After Remediation"
+			fi
 		fi
 	fi
 fi

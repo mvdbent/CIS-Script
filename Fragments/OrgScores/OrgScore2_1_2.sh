@@ -27,26 +27,28 @@ if [[ "${auditResult}" == "1" ]]; then
 		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
-		if [[ "${prefValueAsUser}" == "True" ]]
-		then
+		if [[ "${prefValueAsUser}" == "True" ]]; then
 			result="Passed"
 		else
 			result="Failed"
 			comment="Enable Show Bluetooth status in menu bar"
 			# Remediation
-			su -l ${currentUser} -c "defaults -currentHost write com.apple.controlcenter.plist Bluetooth -int 18"
-			killall ControlCenter
-			sleep 3
-			# re-check
-			prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
-			prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
-			if [[ "${prefValueAsUser}" == "True" ]]; then
-				result="Passed After Remdiation"
-				comment="Show Bluetooth status in menu bar: Enabled"
-			else
-				result="Failed After Remediation"
+			if [[ "${remediateResult}" == "enabled" ]]; then
+				su -l ${currentUser} -c "defaults -currentHost write com.apple.controlcenter.plist Bluetooth -int 18"
+				killall ControlCenter
+				sleep 3
+				# re-check
+				prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
+				prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
+				if [[ "${prefValueAsUser}" == "True" ]]; then
+					result="Passed After Remdiation"
+					comment="Show Bluetooth status in menu bar: Enabled"
+				else
+					result="Failed After Remediation"
+				fi
 			fi
 		fi
 	fi
 fi
+
 printReport
