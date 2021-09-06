@@ -7,7 +7,7 @@
 
         "report": {
             "title": "Reporting",
-            "description": "Default set to short reporting.",
+            "description": "Default: Short Report.",
             "type": "string",
             "options": {
               "enum_titles": [
@@ -18,6 +18,22 @@
             "enum": [
               "short",
               "full"
+            ]
+        },
+
+        "remediate": {
+            "title": "Remediate",
+            "description": "Default: Disabled.",
+            "type": "string",
+            "options": {
+              "enum_titles": [
+                "Disabled",
+                "Enabled"
+              ]
+            },
+            "enum": [
+              "disabled",
+              "enabled"
             ]
         },
 
