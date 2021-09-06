@@ -36,7 +36,6 @@ if [[ "${auditResult}" == "1" ]]; then
 			if [[ "${remediateResult}" == "enabled" ]]; then
 				su -l ${currentUser} -c "defaults -currentHost write com.apple.controlcenter.plist Bluetooth -int 18"
 				killall ControlCenter
-				sleep 3
 				# re-check
 				prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 				prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")

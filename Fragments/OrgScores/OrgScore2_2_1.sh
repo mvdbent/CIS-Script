@@ -33,6 +33,18 @@ if [[ "${auditResult}" == "1" ]]; then
 			else
 				result="Failed"
 				comment="Time and date automatically: Disabled"
+				# Remediation
+				if [[ "${remediateResult}" == "enabled" ]]; then
+				systemsetup -setusingnetworktime on >/dev/null 2>&1
+				# re-check
+				networkTime=$(systemsetup -getusingnetworktime)
+					if [[ "${networkTime}" = "Network Time: On" ]]; then
+						result="Passed After Remdiation"
+						comment="Time and date automatically: Enabled"
+					else
+						result="Failed After Remediation"
+					fi
+				fi
 			fi
 		fi
 	fi
