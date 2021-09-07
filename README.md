@@ -7,8 +7,8 @@
 ![GitHub](https://img.shields.io/badge/macOS-11%2B-success)
 ![GitHub](https://img.shields.io/github/license/mvdbent/CIS-Script)
 
-| Legend |                            |
-| ------ | -------------------------- |
+|  Legend                           ||
+| :------ | :----------------------- |
 | R      | Report checked             |
 | S      | Script Remediation checked |
 
