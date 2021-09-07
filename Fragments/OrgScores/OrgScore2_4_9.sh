@@ -23,6 +23,17 @@ if [[ "${auditResult}" == "1" ]]; then
 	else
 		result="Failed"
 		comment="Remote Management: Enabled"
+	# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+		sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -stop
+		# re-check
+			if [[ "$screenSharing" == "-" ]]; then	
+				result="Passed After Remediation"
+				comment="Remote Management: Disabled"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport

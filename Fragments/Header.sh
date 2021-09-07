@@ -166,6 +166,12 @@ function emptyVariables(){
 	remediate=""
 }
 
+function killcfpref(){
+	## Restart daemon responsible for prefrence caching
+	echo "Killing cfprefs daemon "
+	killall cfprefsd
+}
+
 ####################################################################################################
 #        Start Security report script
 ####################################################################################################

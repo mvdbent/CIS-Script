@@ -29,6 +29,20 @@ if [[ "${auditResult}" == "1" ]]; then
 		else
 			result="Failed"
 			comment="Bluetooth Sharing: Enabled"
+		# Remediation
+			if [[ "${remediateResult}" == "enabled" ]]; then
+				sudo -u ${currentUser} defaults -currentHost write com.apple.Bluetooth PrefKeyServicesEnabled -bool false
+				# re-check
+				if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" == "False" ]]; then
+					result="Passed After Remediation"
+				else
+					if [[ "${prefValueAsUser}" == "False" ]]; then
+						result="Passed After Remediation"
+					else
+						result="Failed After Remediation"
+					fi
+				fi
+			fi
 		fi
 	fi
 fi

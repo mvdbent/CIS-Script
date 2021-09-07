@@ -15,7 +15,6 @@ runAudit
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate="Script > sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.ODSAgent.plist"
-
 	discSharing=$(launchctl list | grep -Ec ODSAgent)
 	if [[ "${discSharing}" == "0" ]]; then
 		result="Passed"
@@ -23,6 +22,19 @@ if [[ "${auditResult}" == "1" ]]; then
 	else
 		result="Failed"
 		comment="DVD or CD Sharing: Enabled"
+	# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.ODSAgent.plist
+			# re-check
+			discSharing=$(launchctl list | grep -Ec ODSAgent)
+			if [[ "${discSharing}" == "0" ]]; then
+				result="Passed After Remdiation"
+				comment="DVD or CD Sharing: Disabled"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
+		
 	fi
 fi
 printReport

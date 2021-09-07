@@ -28,7 +28,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			# re-check
 			screenSharing=$(launchctl print-disabled system | grep -c '"com.apple.screensharing" => true')
 			if [[ "$screenSharing" == "1" ]]; then
-				result="Passed After Remdiation"
+				result="Passed After Remediation"
 				comment="Screen Sharing: Disabled"
 			else
 				result="Failed After Remediation"
