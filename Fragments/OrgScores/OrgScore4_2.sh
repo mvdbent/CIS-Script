@@ -19,17 +19,28 @@ if [[ "${auditResult}" == "1" ]]; then
 	appidentifier="com.apple.controlcenter"
 	value="NSStatusItem Visible WiFi"
 	prefValue=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
-	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Wi-Fi status in menu bar: Enabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
+
+	if [[ "${prefValue}" == "True" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" == "True" ]]
-		then
-			result="Passed"
-		else
-			result="Failed"
-			comment="Wi-Fi status in menu bar: Disabled"
+		result="Failed"
+		comment="Wi-Fi status in menu bar: Disabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			sudo -u ${currentUser} defaults -currentHost write com.apple.controlcenter.plist WiFi -int 18
+			killall ControlCenter
+			sleep 1
+
+			appidentifier="com.apple.controlcenter"
+			value="NSStatusItem Visible WiFi"
+			prefValue=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
+			if [[ "${prefValue}" == "True" ]]; then
+				result="Passed After Remediation"
+				comment="Wi-Fi status in menu bar: Enabled"
+			else
+				result="Failed After Remediation"
+			fi
 		fi
 	fi
 fi
