@@ -22,6 +22,18 @@ if [[ "${auditResult}" == "1" ]]; then
 	else
 		result="Failed"
 		comment="Remote Login: Enabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			sudo /usr/sbin/systemsetup -setremotelogin off
+			# re-check
+			screenSharing=$(systemsetup -getremotelogin | grep -c 'Remote Login: Off')
+			if [[ "$screenSharing" == "1" ]]; then
+				result="Passed After Remdiation"
+				comment="Remote Login: Disabled"
+			else
+				result="Failed After Remediation"
+			fi
+		fi	
 	fi
 fi
 printReport

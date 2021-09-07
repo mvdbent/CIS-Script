@@ -23,6 +23,18 @@ if [[ "${auditResult}" == "1" ]]; then
 	else
 		result="Failed"
 		comment="Printer Sharing: Enabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			sudo /usr/sbin/cupsctl --no-share-printers
+			# re-check
+			printerSharing=$(cupsctl | grep "share_printers")
+			if [[ "${printerSharing}" == "_share_printers=0" ]]; then
+				result="Passed After Remdiatio"
+				comment="Printer Sharing: Disabled"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport
