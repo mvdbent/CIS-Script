@@ -23,6 +23,22 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Security auditing retention: Unconfigured"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			 cp /etc/security/audit_control /etc/security/audit_control_old
+			oldExpireAfter=$(cat /etc/security/audit_control | egrep expire-after)
+			sed "s/${oldExpireAfter}/expire-after:60d OR 1G/g" /etc/security/audit_control_old > /etc/security/audit_control
+			chmod 644 /etc/security/audit_control
+			chown root:wheel /etc/security/audit_control
+		
+			auditRetention="$(grep -c expire-after /etc/security/audit_control)"	
+			if [[  "${auditRetention}" == "1" ]]; then
+				result="Passed After Remediation"
+				comment="Security auditing retention: Configured"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport
