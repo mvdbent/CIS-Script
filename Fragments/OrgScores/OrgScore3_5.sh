@@ -24,6 +24,22 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Control access to audit records: Incorrect ownership"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			chown -R root:wheel /var/audit
+			chmod -R 440 /var/audit
+			chown root:wheel /etc/security/audit_control
+			chmod 400 /etc/security/audit_control			
+			
+			controlAccess=$(grep '^dir' /etc/security/audit_control | awk -F: '{print $2}')
+			accessCheck=$(find "${controlAccess}" | awk '{s+=$3} END {print s}')
+			if [[ "${accessCheck}" == "0" ]]; then
+				result="Passed with Remediation"
+				comment="Control access to audit records: Correct ownership"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport
