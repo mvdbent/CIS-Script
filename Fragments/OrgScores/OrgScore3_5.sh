@@ -16,7 +16,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate="Script > sudo chown -R root $(/usr/bin/grep '^dir' /etc/security/audit_control | /usr/bin/awk -F: '{print $2}')"
 
-	controlAccess=$(grep '^dir' /etc/security/audit_control | awk -F: '{print $2}')
+	controlAccess=$(/usr/bin/grep '^dir' /etc/security/audit_control | awk -F: '{print $2}')
 	accessCheck=$(find "${controlAccess}" | awk '{s+=$3} END {print s}')
 	ownership=$(ls -ld /etc/security/audit_control | cut -d' ' -f4 -f6)
 	if [[ "${accessCheck}" == "0" ]] && [[ "${ownership}" == "root wheel" ]]; then
