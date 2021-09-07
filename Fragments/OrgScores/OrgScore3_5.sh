@@ -18,7 +18,8 @@ if [[ "${auditResult}" == "1" ]]; then
 
 	controlAccess=$(grep '^dir' /etc/security/audit_control | awk -F: '{print $2}')
 	accessCheck=$(find "${controlAccess}" | awk '{s+=$3} END {print s}')
-	if [[ "${accessCheck}" == "0" ]]; then
+	ownership=$(ls -le /var/audit/ | grep -c "root  wheel")
+	if [[ "${accessCheck}" == "0" ]] && [[ "${ownership}" -gt 0 ]]; then
 		result="Passed"
 		comment="Control access to audit records: Correct ownership"
 	else 
@@ -33,7 +34,8 @@ if [[ "${auditResult}" == "1" ]]; then
 			
 			controlAccess=$(grep '^dir' /etc/security/audit_control | awk -F: '{print $2}')
 			accessCheck=$(find "${controlAccess}" | awk '{s+=$3} END {print s}')
-			if [[ "${accessCheck}" == "0" ]]; then
+			ownership=$(ls -le /var/audit/ | grep -c "root  wheel")
+			if [[ "${accessCheck}" == "0" ]] && [[ "${ownership}" -gt 0 ]]; then
 				result="Passed with Remediation"
 				comment="Control access to audit records: Correct ownership"
 			else
