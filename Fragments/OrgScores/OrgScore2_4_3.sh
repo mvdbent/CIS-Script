@@ -15,6 +15,7 @@ runAudit
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate="Script > sudo launchctl disable system/com.apple.screensharing"
+	
 	screenSharing=$(launchctl print-disabled system | grep -c '"com.apple.screensharing" => true')
 	if [[ "$screenSharing" == "1" ]]; then
 		result="Passed"
