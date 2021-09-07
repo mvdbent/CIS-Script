@@ -15,7 +15,7 @@ runAudit
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate="Script > add 'ttl=365' to /etc/asl/com.apple.install"
-	
+
 	installRetention="$(grep -c ttl=365 /etc/asl/com.apple.install)"
 	if [[ "${installRetention}" = "1" ]]; then
 		result="Passed"
@@ -23,6 +23,18 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Retain install.log: Less than 365 days"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+
+		#re-check
+			installRetention="$(grep -c ttl=365 /etc/asl/com.apple.install)"
+			if [[ "${installRetention}" = "1" ]]; then
+				result="Passed"
+				comment="Retain install.log: 365 or more days"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport

@@ -23,6 +23,17 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Power Nap: Disabled"
+	# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			sudo /usr/bin/pmset -a powernap 0
+			powerNap=$(pmset -g custom | awk '/powernap/ { sum+=$2 } END {print sum}')
+			if [[ "${powerNap}" == "0" ]]; then
+				result="Passed After Remediation"
+				comment="Power Nap: Enabled"
+			else 
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport

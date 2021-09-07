@@ -23,6 +23,18 @@ if [[ "${auditResult}" == "1" ]]; then
 	else
 		result="Failed"
 		comment="Wake for network access: Enabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			sudo /usr/bin/pmset -a womp 0
+		# re-check
+			wakeNetwork=$(pmset -g | awk '/womp/ { sum+=$2 } END {print sum}')
+			if [[ "${wakeNetwork}" == "0" ]]; then
+				result="Passed After Remediation"
+				comment="Wake for network access: Disabled"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport

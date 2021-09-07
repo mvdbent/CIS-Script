@@ -23,6 +23,18 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Security Auditing Flags: Disabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			sudo /usr/bin/sed -i.bak '/^flags/ s/$/,ad/' /etc/security/audit_control /usr/sbin/audit -s
+		#re-check
+			auditFlags="$(grep -c "^flags:" /etc/security/audit_control)"
+			if [[ "${auditFlags}" == "1" ]]; then
+				result="Passed After Remediation"
+				comment="Security Auditing Flags: Enabled"
+			else 
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport

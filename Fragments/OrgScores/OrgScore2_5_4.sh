@@ -23,6 +23,18 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Location Services: Disabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			sudo /usr/bin/defaults write /var/db/locationd/Library/Preferences/ByHost/com.apple.locationd LocationServicesEnabled -bool true && sudo /bin/launchctl kickstart -k system/com.apple.locationd
+			# re-check
+			locationServices=$(defaults read /var/db/locationd/Library/Preferences/ByHost/com.apple.locationd.plist LocationServicesEnabled 2>&1)
+			if [[ "${locationServices}" != "0" ]]; then
+				result="Passed After Remediation"
+				comment="Location Services: Enabled"
+			else 
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport
