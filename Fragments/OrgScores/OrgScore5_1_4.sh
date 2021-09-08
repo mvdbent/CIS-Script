@@ -23,6 +23,22 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Check ${libPermissions} Library folders for world writable files"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			IFS=$'\n'
+			for libPermissions in $(find /Library -type d -perm -2 2>&1 | grep -v Caches | grep -v Adobe | grep -v VMware | grep -v "/Audio/Data"); do
+			/bin/chmod -R o-w "$libPermissions"
+			done
+			unset IFS
+
+			libPermissions="$(find /Library -type d -perm -2 -ls 2>&1 | grep -v Caches | grep -v Adobe | grep -v VMware | grep -v "/Audio/Data" | wc -l | xargs)"
+			if [[ "${libPermissions}" == "0" ]]; then
+				result="Passed After Remediation"
+				comment="All Library folder for world are not writable files"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport
