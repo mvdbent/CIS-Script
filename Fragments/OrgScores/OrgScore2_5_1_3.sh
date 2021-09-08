@@ -13,6 +13,9 @@ emptyVariables
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
+	method="Manual"
+	remediate="Manual - Ensure all user CoreStorage volumes encrypted"
+
 	apfsyes=$(diskutil ap list)
 	if [[ "$apfsyes" == "No APFS Containers found" ]]; then
 		# get Logical Volume Family

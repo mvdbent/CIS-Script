@@ -13,6 +13,9 @@ emptyVariables
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
+	method="Manual"
+	remediate="Manual - Ensure all user storage APFS Volumes are encrypted"
+
 	apfsyes=$(diskutil ap list)
 	if [[ "$apfsyes" != "No APFS Containers found" ]]; then
 		startupEncrypted=$(diskutil info / | awk '/FileVault/ {print $2}')
