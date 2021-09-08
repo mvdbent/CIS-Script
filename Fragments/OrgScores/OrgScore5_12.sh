@@ -23,6 +23,18 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Ability to login to another user's active and locked session: Enabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+		security authorizationdb write system.login.screensaver 'use-login-window-ui'
+		# re-check
+		screensaverRules="$(security authorizationdb read system.login.screensaver 2>&1 | grep -c 'use-login-window-ui')"
+			if [[ "${screensaverRules}" == "1" ]]; then
+				result="Passed After Remediation"
+				comment="Ability to login to another user's active and locked session: Disabled"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport
