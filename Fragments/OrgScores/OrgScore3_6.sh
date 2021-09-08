@@ -23,7 +23,6 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Firewall logging: Disabled"
-
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
 			/usr/libexec/ApplicationFirewall/socketfilterfw --setloggingmode on
