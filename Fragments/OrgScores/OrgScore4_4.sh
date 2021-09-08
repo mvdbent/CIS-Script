@@ -16,14 +16,25 @@ if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate="Script > sudo launchctl disable system/org.apache.httpd"
 
-	httpServer=$(launchctl print-disabled system 2>&1 | grep -c '"org.apache.httpd" => true')
-#	httpServer=$(launchctl list 2>&1 | grep -c httpd)
-	if [[ "${httpServer}" == "1" ]]; then
+	httpServer=$(launchctl print-disabled system 2>&1 | grep -c '"org.apache.httpd" => false')
+	if [[ "${httpServer}" != "1" ]]; then
 		result="Passed"
 		comment="HTTP server service: Disabled"
 	else 
 		result="Failed"
 		comment="HTTP server service: Enabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			launchctl disable system/org.apache.httpd
+
+			httpServer=$(launchctl print-disabled system 2>&1 | grep -c '"org.apache.httpd" => false')
+			if [[ "${httpServer}" != "1" ]]; then
+				result="Passed After Remediation"
+				comment="HTTP server service: Disabled"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport
