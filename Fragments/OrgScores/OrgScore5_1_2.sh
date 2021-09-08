@@ -23,6 +23,22 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Check permissions of ${appPermissions} system wide Applications"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			IFS=$'\n'
+			for apps in $( /usr/bin/find /Applications -iname "*\.app" -type d -perm -2 ); do
+			/bin/chmod -R o-w "$apps"
+			done
+			unset IFS
+
+			appPermissions="$(find /Applications -iname "*\.app" -type d -perm -2 -ls 2>&1 | wc -l | xargs)"
+			if [[ "${appPermissions}" == "0" ]]; then
+				result="Passed After Remediation"
+				comment="All System Wide Applications have appropriate permissions"
+			else
+				result="Failed After Remediation"
+			fi
+		fi	
 	fi
 fi
 printReport
