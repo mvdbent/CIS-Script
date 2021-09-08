@@ -17,12 +17,24 @@ if [[ "${auditResult}" == "1" ]]; then
 	remediate="Script > sudo sed -i '.old' '/Default !tty_tickets/d' /etc/sudoers && sudo chmod 644 /etc/sudoers && sudo chown root:wheel /etc/sudoers"
 
 	ttyTimestamp="$(grep -c tty_tickets /etc/sudoers)"
-	if [[ "${ttyTimestamp}" == "0" ]]; then
+	if [[ "${ttyTimestamp}" == "1" ]]; then
 		result="Passed"
 		comment="Separate timestamp for each user/tty combo: Enabled"
 	else 
 		result="Failed"
 		comment="Separate timestamp for each user/tty combo: Disabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			echo "Defaults tty_tickets" >> /etc/sudoers
+			# re-check
+			ttyTimestamp="$(grep -c tty_tickets /etc/sudoers)"
+			if [[ "${ttyTimestamp}" == "1" ]]; then
+				result="Passed After Remediation"
+				comment="Separate timestamp for each user/tty combo: Enabled"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport
