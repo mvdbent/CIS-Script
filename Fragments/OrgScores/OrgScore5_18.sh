@@ -13,8 +13,8 @@ emptyVariables
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
-	method="Script"
-	remediate="Script > sudo /usr/bin/csrutil enable"
+	method="Manual"
+	remediate="Manual - This tool needs to be executed from the Recovery OS '/usr/bin/csrutil enable'"
 
 	sipEnabled="$(csrutil status 2>&1 | awk '{print $5}')"
 	if [[ "${sipEnabled}" == "enabled." ]]; then
