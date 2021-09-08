@@ -25,7 +25,7 @@ if [[ "${auditResult}" == "1" ]]; then
 		comment="Security auditing: Disabled"
 	# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-			sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.auditd.plist
+			launchctl load -w /System/Library/LaunchDaemons/com.apple.auditd.plist
 		# re-check
 			auditdEnabled=$(launchctl list 2>&1 | grep -c auditd)
 			if [[ "${auditdEnabled}" -gt "0" ]]; then

@@ -13,6 +13,9 @@ emptyVariables
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
+	method="Manual"
+	remediate="Manual - Use a profile to disable services where organizationally required"
+
 	over500=$(dscl . list /Users UniqueID 2>&1 | /usr/bin/awk '$2 > 500 { print $1 }')
 	for EachUser in $over500 ;
 	do

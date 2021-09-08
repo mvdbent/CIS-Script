@@ -25,10 +25,10 @@ if [[ "${auditResult}" == "1" ]]; then
 		comment="Retain install.log: Less than 365 days"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-			sudo mv /etc/asl/com.apple.install{,.old}
-			sudo sed '$s/$/ ttl=365/' /etc/asl/com.apple.install.old > /etc/asl/com.apple.install
-			sudo chmod 644 /etc/asl/com.apple.install
-			sudo chown root:wheel /etc/asl/com.apple.install			
+			mv /etc/asl/com.apple.install{,.old}
+			sed '$s/$/ ttl=365/' /etc/asl/com.apple.install.old > /etc/asl/com.apple.install
+			chmod 644 /etc/asl/com.apple.install
+			chown root:wheel /etc/asl/com.apple.install			
 		#re-check
 			installRetention="$(grep -c ttl=365 /etc/asl/com.apple.install)"
 			if [[ "${installRetention}" = "1" ]]; then

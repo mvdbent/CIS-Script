@@ -17,7 +17,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	remediate="Script > sudo defaults write /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 1"
 
 	timeMachineAuto=$(defaults read /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 2>&1)
-	if [[ "$timeMachineAuto" != "0" ]]; then
+	if [[ "$timeMachineAuto" == "1" ]]; then
 		result="Passed"
 		comment="Time Machine Auto-Backup: Enabled"
 	else 
@@ -27,7 +27,7 @@ if [[ "${auditResult}" == "1" ]]; then
 		if [[ "${remediateResult}" == "enabled" ]]; then
 			sudo defaults write /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 1
 			timeMachineAuto=$(defaults read /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 2>&1)
-			if [[ "$timeMachineAuto" != "0" ]]; then
+			if [[ "$timeMachineAuto" == "1" ]]; then
 				result="Passed After Remediation"
 				comment="Time Machine Auto-Backup: Enabled"
 			else 

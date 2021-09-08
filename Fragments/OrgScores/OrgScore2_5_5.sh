@@ -14,7 +14,7 @@ runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Manual"
-	remediate="Disable unnecessary applications from accessing location services"
+	remediate="Manual - Disable unnecessary applications from accessing location services"
 	
 	locationServices=$(defaults read /var/db/locationd/clients.plist 2>&1 | grep -c "Authorized")
 	if [[ "${locationServices}" != "0" ]]; then
