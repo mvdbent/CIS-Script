@@ -29,7 +29,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			# re-check
 			sudoTimeout="$(grep -c "timestamp_timeout=" /etc/sudoers)"
 			if [[ "${sudoTimeout}" == "1" ]]; then
-				result="Passed After Remdiation"
+				result="Passed After Remediation"
 				comment="The sudo timeout period is reduced to 0"
 			else
 				result="Failed After Remediation"

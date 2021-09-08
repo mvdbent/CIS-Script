@@ -29,7 +29,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			# re-check
 			keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "timeout=21600s")"
 			if [[ "${keyTimeout}" == "1" ]]; then
-				result="Passed After Remdiation"
+				result="Passed After Remediation"
 				comment="Automatically lock the login keychain for inactivity: Enabled"
 			else
 				result="Failed After Remediation"
