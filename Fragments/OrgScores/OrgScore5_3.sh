@@ -16,13 +16,25 @@ if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate='Script > echo "Defaults timestamp_timeout=0" >> /etc/sudoers'
 
-	sudoTimeout="$(ls /etc/sudoers.d/ 2>&1 | grep -c timestamp )"
-	if [[ "${sudoTimeout}" == "0" ]]; then
+	sudoTimeout="$(grep -c "timestamp_timeout=" /etc/sudoers)"
+	if [[ "${sudoTimeout}" == "1" ]]; then
 		result="Passed"
-		comment="The sudo timeout period is reduced: ${sudoTimeout}"
+		comment="The sudo timeout period is reduced"
 	else 
 		result="Failed"
 		comment="Reduce the sudo timeout period"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			echo "Defaults timestamp_timeout=0" >> /etc/sudoers
+			# re-check
+			sudoTimeout="$(grep -c "timestamp_timeout=" /etc/sudoers)"
+			if [[ "${sudoTimeout}" == "1" ]]; then
+				result="Passed After Remdiation"
+				comment="The sudo timeout period is reduced to 0"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport
