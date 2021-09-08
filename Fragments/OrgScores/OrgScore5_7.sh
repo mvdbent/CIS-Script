@@ -24,6 +24,19 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="root user account: Enabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			dscl . -create /Users/root UserShell /usr/bin/false
+			# re-check
+			rootEnabled="$(dscl . -read /Users/root AuthenticationAuthority 2>&1 | grep -c "No such key")"
+			rootEnabledRemediate="$(dscl . -read /Users/root UserShell 2>&1 | grep -c "/usr/bin/false")"
+			if [[ "${rootEnabled}" == "1" || "${rootEnabledRemediate}" == "1" ]]; then
+				result="Passed After Remediation"
+				comment="root user account: Disabled"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
 	fi
 fi
 printReport
