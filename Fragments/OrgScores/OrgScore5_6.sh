@@ -23,6 +23,20 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Login keychain is locked when the computer sleeps: Disabled"
+		# Remediation
+		if [[ "${remediateResult}" == "enabled" ]]; then
+			security set-keychain-settings -l /Users/"$currentUser"/Library/Keychains/login.keychain
+			# re-check
+			keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "lock-on-sleep")"
+			if [[ "${keyTimeout}" == "1" ]]; then
+				result="Passed After Remediation"
+				comment="Login keychain is locked when the computer sleeps: Enabled"
+			else
+				result="Failed After Remediation"
+			fi
+		fi
+
+		
 	fi
 fi
 printReport
