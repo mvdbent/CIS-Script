@@ -26,6 +26,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
 			sudo defaults write /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 1
+			# re-check
 			timeMachineAuto=$(defaults read /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 2>&1)
 			if [[ "$timeMachineAuto" == "1" ]]; then
 				result="Passed After Remediation"

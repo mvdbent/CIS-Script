@@ -27,6 +27,7 @@ if [[ "${auditResult}" == "1" ]]; then
 		if [[ "${remediateResult}" == "enabled" ]]; then
 			launchctl disable system/org.apache.httpd
 
+			# re-check
 			httpServer=$(launchctl print-disabled system 2>&1 | grep -c '"org.apache.httpd" => false')
 			if [[ "${httpServer}" != "1" ]]; then
 				result="Passed After Remediation"

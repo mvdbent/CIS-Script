@@ -28,6 +28,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			launchctl disable system/com.apple.nfsd
 			rm /etc/exports
 
+			# re-check
 			httpServer=$(launchctl print-disabled system 2>&1 | grep -c '"com.apple.nfsd" => false')
 			if [[ "${httpServer}" != "1" ]]; then
 				result="Passed After Remediation"

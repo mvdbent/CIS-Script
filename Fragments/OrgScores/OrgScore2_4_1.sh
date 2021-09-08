@@ -27,7 +27,6 @@ if [[ "${auditResult}" == "1" ]]; then
 		if [[ "${remediateResult}" == "enabled" ]]; then
 			systemsetup -setremoteappleevents off
 			launchctl disable system/com.apple.AEServer
-
 			# re-check
 			remoteAppleEvents=$(systemsetup -getremoteappleevents)
 			if [[ "$remoteAppleEvents" == "Remote Apple Events: Off" ]]; then

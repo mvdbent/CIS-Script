@@ -26,6 +26,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
 			sudo /usr/bin/pmset -a powernap 0
+			# re-check
 			powerNap=$(pmset -g custom | awk '/powernap/ { sum+=$2 } END {print sum}')
 			if [[ "${powerNap}" == "0" ]]; then
 				result="Passed After Remediation"

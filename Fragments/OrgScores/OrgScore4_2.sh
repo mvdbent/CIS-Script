@@ -32,6 +32,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			killall ControlCenter
 			sleep 2 2>&1
 
+			# re-check
 			appidentifier="com.apple.controlcenter"
 			value="NSStatusItem Visible WiFi"
 			prefValue=$(getPrefValuerunAsUser "${appidentifier}" "${value}")

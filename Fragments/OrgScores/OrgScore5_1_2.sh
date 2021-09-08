@@ -31,6 +31,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			done
 			unset IFS
 
+			# re-check
 			appPermissions="$(find /Applications -iname "*\.app" -type d -perm -2 -ls 2>&1 | wc -l | xargs)"
 			if [[ "${appPermissions}" == "0" ]]; then
 				result="Passed After Remediation"

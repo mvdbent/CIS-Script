@@ -13,6 +13,7 @@ emptyVariables
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
+	method="Script"
 	remediate='Script > echo "Defaults timestamp_timeout=0" >> /etc/sudoers'
 
 	sudoTimeout="$(ls /etc/sudoers.d/ 2>&1 | grep -c timestamp )"
