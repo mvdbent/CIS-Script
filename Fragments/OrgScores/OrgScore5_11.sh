@@ -25,11 +25,11 @@ if [[ "${auditResult}" == "1" ]]; then
 		comment="Require an administrator password to access system-wide preferences: Disabled"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-		security authorizationdb read system.preferences > /tmp/system.preferences.plist 2>&1
-		defaults write /tmp/system.preferences.plist shared -bool false 2>&1
-		security authorizationdb write system.preferences < /tmp/system.preferences.plist 2>&1
-		# re-check
-		adminSysPrefs="$(security authorizationdb read system.preferences /dev/null 2>&1 | grep -A 1 "<key>shared</key>" | grep -c "<false/>")"
+			security authorizationdb read system.preferences > /tmp/system.preferences.plist 2>&1
+			defaults write /tmp/system.preferences.plist shared -bool false 2>&1
+			security authorizationdb write system.preferences < /tmp/system.preferences.plist 2>&1
+			# re-check
+			adminSysPrefs="$(security authorizationdb read system.preferences /dev/null 2>&1 | grep -A 1 "<key>shared</key>" | grep -c "<false/>")"
 			if [[ "${adminSysPrefs}" == "1" ]]; then
 				result="Passed After Remediation"
 				comment="Require an administrator password to access system-wide preferences: Enabled"

@@ -24,8 +24,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" == "True" ]]
-		then
+		if [[ "${prefValue}" == "True" ]]; then
 			result="Passed"
 		else
 			result="Failed"

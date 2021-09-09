@@ -30,7 +30,6 @@ if [[ "${auditResult}" == "1" ]]; then
 			/bin/chmod -R o-w "$apps"
 			done
 			unset IFS
-
 			# re-check
 			appPermissions="$(find /Applications -iname "*\.app" -type d -perm -2 -ls 2>&1 | wc -l | xargs)"
 			if [[ "${appPermissions}" == "0" ]]; then

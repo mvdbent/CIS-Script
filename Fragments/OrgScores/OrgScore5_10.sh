@@ -27,12 +27,12 @@ if [[ "${auditResult}" == "1" ]]; then
 			comment="Hibernate: Disabled"
 			# Remediation
 			if [[ "${remediateResult}" == "enabled" ]]; then
-			pmset -a standbydelayhigh 600
-			pmset -a standbydelaylow 600
-			pmset -a highstandbythreshold 90
-			pmset -a destroyfvkeyonstandby 1
-			# re-check
-			hibernateValue=$(pmset -g | grep standbydelaylow 2>&1 | awk '{print $2}')
+				pmset -a standbydelayhigh 600
+				pmset -a standbydelaylow 600
+				pmset -a highstandbythreshold 90
+				pmset -a destroyfvkeyonstandby 1
+				# re-check
+				hibernateValue=$(pmset -g | grep standbydelaylow 2>&1 | awk '{print $2}')
 				if [[ "$hibernateValue" == "" ]] || [[ "$hibernateValue" -gt 600 ]]; then
 					result="Passed After Remediation"
 					comment="Hibernate: Enabled"

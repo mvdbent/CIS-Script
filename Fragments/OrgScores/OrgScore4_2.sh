@@ -31,7 +31,6 @@ if [[ "${auditResult}" == "1" ]]; then
 			sudo -u ${currentUser} defaults -currentHost write com.apple.controlcenter.plist WiFi -int 18
 			killall ControlCenter
 			sleep 2 2>&1
-
 			# re-check
 			appidentifier="com.apple.controlcenter"
 			value="NSStatusItem Visible WiFi"

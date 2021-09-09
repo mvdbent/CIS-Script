@@ -26,7 +26,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	else
 		if [[ "${prefValue}" == "False" ]]; then
 			result="Passed"
-	else
+		else
 			result="Failed"
 			comment="iCloud Drive: Enabled"
 		fi

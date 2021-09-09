@@ -25,12 +25,12 @@ if [[ "${auditResult}" == "1" ]]; then
 		comment="Login window banner: Disabled"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-		PolicyBannerText="CIS Example Login Window banner"
-		/bin/echo "$PolicyBannerText" > "/Library/Security/PolicyBanner.txt"
-		/bin/chmod 755 "/Library/Security/PolicyBanner."* 
-		# re-check
-		policyBanner="$(find /Library/Security -name 'PolicyBanner.*' | wc -l | xargs)"
-		if [[ "${policyBanner}" == "1" ]]; then
+			PolicyBannerText="CIS Example Login Window banner"
+			/bin/echo "$PolicyBannerText" > "/Library/Security/PolicyBanner.txt"
+			/bin/chmod 755 "/Library/Security/PolicyBanner."* 
+			# re-check
+			policyBanner="$(find /Library/Security -name 'PolicyBanner.*' | wc -l | xargs)"
+			if [[ "${policyBanner}" == "1" ]]; then
 				result="Passed After Remediation"
 				comment="Login window banner: Enabled"
 			else

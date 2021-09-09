@@ -30,7 +30,6 @@ if [[ "${auditResult}" == "1" ]]; then
 			/bin/chmod -R o-w "$libPermissions"
 			done
 			unset IFS
-
 			# re-check
 			libPermissions="$(find /Library -type d -perm -2 -ls 2>&1 | grep -v Caches | grep -v Adobe | grep -v VMware | grep -v "/Audio/Data" | wc -l | xargs)"
 			if [[ "${libPermissions}" == "0" ]]; then

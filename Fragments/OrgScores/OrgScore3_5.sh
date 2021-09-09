@@ -30,8 +30,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			chown -R root:wheel /var/audit
 			chmod -R 440 /var/audit
 			chown root:wheel /etc/security/audit_control
-			chmod 400 /etc/security/audit_control			
-			
+			chmod 400 /etc/security/audit_control
 			# re-check
 			controlAccess=$(grep '^dir' /etc/security/audit_control | awk -F: '{print $2}')
 			accessCheck=$(find "${controlAccess}" | awk '{s+=$3} END {print s}')

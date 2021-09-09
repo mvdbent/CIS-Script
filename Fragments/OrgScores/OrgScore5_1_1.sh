@@ -30,7 +30,6 @@ if [[ "${auditResult}" == "1" ]]; then
 			/bin/chmod og-rwx "$userDirs"
 			done
 			unset IFS
-
 			# re-check
 			homeFolders="$(find /Users -mindepth 1 -maxdepth 1 -type d -perm -1 2>&1 | grep -v "Shared" | grep -v "Guest" | wc -l | xargs)"
 			if [[ "${homeFolders}" == "0" ]]; then

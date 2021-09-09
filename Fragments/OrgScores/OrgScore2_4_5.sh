@@ -25,7 +25,7 @@ if [[ "${auditResult}" == "1" ]]; then
 		comment="Remote Login: Enabled"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-			sudo /usr/sbin/systemsetup -setremotelogin off
+			echo yes | systemsetup -setremotelogin off > /dev/null 2>&1
 			# re-check
 			screenSharing=$(systemsetup -getremotelogin | grep -c 'Remote Login: Off')
 			if [[ "$screenSharing" == "1" ]]; then

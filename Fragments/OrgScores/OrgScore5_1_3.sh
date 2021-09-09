@@ -30,7 +30,6 @@ if [[ "${auditResult}" == "1" ]]; then
 			/bin/chmod -R o-w "$sysPermissions"
 			done
 			unset IFS
-
 			# re-check
 			sysPermissions="$(find /System/Volumes/Data/System -type d -perm -2 -ls 2>&1 | grep -v "Public/Drop Box" | wc -l | xargs)"
 			if [[ "${sysPermissions}" == "0" ]]; then

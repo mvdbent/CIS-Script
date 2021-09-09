@@ -26,9 +26,9 @@ if [[ "${auditResult}" == "1" ]]; then
 	else
 		if [[ "${prefValue}" == "False" ]]; then
 			result="Passed"
-	else
-		result="Failed"
-		comment="iCloud keychain: Enabled"
+			else
+			result="Failed"
+			comment="iCloud keychain: Enabled"
 		fi
 	fi
 fi

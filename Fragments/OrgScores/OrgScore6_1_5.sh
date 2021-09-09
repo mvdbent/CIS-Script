@@ -25,10 +25,10 @@ if [[ "${auditResult}" == "1" ]]; then
 		comment="Guest home folder: Available"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-		rm -rf /Users/Guest
-		# re-check
-		guestHomeFolder="$(ls /Users/ 2>&1 | grep -c Guest)"
-		if [[ "${guestHomeFolder}" == "0" ]]; then
+			rm -rf /Users/Guest
+			# re-check
+			guestHomeFolder="$(ls /Users/ 2>&1 | grep -c Guest)"
+			if [[ "${guestHomeFolder}" == "0" ]]; then
 				result="Passed After Remediation"
 				comment="Guest home folder: Not Available"
 			else

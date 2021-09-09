@@ -16,7 +16,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate="Script > sudo /usr/bin/pmset -a womp 0"
 	
-	wakeNetwork=$(pmset -g | awk '/womp/ { sum+=$2 } END {print sum}')
+	wakeNetwork=$(pmset -g custom | awk '/womp/ { sum+=$2 } END {print sum}')
 	if [[ "${wakeNetwork}" == "0" ]]; then
 		result="Passed"
 		comment="Wake for network access: Disabled"
@@ -25,9 +25,9 @@ if [[ "${auditResult}" == "1" ]]; then
 		comment="Wake for network access: Enabled"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-			sudo /usr/bin/pmset -a womp 0
+			pmset -a womp 0
 		# re-check
-			wakeNetwork=$(pmset -g | awk '/womp/ { sum+=$2 } END {print sum}')
+			wakeNetwork=$(pmset -g custom | awk '/womp/ { sum+=$2 } END {print sum}')
 			if [[ "${wakeNetwork}" == "0" ]]; then
 				result="Passed After Remediation"
 				comment="Wake for network access: Disabled"

@@ -28,8 +28,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			result="Passed"
 		else
 			result="Failed"
-			comment="Auto Update: Disabled"
-			
+			comment="Auto Update: Disabled"		
 		fi
 	fi
 fi

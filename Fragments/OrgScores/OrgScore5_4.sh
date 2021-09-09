@@ -35,9 +35,6 @@ if [[ "${auditResult}" == "1" ]]; then
 				result="Failed After Remediation"
 			fi
 		fi
-
-		
-
 	fi
 fi
 printReport

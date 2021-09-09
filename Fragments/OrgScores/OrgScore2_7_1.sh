@@ -23,7 +23,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	else 
 		result="Failed"
 		comment="Time Machine Auto-Backup: Disabled"
-	# Remediation
+		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
 			sudo defaults write /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 1
 			# re-check

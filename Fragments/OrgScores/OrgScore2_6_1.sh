@@ -28,7 +28,7 @@ if [[ "${auditResult}" == "1" ]]; then
 		else
 			result="Passed"
 			comment="no iCloud account(s) configured"
-			fi
+		fi
 	done
 fi
 printReport

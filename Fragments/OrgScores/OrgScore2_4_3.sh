@@ -23,7 +23,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	else
 		result="Failed"
 		comment="Screen Sharing: Enabled"
-	# Remediation
+		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
 			sudo launchctl disable system/com.apple.screensharing
 			# re-check
