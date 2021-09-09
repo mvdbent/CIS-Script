@@ -114,7 +114,7 @@ function printReport(){
 	## Check if scoring file is present
 	if [[ ! -e ${plistlocation} ]]; then
 		## No scoring file present, default reporting
-		shortReport
+		fullReport
 	else
 		reportSetting=$(defaults read "${plistlocation}" report 2>&1)
 		if [[ "${reportSetting}" == "full" ]]; then
