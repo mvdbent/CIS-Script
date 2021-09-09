@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1">
+   <dict>
+      <key>PayloadUUID</key>
+      <string>0B9BF8FB-F018-5555-A974-2EB87D230DAC</string>
+      <key>PayloadType</key>
+      <string>Configuration</string>
+      <key>PayloadOrganization</key>
+      <string>Jamf</string>
+      <key>PayloadIdentifier</key>
+      <string>0B9BF8FB-F018-5555-A974-2EB87D230DAC</string>
+      <key>PayloadDisplayName</key>
+      <string>CIS Benchmark Settings</string>
+      <key>PayloadDescription</key>
+      <string />
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+      <key>PayloadEnabled</key>
+      <true />
+      <key>PayloadRemovalDisallowed</key>
+      <true />
+      <key>PayloadScope</key>
+      <string>System</string>
+      <key>PayloadContent</key>
+      <array>
+         <dict>
+            <key>PayloadDisplayName</key>
+            <string>Custom Settings</string>
+            <key>PayloadIdentifier</key>
+            <string>88EF2B56-BDE2-555E-A27A-8616B14354CF</string>
+            <key>PayloadOrganization</key>
+            <string>JAMF Software</string>
+            <key>PayloadType</key>
+            <string>com.apple.ManagedClient.preferences</string>
+            <key>PayloadUUID</key>
+            <string>88EF2B56-BDE2-555E-A27A-8616B14354CF</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadContent</key>
+            <dict>
+               <key>com.cis.benchmark</key>
+               <dict>
+                  <key>Forced</key>
+                  <array>
+                     <dict>
+                        <key>mcx_preference_settings</key>
+                        <dict>
+                           <key>OrgScore1_1</key>
+                           <true />
+                           <key>OrgScore1_2</key>
+                           <true />
+                           <key>OrgScore1_3</key>
+                           <true />
+                           <key>OrgScore1_4</key>
+                           <true />
+                           <key>OrgScore1_5</key>
+                           <true />
+                           <key>OrgScore1_6</key>
+                           <true />
+                           <key>OrgScore2_10</key>
+                           <true />
+                           <key>OrgScore2_11</key>
+                           <true />
+                           <key>OrgScore2_1_1</key>
+                           <true />
+                           <key>OrgScore2_1_2</key>
+                           <true />
+                           <key>OrgScore2_2_1</key>
+                           <true />
+                           <key>OrgScore2_2_2</key>
+                           <true />
+                           <key>OrgScore2_3_1</key>
+                           <true />
+                           <key>OrgScore2_3_2</key>
+                           <true />
+                           <key>OrgScore2_3_3</key>
+                           <true />
+                           <key>OrgScore2_4_1</key>
+                           <true />
+                           <key>OrgScore2_4_10</key>
+                           <true />
+                           <key>OrgScore2_4_11</key>
+                           <true />
+                           <key>OrgScore2_4_2</key>
+                           <true />
+                           <key>OrgScore2_4_3</key>
+                           <true />
+                           <key>OrgScore2_4_4</key>
+                           <true />
+                           <key>OrgScore2_4_5</key>
+                           <true />
+                           <key>OrgScore2_4_6</key>
+                           <true />
+                           <key>OrgScore2_4_7</key>
+                           <true />
+                           <key>OrgScore2_4_8</key>
+                           <true />
+                           <key>OrgScore2_4_9</key>
+                           <true />
+                           <key>OrgScore2_5_1_1</key>
+                           <true />
+                           <key>OrgScore2_5_1_2</key>
+                           <true />
+                           <key>OrgScore2_5_1_3</key>
+                           <true />
+                           <key>OrgScore2_5_2_1</key>
+                           <true />
+                           <key>OrgScore2_5_2_2</key>
+                           <true />
+                           <key>OrgScore2_5_2_3</key>
+                           <true />
+                           <key>OrgScore2_5_3</key>
+                           <true />
+                           <key>OrgScore2_5_4</key>
+                           <true />
+                           <key>OrgScore2_5_5</key>
+                           <true />
+                           <key>OrgScore2_5_6</key>
+                           <true />
+                           <key>OrgScore2_5_7</key>
+                           <true />
+                           <key>OrgScore2_6_1</key>
+                           <true />
+                           <key>OrgScore2_6_2</key>
+                           <true />
+                           <key>OrgScore2_6_3</key>
+                           <true />
+                           <key>OrgScore2_6_4</key>
+                           <true />
+                           <key>OrgScore2_7_1</key>
+                           <true />
+                           <key>OrgScore2_7_2</key>
+                           <true />
+                           <key>OrgScore2_8</key>
+                           <true />
+                           <key>OrgScore2_9</key>
+                           <true />
+                           <key>OrgScore3_1</key>
+                           <true />
+                           <key>OrgScore3_2</key>
+                           <true />
+                           <key>OrgScore3_3</key>
+                           <true />
+                           <key>OrgScore3_4</key>
+                           <true />
+                           <key>OrgScore3_5</key>
+                           <true />
+                           <key>OrgScore3_6</key>
+                           <true />
+                           <key>OrgScore4_1</key>
+                           <true />
+                           <key>OrgScore4_2</key>
+                           <true />
+                           <key>OrgScore4_4</key>
+                           <true />
+                           <key>OrgScore4_5</key>
+                           <true />
+                           <key>OrgScore5_10</key>
+                           <true />
+                           <key>OrgScore5_11</key>
+                           <true />
+                           <key>OrgScore5_12</key>
+                           <true />
+                           <key>OrgScore5_13</key>
+                           <true />
+                           <key>OrgScore5_14</key>
+                           <true />
+                           <key>OrgScore5_16</key>
+                           <true />
+                           <key>OrgScore5_18</key>
+                           <true />
+                           <key>OrgScore5_1_1</key>
+                           <true />
+                           <key>OrgScore5_1_2</key>
+                           <true />
+                           <key>OrgScore5_1_3</key>
+                           <true />
+                           <key>OrgScore5_1_4</key>
+                           <true />
+                           <key>OrgScore5_3</key>
+                           <true />
+                           <key>OrgScore5_4</key>
+                           <true />
+                           <key>OrgScore5_5</key>
+                           <true />
+                           <key>OrgScore5_6</key>
+                           <true />
+                           <key>OrgScore5_7</key>
+                           <true />
+                           <key>OrgScore5_8</key>
+                           <true />
+                           <key>OrgScore5_9</key>
+                           <true />
+                           <key>OrgScore6_1_1</key>
+                           <true />
+                           <key>OrgScore6_1_2</key>
+                           <true />
+                           <key>OrgScore6_1_3</key>
+                           <true />
+                           <key>OrgScore6_1_4</key>
+                           <true />
+                           <key>OrgScore6_1_5</key>
+                           <true />
+                           <key>OrgScore6_2</key>
+                           <true />
+                           <key>OrgScore6_3</key>
+                           <true />
+                           <key>remediate</key>
+                           <string>enabled</string>
+                           <key>report</key>
+                           <string>short</string>
+                        </dict>
+                     </dict>
+                  </array>
+               </dict>
+            </dict>
+         </dict>
+      </array>
+   </dict>
+</plist>
