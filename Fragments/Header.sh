@@ -133,9 +133,9 @@ function printReportHeaders(){
 	else
 		reportSetting=$(defaults read "${plistlocation}" report 2>&1)
 		if [[ "${reportSetting}" == "full" ]]; then
-			echo "Audit Number;Level;Scored;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
+			echo "Audit Number;Level;Scoring;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
 		else
-			echo "Audit Number;Level;Scored;Result;Managed;Method;Comments" >> "${CISBenchmarkReport}"
+			echo "Audit Number;Level;Scoring;Result;Managed;Method;Comments" >> "${CISBenchmarkReport}"
 		fi
 	fi
 }
