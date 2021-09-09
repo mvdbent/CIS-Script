@@ -15,9 +15,9 @@ runAudit
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate="Script > sudo -u <username> security set-keychain-settings -t 21600 /Users/<username>/Library/Keychains/login.keychain"
-	
-	keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "timeout=21600s")"
-	if [[ "${keyTimeout}" == "1" ]]; then
+
+	keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "no-timeout")"
+	if [[ "${keyTimeout}" == 0 ]]; then
 		result="Passed"
 		comment="Automatically lock the login keychain for inactivity: Enabled"
 	else 
@@ -25,10 +25,10 @@ if [[ "${auditResult}" == "1" ]]; then
 		comment="Automatically lock the login keychain for inactivity: Disabled"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-			security set-keychain-settings -u -t 21600s /Users/"${currentUser}"/Library/Keychains/login.keychain
+			security set-keychain-settings -l -u -t 21600s /Users/"${currentUser}"/Library/Keychains/login.keychain
 			# re-check
-			keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "timeout=21600s")"
-			if [[ "${keyTimeout}" == "1" ]]; then
+			keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "no-timeout")"
+			if [[ "${keyTimeout}" == 0 ]]; then
 				result="Passed After Remediation"
 				comment="Automatically lock the login keychain for inactivity: Enabled"
 			else
