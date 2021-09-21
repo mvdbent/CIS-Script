@@ -15,7 +15,7 @@ remediate="Script > sudo /usr/sbin/softwareupdate --install --restart --recommen
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
-	countAvailableSUS=$(softwareupdate -l 2>&1 | grep -c "*")
+	countAvailableSUS=$(softwareupdate --list 2>&1 | grep -c "*") # add --no-scan to review the local softwareupdate database
 	if [[ "${countAvailableSUS}" == "0" ]]; then
 		result="Passed"
 		comment="Apple Software is Current"
