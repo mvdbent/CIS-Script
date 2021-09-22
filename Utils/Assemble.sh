@@ -4,10 +4,20 @@ script_dir=$(dirname ${0:A})
 projectfolder=$(dirname $script_dir)
 
 help () {
-  echo "usage: Assemble.sh [-s] --separate"
-  echo 
-  echo "builds separate CIS Benchmark Script from the fragements."
-  exit
+    echo
+    echo "The following options are available:"
+    echo 
+    echo "      -s  --separate      Builds separate CIS Benchmark Script from the fragements"
+    echo "      -h	--help			Displays this message or details on a specific verb"
+    echo 
+    echo "EXAMPLES"
+    echo "    ./Assemble.sh"
+    echo "          Builds CIS Benchmark Script from the fragements"
+    echo 
+    echo "    ./Assemble.sh -s"
+    echo "          Builds separate CIS Benchmark Script from the fragements"
+    echo 
+    exit
 }
 
 buildScript () {
