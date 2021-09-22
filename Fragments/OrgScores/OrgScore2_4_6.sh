@@ -28,7 +28,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			# re-check
 			discSharing=$(launchctl list | grep -Ec ODSAgent)
 			if [[ "${discSharing}" == "0" ]]; then
-				result="Passed After Remdiation"
+				result="Passed After Remediation"
 				comment="DVD or CD Sharing: Disabled"
 			else
 				result="Failed After Remediation"

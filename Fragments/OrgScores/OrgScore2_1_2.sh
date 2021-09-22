@@ -40,7 +40,7 @@ if [[ "${auditResult}" == "1" ]]; then
 				prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 				prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 				if [[ "${prefValueAsUser}" == "True" ]]; then
-					result="Passed After Remdiation"
+					result="Passed After Remediation"
 					comment="Show Bluetooth status in menu bar: Enabled"
 				else
 					result="Failed After Remediation"

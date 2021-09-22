@@ -30,7 +30,7 @@ if [[ "${auditResult}" == "1" ]]; then
 		networkTimeserver=$(systemsetup -getnetworktimeserver 2>&1 | grep -c 'Network Time Server')
 		printCLIResult=$(systemsetup -getnetworktimeserver)
 		if [[ "$networkTimeserver" != "0" ]]; then
-			result="Passed After Remdiation"
+			result="Passed After Remediation"
 			comment="${printCLIResult}"
 		else
 			result="Failed After Remediation"

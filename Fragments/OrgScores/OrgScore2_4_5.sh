@@ -29,7 +29,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			# re-check
 			screenSharing=$(systemsetup -getremotelogin | grep -c 'Remote Login: Off')
 			if [[ "$screenSharing" == "1" ]]; then
-				result="Passed After Remdiation"
+				result="Passed After Remediation"
 				comment="Remote Login: Disabled"
 			else
 				result="Failed After Remediation"

@@ -30,7 +30,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			FWlog=$(/usr/libexec/ApplicationFirewall/socketfilterfw --getloggingmode | grep -c "Log mode is on")
 			printCLIResult=$(systemsetup -getnetworktimeserver)
 			if [[ "$FWlog" = "1" ]]; then
-				result="Passed After Remdiation"
+				result="Passed After Remediation"
 				comment="Firewall logging: Enabled"
 			else
 				result="Failed After Remediation"

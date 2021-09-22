@@ -30,7 +30,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			# re-check
 			remoteAppleEvents=$(systemsetup -getremoteappleevents)
 			if [[ "$remoteAppleEvents" == "Remote Apple Events: Off" ]]; then
-				result="Passed After Remdiation"
+				result="Passed After Remediation"
 				comment="Remote Apple Events: Disabled"
 			else
 				result="Failed After Remediation"
