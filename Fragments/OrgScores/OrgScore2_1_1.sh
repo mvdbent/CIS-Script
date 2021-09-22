@@ -19,7 +19,8 @@ if [[ "${auditResult}" == "1" ]]; then
 	connectable=$(system_profiler SPBluetoothDataType 2>&1 | grep -c "Paired: Yes")
 	bluetoothEnabled=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool)
 	comment="Paired Devices: ${connectable}"
-	if [[ "$connectable" == 0 ]] && [[ "$bluetoothEnabled" == 0 ]]; then
+	# if [[ "$connectable" == 0 ]] && [[ "$bluetoothEnabled" == 0 ]]; then
+	if [[ "$connectable" -gt 0 ]] && [[ "$bluetoothEnabled" == 1 ]] || [[ "$connectable" == 0 ]] && [[ "$bluetoothEnabled" == 0 ]]; then
 		result="Passed"
 	else
 		result="Failed"
