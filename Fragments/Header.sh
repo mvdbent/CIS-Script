@@ -129,7 +129,7 @@ function printReportHeaders(){
 	## Check if scoring file is present
 	if [[ ! -e ${plistlocation} ]]; then
 		## No scoring file present, default reporting
-		echo "Audit Number;Level;Scored;Result;Managed;Method;Comments" >> "${CISBenchmarkReport}"
+		echo "Audit Number;Level;Scoring;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
 	else
 		reportSetting=$(defaults read "${plistlocation}" report 2>&1)
 		if [[ "${reportSetting}" == "full" ]]; then
