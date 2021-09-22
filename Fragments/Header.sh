@@ -48,6 +48,54 @@ currentUser=$(scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ { print
 #        Functions
 ####################################################################################################
 
+function help(){
+  echo
+  echo "The following options are available:"
+  echo 
+  echo "	-f  --fullreport	Print Full Report"
+  echo "	-h	--help			Displays this message or details on a specific verb"
+  echo "	-r  --remediate		Enable Remediation"
+  echo "	-fr | -rf | --fullreport-remediate | --remediate-fullreport		Print Full Report and Enable Remediation"
+  echo 
+  echo "EXAMPLES"
+  echo "    ./CISBenchmarkScript.sh -f"
+  echo "            Run script to print Full Report"
+  echo 
+  echo "    ./CISBenchmarkScript.sh -r"
+  echo "            Run script with Remediation enabled"
+  echo
+  echo "    ./CISBenchmarkScript.sh -rf"
+  echo "            Run script with Remediation enabled and print Full Report "
+  echo 
+  exit
+}
+
+case $1 in 
+    -f | --fullreport)
+        argumentHeader="fullHeader"
+        argumentReport="fullReport"
+        argumentRemediate="disabled"
+    ;;
+    -fr | -rf | --fullreport-remediate | --remediate-fullreport)
+        argumentHeader="fullHeader"
+        argumentReport="fullReport"
+        argumentRemediate="enabled"
+    ;;
+    -h | --help)
+        help
+    ;;
+    -r | --remediate)
+        argumentHeader="shortHeader"
+        argumentReport="shortReport"
+        argumentRemediate="enabled"
+    ;;
+    *)
+        argumentHeader="shortHeader"
+        argumentReport="shortReport"
+        argumentRemediate="disabled"
+    ;;
+esac
+
 function runAudit() {
 	## Check if scoring file is present
 	if [[ ! -e ${plistlocation} ]]; then
@@ -102,6 +150,14 @@ function CISBenchmarkReportFolder() {
 	fi
 }
 
+function shortHeader(){
+	echo "Audit Number;Level;Scoring;Result;Managed;Method;Comments" >> "${CISBenchmarkReport}"
+}
+
+function fullHeader(){
+	echo "Audit Number;Level;Scoring;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
+}
+
 function shortReport(){
 	echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${method};${comment}">>"${CISBenchmarkReport}"
 }
@@ -113,8 +169,8 @@ function fullReport(){
 function printReport(){
 	## Check if scoring file is present
 	if [[ ! -e ${plistlocation} ]]; then
-		## No scoring file present, default reporting
-		fullReport
+		## No scoring file present, check arguments
+		${argumentReport}
 	else
 		reportSetting=$(defaults read "${plistlocation}" report 2>&1)
 		if [[ "${reportSetting}" == "full" ]]; then
@@ -128,14 +184,14 @@ function printReport(){
 function printReportHeaders(){
 	## Check if scoring file is present
 	if [[ ! -e ${plistlocation} ]]; then
-		## No scoring file present, default reporting
-		echo "Audit Number;Level;Scoring;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
+		## No scoring file present, check arguments
+		${argumentHeader}
 	else
 		reportSetting=$(defaults read "${plistlocation}" report 2>&1)
 		if [[ "${reportSetting}" == "full" ]]; then
-			echo "Audit Number;Level;Scoring;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
+			fullHeader
 		else
-			echo "Audit Number;Level;Scoring;Result;Managed;Method;Comments" >> "${CISBenchmarkReport}"
+			shortHeader
 		fi
 	fi
 }
@@ -143,8 +199,8 @@ function printReportHeaders(){
 function runRemediate() {
 	## Check if scoring file is present
 	if [[ ! -e ${plistlocation} ]]; then
-		## No scoring file present, reporting all
-		remediateResult="disabled"
+		## No scoring file present, check arguments
+		remediateResult="${argumentRemediate}"
 	else
 		remediateResult=$(defaults read "${plistlocation}" "remediate" 2>&1)
 		if [[ "${remediateResult}" == "enabled" ]]; then
