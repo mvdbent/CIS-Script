@@ -52,10 +52,9 @@ function help(){
   echo
   echo "The following options are available:"
   echo 
-  echo "	-f  --fullreport	Print Full Report"
-  echo "	-h	--help			Displays this message or details on a specific verb"
-  echo "	-r  --remediate		Enable Remediation"
-  echo "	-fr | -rf | --fullreport-remediate | --remediate-fullreport		Print Full Report and Enable Remediation"
+  echo "	-f	--fullreport	Print Full Report"
+  echo "	-h	--help		Displays this message or details on a specific verb"
+  echo "	-r	--remediate	Enable Remediation"
   echo 
   echo "EXAMPLES"
   echo "    ./CISBenchmarkScript.sh -f"
@@ -72,27 +71,27 @@ function help(){
 
 case $1 in 
     -f | --fullreport)
-        argumentHeader="fullHeader"
-        argumentReport="fullReport"
-        argumentRemediate="disabled"
+        argumentHeaderFunctionName="fullHeader"
+        argumentReportFunctionName="fullReport"
+        argumentRemediateVariable="disabled"
     ;;
     -fr | -rf | --fullreport-remediate | --remediate-fullreport)
-        argumentHeader="fullHeader"
-        argumentReport="fullReport"
-        argumentRemediate="enabled"
+        argumentHeaderFunctionName="fullHeader"
+        argumentReportFunctionName="fullReport"
+        argumentRemediateVariable="enabled"
     ;;
     -h | --help)
         help
     ;;
     -r | --remediate)
-        argumentHeader="shortHeader"
-        argumentReport="shortReport"
-        argumentRemediate="enabled"
+        argumentHeaderFunctionName="shortHeader"
+        argumentReportFunctionName="shortReport"
+        argumentRemediateVariable="enabled"
     ;;
     *)
-        argumentHeader="shortHeader"
-        argumentReport="shortReport"
-        argumentRemediate="disabled"
+        argumentHeaderFunctionName="shortHeader"
+        argumentReportFunctionName="shortReport"
+        argumentRemediateVariable="disabled"
     ;;
 esac
 
@@ -170,7 +169,7 @@ function printReport(){
 	## Check if scoring file is present
 	if [[ ! -e ${plistlocation} ]]; then
 		## No scoring file present, check arguments
-		${argumentReport}
+		${argumentReportFunctionName}
 	else
 		reportSetting=$(defaults read "${plistlocation}" report 2>&1)
 		if [[ "${reportSetting}" == "full" ]]; then
@@ -185,7 +184,7 @@ function printReportHeaders(){
 	## Check if scoring file is present
 	if [[ ! -e ${plistlocation} ]]; then
 		## No scoring file present, check arguments
-		${argumentHeader}
+		${argumentHeaderFunctionName}
 	else
 		reportSetting=$(defaults read "${plistlocation}" report 2>&1)
 		if [[ "${reportSetting}" == "full" ]]; then
@@ -200,7 +199,7 @@ function runRemediate() {
 	## Check if scoring file is present
 	if [[ ! -e ${plistlocation} ]]; then
 		## No scoring file present, check arguments
-		remediateResult="${argumentRemediate}"
+		remediateResult="${argumentRemediateVariable}"
 	else
 		remediateResult=$(defaults read "${plistlocation}" "remediate" 2>&1)
 		if [[ "${remediateResult}" == "enabled" ]]; then
@@ -241,6 +240,9 @@ buildVersion=$(sw_vers -buildVersion)
 if [[ "$osVersion" != "10.15."* ]] && [[ "$osVersion" != "11."* ]] && [[ "$osVersion" != "12."* ]]; then
 		echo ""
 		echo "*** This script support macOS Catalina, Big Sur and Monterey only"
+		echo
+		echo "*** Use -h --help for more instructions"
+		echo
 		echo "*** Quitting..."
 		echo ""
 		exit 1
