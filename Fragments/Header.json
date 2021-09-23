@@ -1,0 +1,38 @@
+{
+    "title": "CIS Benchmark",
+    "description": "Set scoring within Preference Domain: com.cis.benchmark",
+    
+    "type": "object",
+    "properties": {
+
+        "report": {
+            "title": "Reporting",
+            "description": "Default: Short Report.",
+            "type": "string",
+            "options": {
+              "enum_titles": [
+                "Short Report",
+                "Full Report"
+              ]
+            },
+            "enum": [
+              "short",
+              "full"
+            ]
+        },
+
+        "remediate": {
+            "title": "Remediate",
+            "description": "Default: Disabled.",
+            "type": "string",
+            "options": {
+              "enum_titles": [
+                "Disabled",
+                "Enabled"
+              ]
+            },
+            "enum": [
+              "disabled",
+              "enabled"
+            ]
+        },
