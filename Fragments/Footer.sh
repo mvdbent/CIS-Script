@@ -4,7 +4,7 @@
 
 # Creation date CISBenchmarkReport
 echo >> "${CISBenchmarkReport}"
-echo "Security report - $(date -u)" >> "${CISBenchmarkReport}"
+echo "Security report - $(date)" >> "${CISBenchmarkReport}"
 
 # open "${CISBenchmarkReportPath}"
 # open -a Numbers "${CISBenchmarkReport}"
