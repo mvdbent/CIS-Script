@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><extensionAttribute>
+<displayName>CIS-Script Passed After Remediation - List</displayName>
+<description/>
+<dataType>number</dataType>
+<scriptContentsMac>#!/bin/zsh&#13;
+&#13;
+# CIS-Script Passed After Remediation - List&#13;
+&#13;
+auditfile=/Library/Security/Reports/CISBenchmarkReport.csv&#13;
+echo "&lt;result&gt;$(awk -F ";" '$4 == "Passed After Remediation" { print $1 }' $auditfile)&lt;/result&gt;"</scriptContentsMac>
+</extensionAttribute>
