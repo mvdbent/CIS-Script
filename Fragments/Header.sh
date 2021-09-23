@@ -241,8 +241,6 @@ if [[ "$osVersion" != "10.15."* ]] && [[ "$osVersion" != "11."* ]] && [[ "$osVer
 		echo ""
 		echo "*** This script support macOS Catalina, Big Sur and Monterey only"
 		echo
-		echo "*** Use -h --help for more instructions"
-		echo
 		echo "*** Quitting..."
 		echo ""
 		exit 1
@@ -262,6 +260,9 @@ if [[ "$osVersion" != "10.15."* ]] && [[ "$osVersion" != "11."* ]] && [[ "$osVer
 # Check for admin/root permissions
 if [[ "$(id -u)" != "0" ]]; then
 	echo "*** Script must be run as root, or have root privileges (ie. sudo)." 1>&2
+	echo
+	echo "*** Use -h --help for more instructions"
+	echo
 	echo "*** Quitting..."
 	echo ""
 	exit 1
