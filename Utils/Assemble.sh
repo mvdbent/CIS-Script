@@ -7,15 +7,19 @@ help () {
     echo
     echo "The following options are available:"
     echo 
-    echo "      -s  --separate      Builds separate CIS Benchmark Script from the fragements"
-    echo "      -h	--help			Displays this message or details on a specific verb"
+    echo "  -j  --json      Builds Jamf Pro Custom Schema.json file"
+    echo "  -s  --separate  Builds separate CIS Benchmark Script from the fragements"
+    echo "  -h  --help      Displays this message or details on a specific verb"
     echo 
     echo "EXAMPLES"
-    echo "    ./Assemble.sh"
-    echo "          Builds CIS Benchmark Script from the fragements"
+    echo "  ./Assemble.sh"
+    echo "      Builds CIS Benchmark Script from the fragements"
     echo 
-    echo "    ./Assemble.sh -s"
-    echo "          Builds separate CIS Benchmark Script from the fragements"
+    echo "  ./Assemble.sh -j"
+    echo "      Builds Jamf Pro Custom Schema.json file"
+    echo 
+    echo "  ./Assemble.sh -s"
+    echo "      Builds separate CIS Benchmark Script from the fragements"
     echo 
     exit
 }
@@ -104,12 +108,55 @@ buildSeperateScript () {
     done
 }
 
+# build Jamf Pro Custom Schema.json file
+createJamfJSON () {
+    # destination
+    endResultJSON=${projectfolder}/Build/"Jamf Pro Custom Schema.json"
+
+    # add header
+        cat ${projectfolder}/Fragments/Header.json > ${endResultJSON}
+
+    # loop over fragments
+    for filePath in ${projectfolder}/Fragments/OrgScores/OrgScore*.sh; do
+
+        # fragment name
+        # fileName=$(basename ${filePath})
+
+        # variables
+        orgScore=$(awk -F '"' '/^orgScore=/ {print $2}' ${filePath})
+        audit=$(awk -F '"' '/^audit=/ {print $2}' ${filePath})
+
+        # add orgScores
+        cat >> ${endResultJSON} << EOF
+        "${orgScore}": {
+            "type": "boolean",
+            "title": "${audit}",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+EOF
+    done
+
+    # remove the last line to close the list
+    sed -i '' -e '$ d' ${endResultJSON}
+    
+    # add closer
+    echo "        }" >> ${endResultJSON}
+    echo "    }" >> ${endResultJSON}
+    echo "}" >> ${endResultJSON}
+
+    echo "Jamf Pro Custom Schema.json created"
+}
+
 case $1 in 
     -s | --separate)
        buildSeperateScript
     ;;
     -h | --help)
         help
+    ;;
+    -j | --json)
+        createJamfJSON
     ;;
     *)
         buildScript
