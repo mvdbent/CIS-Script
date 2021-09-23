@@ -3,8 +3,14 @@
 ####################################################################################################
 
 # Creation date CISBenchmarkReport
-echo >> "${CISBenchmarkReport}"
-echo "Security report - $(date)" >> "${CISBenchmarkReport}"
+if [[ "${argumentHeaderFunctionName}" ==  "fullHeader" ]] || [[ "${reportSetting}" == "full" ]]; then
+		## add creation date
+		echo ";;;;;;;;;;" >> "${CISBenchmarkReport}"
+        echo "Security report - $(date);;;;;;;;;;" >> "${CISBenchmarkReport}"
+	else
+		echo ";;;;;;" >> "${CISBenchmarkReport}"
+        echo "Security report - $(date);;;;;;" >> "${CISBenchmarkReport}"
+fi
 
 # open "${CISBenchmarkReportPath}"
 # open -a Numbers "${CISBenchmarkReport}"
