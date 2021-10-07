@@ -23,7 +23,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	if [[ "$bluetoothEnabled" == 0 ]]; then
 		# bluetooth is off: passes
 		result="Passed"
-	elif [[ "$bluetoothEnabled" == 1 ]] && [[ "$connectable"-gt 0 ]]; then
+	elif [[ "$bluetoothEnabled" == 1 ]] && [[ "$connectable" -gt 0 ]]; then
 	        # bluetooth is on, and there are paired devices: passes
 		result="Passed"
 	else
