@@ -21,10 +21,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Limited Ad Tracking: Disabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" == "False" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValueAsUser}" == "false" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValueAsUser}" == "False" ]]; then
+		if [[ "${prefValueAsUser}" == "false" ]]; then
 			result="Passed"
 		else
 			result="Failed"

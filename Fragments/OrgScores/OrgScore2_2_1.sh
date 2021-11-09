@@ -21,7 +21,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Time and date automatically: Enabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "1" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "1" ]]; then
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "1" ]]; then

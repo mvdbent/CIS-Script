@@ -21,10 +21,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Guest account: Disabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "true" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" == "True" ]]; then
+		if [[ "${prefValue}" == "true" ]]; then
 			result="Passed"
 		else
 			result="Failed"

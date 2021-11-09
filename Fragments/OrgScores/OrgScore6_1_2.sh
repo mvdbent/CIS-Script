@@ -21,7 +21,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Show password hints: Disabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" == "0" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValueAsUser}" == "0" ]]; then
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" == "0" ]]; then

@@ -27,7 +27,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue4AsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value4}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="End-users are familiar with screen lock tools or Hot Corners"
-	if [[ "${prefIsManaged}" == "True" ]]; then
+	if [[ "${prefIsManaged}" == "true" ]]; then
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" != "1" ]] || [[ "${prefValue2AsUser}" != "1" ]] || [[ "${prefValue3AsUser}" != "1" ]] || [[ "${prefValue4AsUser}" != "1" ]]; then
