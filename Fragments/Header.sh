@@ -144,14 +144,14 @@ EndOfScript
 function getPrefIsManaged() { # $1: domain, $2: key
     osascript -l JavaScript << EndOfScript
     ObjC.import('Foundation')
-    $.CFPreferencesAppValueIsForced(ObjC.wrap('$1'), ObjC.wrap('$2'))
+    ObjC.unwrap($.NSUserDefaults.alloc.initWithSuiteName('$1').objectIsForcedForKey('$2'))
 EndOfScript
 }
 
 function getPrefIsManagedrunAsUser() { # $1: domain, $2: key
 	runAsUser     osascript -l JavaScript << EndOfScript
     ObjC.import('Foundation')
-    $.CFPreferencesAppValueIsForced(ObjC.wrap('$1'), ObjC.wrap('$2'))
+    ObjC.unwrap($.NSUserDefaults.alloc.initWithSuiteName('$1').objectIsForcedForKey('$2'))
 EndOfScript
 }
 
