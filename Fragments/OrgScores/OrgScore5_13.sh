@@ -21,7 +21,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Custom message for the Login Screen: Enabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" != "" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValueAsUser}" != "" ]]; then
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" != "" ]]; then

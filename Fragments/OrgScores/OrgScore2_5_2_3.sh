@@ -20,10 +20,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Firewall Stealth Mode: Enabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "true" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" == "True" ]]; then
+		if [[ "${prefValue}" == "true" ]]; then
 			result="Passed"
 		else
 			stealthEnabled=$(/usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode | grep -c "Stealth mode enabled")

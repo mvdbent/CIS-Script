@@ -20,10 +20,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Sending diagnostic and usage data to Apple: Disabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "False" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "false" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" == "False" ]]; then
+		if [[ "${prefValue}" == "false" ]]; then
 			result="Passed"
 		else
 			diagnosticEnabled=$(defaults read /Library/Application\ Support/CrashReporter/DiagnosticMessagesHistory.plist AutoSubmit)

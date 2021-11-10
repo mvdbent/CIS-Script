@@ -25,7 +25,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue3AsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value3}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Media Sharing: Disabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" == "0" ]] && [[ "${prefValue2AsUser}" == "0" ]] && [[ "${prefValue3AsUser}" == "0" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValueAsUser}" == "0" ]] && [[ "${prefValue2AsUser}" == "0" ]] && [[ "${prefValue3AsUser}" == "0" ]]; then
 		result="Passed"
 	else 
 		if [[ "${prefValueAsUser}" == "0" ]] && [[ "${prefValue2AsUser}" == "0" ]] && [[ "${prefValue3AsUser}" == "0" ]]; then

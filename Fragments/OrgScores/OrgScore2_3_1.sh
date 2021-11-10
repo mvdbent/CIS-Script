@@ -21,7 +21,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Inactivity interval for the screen saver: ${prefValueAsUser}"
-	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" -le "1200" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValueAsUser}" -le "1200" ]]; then
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" -le "1200" && "${prefValueAsUser}" != "" ]]; then

@@ -21,10 +21,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="iCloud Drive Document and Desktop sync: Disabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "False" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "false" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" == "False" ]]; then
+		if [[ "${prefValue}" == "false" ]]; then
 			result="Passed"
 		else
 			result="Failed"

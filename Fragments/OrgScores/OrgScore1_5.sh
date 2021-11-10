@@ -23,10 +23,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue2=$(getPrefValue "${appidentifier}" "${value2}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="System data files and security update installs: Enabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" && "${prefValue2}" == "True" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "true" && "${prefValue2}" == "true" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" == "True" && "${prefValue2}" == "True" ]]; then
+		if [[ "${prefValue}" == "true" && "${prefValue2}" == "true" ]]; then
 			result="Passed"
 		else
 			result="Failed"

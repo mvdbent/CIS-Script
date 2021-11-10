@@ -21,7 +21,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Gatekeeper: Enabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "1" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "1" ]]; then
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "1" ]]; then

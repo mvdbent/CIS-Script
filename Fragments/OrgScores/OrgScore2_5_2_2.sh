@@ -21,7 +21,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Firewall: Enabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "True" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "true" ]]; then
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "1" ]]; then

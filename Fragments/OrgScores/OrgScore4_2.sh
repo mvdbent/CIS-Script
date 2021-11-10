@@ -21,7 +21,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 	comment="Wi-Fi status in menu bar: Enabled"
 
-	if [[ "${prefValue}" == "True" ]]; then
+	if [[ "${prefValue}" == "true" ]]; then
 		result="Passed"
 	else
 		result="Failed"
@@ -35,7 +35,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			appidentifier="com.apple.controlcenter"
 			value="NSStatusItem Visible WiFi"
 			prefValue=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
-			if [[ "${prefValue}" == "True" ]]; then
+			if [[ "${prefValue}" == "true" ]]; then
 				result="Passed After Remediation"
 				comment="Wi-Fi status in menu bar: Enabled"
 			else

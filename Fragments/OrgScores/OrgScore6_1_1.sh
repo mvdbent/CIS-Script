@@ -21,10 +21,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Display login window as name and password: Enabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" == "True" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValueAsUser}" == "true" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValueAsUser}" == "True" ]]; then
+		if [[ "${prefValueAsUser}" == "true" ]]; then
 			result="Passed"
 		else
 			result="Failed"

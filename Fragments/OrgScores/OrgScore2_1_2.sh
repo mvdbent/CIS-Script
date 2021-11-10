@@ -23,11 +23,11 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 
 	comment="Show Bluetooth status in menu bar: Enabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValueAsUser}" == "True" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValueAsUser}" == "true" ]]; then
 		countPassed=$((countPassed + 1))
 		result="Passed"
 	else
-		if [[ "${prefValueAsUser}" == "True" ]]; then
+		if [[ "${prefValueAsUser}" == "true" ]]; then
 			result="Passed"
 		else
 			result="Failed"
@@ -39,7 +39,7 @@ if [[ "${auditResult}" == "1" ]]; then
 				# re-check
 				prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 				prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
-				if [[ "${prefValueAsUser}" == "True" ]]; then
+				if [[ "${prefValueAsUser}" == "true" ]]; then
 					result="Passed After Remediation"
 					comment="Show Bluetooth status in menu bar: Enabled"
 				else

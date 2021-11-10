@@ -21,7 +21,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="FileVault: Enabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "On" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "On" ]]; then
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "On" ]]; then

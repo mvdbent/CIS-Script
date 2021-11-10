@@ -21,10 +21,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManagedrunAsUser "${appidentifier}" "${value}")
 	comment="Automatic run of safe files in Safari: Disabled"
-	if [[ "${prefIsManaged}" == "True" && "${prefValue}" == "False" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "false" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" == "False" ]]; then
+		if [[ "${prefValue}" == "false" ]]; then
 			result="Passed"
 		else
 			result="Failed"

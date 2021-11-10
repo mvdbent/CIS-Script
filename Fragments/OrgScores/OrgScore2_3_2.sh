@@ -30,7 +30,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged3=$(getPrefIsManagedrunAsUser "${appidentifier}" "${value3}")
 	prefIsManaged4=$(getPrefIsManagedrunAsUser "${appidentifier}" "${value4}")
 	comment="Secure screen saver corners: enabled"
-	if [[ "${prefIsManaged}" == "True" ]] || [[ "${prefIsManaged2}" == "True" ]] || [[ "${prefIsManaged3}" == "True" ]] || [[ "${prefIsManaged4}" == "True" ]]; then
+	if [[ "${prefIsManaged}" == "true" ]] || [[ "${prefIsManaged2}" == "true" ]] || [[ "${prefIsManaged3}" == "true" ]] || [[ "${prefIsManaged4}" == "true" ]]; then
 		result="Passed"
 	else
 		if [[ "${prefValueAsUser}" == "5" ]] || [[ "${prefValue2AsUser}" == "5" ]] || [[ "${prefValue3AsUser}" == "5" ]] || [[ "${prefValue4AsUser}" == "5" ]]; then

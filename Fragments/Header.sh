@@ -121,23 +121,38 @@ function runAsUser() {
 }
 
 function getPrefValue() { # $1: domain, $2: key
-	python -c "from Foundation import CFPreferencesCopyAppValue; print(CFPreferencesCopyAppValue('$2', '$1'))"
+    osascript -l JavaScript << EndOfScript
+        ObjC.import('Foundation');
+        ObjC.unwrap($.NSUserDefaults.alloc.initWithSuiteName('$1').objectForKey('$2'))
+EndOfScript
 }
 
-function getPrefValueNested() { # $1: domain, $2: key
-	python -c "from Foundation import CFPreferencesCopyAppValue; print(CFPreferencesCopyAppValue('$2', '$1'))['$3']"
+function getPrefValueNested() { # $1: domain, $2: key, $3: nestedkey
+    osascript -l JavaScript << EndOfScript
+        ObjC.import('Foundation');
+        ObjC.unwrap($.NSUserDefaults.alloc.initWithSuiteName('$1').objectForKey('$2').objectForKey('$3'))
+EndOfScript
 }
 
 function getPrefValuerunAsUser() { # $1: domain, $2: key
-	runAsUser python -c "from Foundation import CFPreferencesCopyAppValue; print(CFPreferencesCopyAppValue('$2', '$1'))"
+	runAsUser osascript -l JavaScript << EndOfScript
+        ObjC.import('Foundation');
+        ObjC.unwrap($.NSUserDefaults.alloc.initWithSuiteName('$1').objectForKey('$2'))
+EndOfScript
 }
 
 function getPrefIsManaged() { # $1: domain, $2: key
-	python -c "from Foundation import CFPreferencesAppValueIsForced; print(CFPreferencesAppValueIsForced('$2', '$1'))"
+    osascript -l JavaScript << EndOfScript
+    ObjC.import('Foundation')
+    ObjC.unwrap($.NSUserDefaults.alloc.initWithSuiteName('$1').objectIsForcedForKey('$2'))
+EndOfScript
 }
 
 function getPrefIsManagedrunAsUser() { # $1: domain, $2: key
-	runAsUser python -c "from Foundation import CFPreferencesAppValueIsForced; print(CFPreferencesAppValueIsForced('$2', '$1'))"
+	runAsUser     osascript -l JavaScript << EndOfScript
+    ObjC.import('Foundation')
+    ObjC.unwrap($.NSUserDefaults.alloc.initWithSuiteName('$1').objectIsForcedForKey('$2'))
+EndOfScript
 }
 
 function CISBenchmarkReportFolder() {
