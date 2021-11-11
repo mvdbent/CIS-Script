@@ -28,7 +28,7 @@ if [[ "${auditResult}" == "1" ]]; then
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
 			chown -R root:wheel /var/audit
-			chmod -R 440 /var/audit
+			chmod -R 400 /var/audit
 			chown root:wheel /etc/security/audit_control
 			chmod 400 /etc/security/audit_control
 			# re-check
