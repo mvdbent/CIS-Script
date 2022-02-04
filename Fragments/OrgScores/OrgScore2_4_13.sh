@@ -22,6 +22,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Airplay Receiver: Disabled"
 	if [[ "$osVersion" != "12."* ]]; then
+	result="Not Applicable"
 	comment="Benchmark not compactible with OS Version" 
 	else
 		if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "false" ]]; then

@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit='4.2 Ensure Show Wi-Fi status in Menu Bar Is Enabled (Automated)'
+audit="4.2 Ensure Show Wi-Fi status in Menu Bar Is Enabled (Automated)"
 orgScore="OrgScore4_2"
 emptyVariables
 # Verify organizational score

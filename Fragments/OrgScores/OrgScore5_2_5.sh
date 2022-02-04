@@ -21,10 +21,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Password Special Character: Configured"
-	if [[ "${prefIsManaged}" == "true" && "${prefValue}" > "1" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "1" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" > "1" ]]; then
+		if [[ "${prefValue}" == "1" ]]; then
 			result="Passed"
 		else
 			result="Failed"

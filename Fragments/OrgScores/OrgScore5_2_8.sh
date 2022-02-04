@@ -21,10 +21,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Password History: Configured"
-	if [[ "${prefIsManaged}" == "true" && "${prefValue}" > "15" ]]; then
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "15" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" > "15" ]]; then
+		if [[ "${prefValue}" == "15" ]]; then
 			result="Passed"
 		else
 			result="Failed"

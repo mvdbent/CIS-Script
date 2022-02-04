@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit='6.1.2 Ensure Show Password Hints Is Disabled (Automated)'
+audit="6.1.2 Ensure Show Password Hints Is Disabled (Automated)"
 orgScore="OrgScore6_1_2"
 emptyVariables
 # Verify organizational score

@@ -16,7 +16,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	method="Profile"
 	remediate="Configuration profile - payload > com.apple.screensaver > askForPassword=true askForPasswordDelay=0"
 
-n	appidentifier="com.apple.screensaver"
+	appidentifier="com.apple.screensaver"
 	value="askForPassword"
 	value2="askForPasswordDelay"
 	prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")

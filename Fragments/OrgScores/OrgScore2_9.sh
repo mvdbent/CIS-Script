@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="Ensure Power Nap Is Disabled (Automated)"
+audit="2.9 Ensure Power Nap Is Disabled (Automated)"
 orgScore="OrgScore2_9"
 emptyVariables
 # Verify organizational score

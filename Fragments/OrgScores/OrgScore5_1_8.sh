@@ -16,7 +16,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate="Script > sudo chmod -R o-w /System/Volumes/Data/Library/<baddirectory>"
 
-	libPermissions="$(find /Library -type d -perm -2 -ls 2>&1 | grep -v Caches | grep -v Adobe | grep -v VMware | grep -v "/Audio/Data" | wc -l | xargs)"
+	libPermissions="$(find /Library -type d -perm -2 -ls 2>&1 | grep -v Caches | grep -v Adobe | grep -v VMware | grep -v "/Audio/Data" | grep -v com.apple.TCC | wc -l | xargs)"
 	if [[ "${libPermissions}" == "0" ]]; then
 		result="Passed"
 		comment="All Library folder for world are not writable files"

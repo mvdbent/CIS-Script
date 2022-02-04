@@ -13,27 +13,22 @@ emptyVariables
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
-	method="Script"
-	remediate="Script > sudo defaults write /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 1"
+	method="Profile"
+	remediate="Configuration profile - payload > com.apple.TimeMachine > AutoBackup=true"
 
-	timeMachineAuto=$(defaults read /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 2>&1)
-	if [[ "$timeMachineAuto" == "1" ]]; then
+	appidentifier="com.apple.TimeMachine"
+	value="AutoBackup"
+	prefValue=$(getPrefValue "${appidentifier}" "${value}")
+	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
+	comment="Backup Up: Enabled"
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "true" ]]; then
 		result="Passed"
-		comment="Time Machine Auto-Backup: Enabled"
-	else 
-		result="Failed"
-		comment="Time Machine Auto-Backup: Disabled"
-		# Remediation
-		if [[ "${remediateResult}" == "enabled" ]]; then
-			sudo defaults write /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 1
-			# re-check
-			timeMachineAuto=$(defaults read /Library/Preferences/com.apple.TimeMachine.plist AutoBackup 2>&1)
-			if [[ "$timeMachineAuto" == "1" ]]; then
-				result="Passed After Remediation"
-				comment="Time Machine Auto-Backup: Enabled"
-			else 
-				result="Failed After Remediation"
-			fi
+	else
+		if [[ "${prefValue}" == "true" ]]; then
+			result="Passed"
+		else
+			result="Failed"
+			comment="Backup Up: Disabled"
 		fi
 	fi
 fi

@@ -7,21 +7,21 @@ if [[ "${argumentHeaderFunctionName}" ==  "fullHeader" ]] || [[ "${reportSetting
 		## add creation date
 		echo ";;;;;;;;;;" >> "${CISBenchmarkReport}"
 		if [[ "$osVersion" = "10.15."* ]]; then
-			echo "Security report - $(date) *** Current version - macOS Catalina ${osVersion} (${buildVersion});;;;;;;;;;"
+			echo "Security report - $(date) - macOS Catalina ${osVersion} (${buildVersion});;;;;;;;;;" >> "${CISBenchmarkReport}"
 		elif [[ "$osVersion" = "11."* ]]; then
-			echo "Security report - $(date) *** Current version - macOS Big Sur ${osVersion} (${buildVersion});;;;;;;;;;"
+			echo "Security report - $(date) - macOS Big Sur ${osVersion} (${buildVersion});;;;;;;;;;" >> "${CISBenchmarkReport}"
 		elif [[ "$osVersion" = "12."* ]]; then
-			echo "Security report - $(date) *** Current version - macOS Monterey ${osVersion} (${buildVersion});;;;;;;;;;"
+			echo "Security report - $(date) - macOS Monterey ${osVersion} (${buildVersion});;;;;;;;;;" >> "${CISBenchmarkReport}"
 		fi
         # echo "Security report - $(date);;;;;;;;;;" >> "${CISBenchmarkReport}"
 	else
 		echo ";;;;;;" >> "${CISBenchmarkReport}"
 		if [[ "$osVersion" = "10.15."* ]]; then
-			echo "Security report - $(date) *** Current version - macOS Catalina ${osVersion} (${buildVersion});;;;;;"
+			echo "Security report - $(date) - macOS Catalina ${osVersion} (${buildVersion});;;;;;" >> "${CISBenchmarkReport}"
 		elif [[ "$osVersion" = "11."* ]]; then
-			echo "Security report - $(date) *** Current version - macOS Big Sur ${osVersion} (${buildVersion});;;;;;"
+			echo "Security report - $(date) - macOS Big Sur ${osVersion} (${buildVersion});;;;;;" >> "${CISBenchmarkReport}"
 		elif [[ "$osVersion" = "12."* ]]; then
-			echo "Security report - $(date) *** Current version - macOS Monterey ${osVersion} (${buildVersion});;;;;;"
+			echo "Security report - $(date) - macOS Monterey ${osVersion} (${buildVersion});;;;;;" >> "${CISBenchmarkReport}"
 		fi
         # echo "Security report - $(date);;;;;;" >> "${CISBenchmarkReport}"
 fi

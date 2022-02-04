@@ -26,7 +26,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	securityChip=$(system_profiler SPiBridgeDataType 2>&1 | grep -c 'Model Name: Apple T2 Security Chip')
 		if [[ "${securityChip}" == "1" ]]; then
 			t2Check=$(launchctl list | grep -c com.apple.driver.eficheck)
-			if [[ "$t2Checkresult" == "1" ]] then
+			if [[ "$t2Check" == "1" ]] then
 			result="Passed"
 			else
 				result="Failed"

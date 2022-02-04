@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="Ensure Show All Filename Extensions Setting is Enabled (Automated)"
+audit="6.2 Ensure Show All Filename Extensions Setting is Enabled (Automated)"
 orgScore="OrgScore6_2"
 emptyVariables
 # Verify organizational score

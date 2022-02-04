@@ -33,8 +33,8 @@ if [[ "${auditResult}" == "1" ]]; then
 			if [[ "${remediateResult}" == "enabled" ]]; then
 				sudo -u ${currentUser} defaults -currentHost write com.apple.Bluetooth PrefKeyServicesEnabled -bool false
 				# re-check
-				prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
-				if [[ "${prefIsManaged}" == "true" && "${prefValueAsUser}" == "false" ]]; then
+				prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
+				if [[ "${prefValueAsUser}" == "false" ]]; then
 					result="Passed After Remediation"
 				else
 					result="Failed After Remediation"

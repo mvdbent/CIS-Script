@@ -30,7 +30,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			comment="All user CoreStorage volumes encrypted"
 		fi
 	else 
-		result="Not applicable"
+		result="Not Applicable"
 		comment="No CoreStorage logical volume groups found"
 	fi
 fi

@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit='5.6 Ensure the "root" Account Is Disabled (Automated)'
+audit="5.6 Ensure the 'root' Account Is Disabled (Automated)"
 orgScore="OrgScore5_6"
 emptyVariables
 # Verify organizational score

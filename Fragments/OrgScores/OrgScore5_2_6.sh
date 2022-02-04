@@ -16,7 +16,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate='Script > sudo /usr/bin/pwpolicy -n /Local/Default -setglobalpolicy "requiresMixedCase=1"'
 
-	upperLowercase="$(pwpolicy getaccountpolicies | grep -v "Getting global account policies" | xmllint --xpath '/plist/dict/array/dict/dict[key="minimumMixedCaseCharacters"]/integer' - | awk -F '[<>]' '{print $3}')"
+	upperLowercase="$(pwpolicy getaccountpolicies | grep -v "Getting global account policies" | xmllint --xpath '/plist/dict/array/dict/dict[key="minimumMixedCaseCharacters"]/integer' - 2>&1 | awk -F '[<>]' '{print $3}')"
 	if [[ "${upperLowercase}" == "1" ]]; then
 		result="Passed"
 		comment="Password Uppercase and Lowercase Characters: Configured"

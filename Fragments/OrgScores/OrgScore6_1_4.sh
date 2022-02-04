@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit='6.1.4 Ensure Guest Access to Shared Folders Is Disabled (Automated)'
+audit="6.1.4 Ensure Guest Access to Shared Folders Is Disabled (Automated)"
 orgScore="OrgScore6_1_4"
 emptyVariables
 # Verify organizational score
