@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="6.3 Disable the automatic run of safe files in Safari (Automated)"
+audit="6.3 Ensure Automatic Opening of Safe Files in Safari Is Disabled (Automated)"
 orgScore="OrgScore6_3"
 emptyVariables
 # Verify organizational score

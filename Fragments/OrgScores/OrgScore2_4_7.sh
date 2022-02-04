@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.4.7 Disable Bluetooth Sharing (Automated)"
+audit="2.4.7 Ensure Bluetooth Sharing Is Disabled (Automated)"
 orgScore="OrgScore2_4_7"
 emptyVariables
 # Verify organizational score

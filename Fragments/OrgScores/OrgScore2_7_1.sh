@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="2"
-audit="2.7.1 Time Machine Auto-Backup (Automated)"
+audit="2.7.1 Ensure Backup Up Automatically is Enabled (Automated)"
 orgScore="OrgScore2_7_1"
 emptyVariables
 # Verify organizational score

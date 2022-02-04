@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="5.11 Require an administrator password to access system-wide preferences (Automated)"
+audit="5.11 Ensure an administrator account cannot login to another user's active and locked session (Automated)"
 orgScore="OrgScore5_11"
 emptyVariables
 # Verify organizational score
@@ -14,25 +14,23 @@ runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
-	remediate="Script > sudo security authorizationdb read system.preferences > /tmp/system.preferences.plist && sudo defaults write /tmp/system.preferences.plist shared -bool false && sudo security authorizationdb write system.preferences < /tmp/system.preferences.plist"
+	remediate="Script > sudo security authorizationdb write system.login.screensaver 'use-login-window-ui'"
 
-	adminSysPrefs="$(security authorizationdb read system.preferences /dev/null 2>&1 | grep -A 1 "<key>shared</key>" | grep -c "<false/>")"
-	if [[ "${adminSysPrefs}" == "1" ]]; then
+	screensaverRules="$(security authorizationdb read system.login.screensaver 2>&1 | grep -c 'use-login-window-ui')"
+	if [[ "${screensaverRules}" == "1" ]]; then
 		result="Passed"
-		comment="Require an administrator password to access system-wide preferences: Enabled"
+		comment="Ability to login to another user's active and locked session: Disabled"
 	else 
 		result="Failed"
-		comment="Require an administrator password to access system-wide preferences: Disabled"
+		comment="Ability to login to another user's active and locked session: Enabled"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-			security authorizationdb read system.preferences > /tmp/system.preferences.plist 2>&1
-			defaults write /tmp/system.preferences.plist shared -bool false 2>&1
-			security authorizationdb write system.preferences < /tmp/system.preferences.plist 2>&1
+			security authorizationdb write system.login.screensaver 'use-login-window-ui'
 			# re-check
-			adminSysPrefs="$(security authorizationdb read system.preferences /dev/null 2>&1 | grep -A 1 "<key>shared</key>" | grep -c "<false/>")"
-			if [[ "${adminSysPrefs}" == "1" ]]; then
+			screensaverRules="$(security authorizationdb read system.login.screensaver 2>&1 | grep -c 'use-login-window-ui')"
+			if [[ "${screensaverRules}" == "1" ]]; then
 				result="Passed After Remediation"
-				comment="Require an administrator password to access system-wide preferences: Enabled"
+				comment="Ability to login to another user's active and locked session: Disabled"
 			else
 				result="Failed After Remediation"
 			fi

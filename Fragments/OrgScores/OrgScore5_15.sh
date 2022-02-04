@@ -5,30 +5,30 @@ projectfolder=$(dirname $script_dir)
 
 source ${projectfolder}/Header.sh
 
-CISLevel="1"
-audit="2.5.7 Limit Ad tracking and personalized Ads (Automated)"
-orgScore="OrgScore2_5_7"
+CISLevel="2"
+audit="5.15 Ensure Fast User Switching Is Disabled (Manual)"
+orgScore="OrgScore5_15"
 emptyVariables
 # Verify organizational score
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Profile"
-	remediate="Configuration profile - payload > com.apple.AdLib > allowApplePersonalizedAdvertising=false"
+	remediate="Configuration profile - payload > .GlobalPreferences > MultipleSessionEnabled=false"
 
-	appidentifier="com.apple.AdLib"
-	value="allowApplePersonalizedAdvertising"
+	appidentifier=".GlobalPreferences"
+	value="MultipleSessionEnabled"
 	prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
-	comment="Limited Ad Tracking: Disabled"
+	comment="Fast User Switching: Disabled"
 	if [[ "${prefIsManaged}" == "true" && "${prefValueAsUser}" == "false" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValueAsUser}" == "false" ]]; then
+		if [[ "${prefValue}" == "false" ]]; then
 			result="Passed"
 		else
 			result="Failed"
-			comment="Limited Ad Tracking: Enabled"
+			comment="Fast User Switching: Enabled"
 		fi
 	fi
 fi

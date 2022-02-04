@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.5.2.2 Enable Firewall (Automated)"
+audit="2.5.2.2 Ensure Firewall Is Enabled (Automated)"
 orgScore="OrgScore2_5_2_2"
 emptyVariables
 # Verify organizational score
@@ -26,9 +26,14 @@ if [[ "${auditResult}" == "1" ]]; then
 	else
 		if [[ "${prefValue}" == "1" ]]; then
 			result="Passed"
-		else
-			result="Failed"
-			comment="Firewall: Disabled"
+		else	
+			firewallState=$(defaults read /Library/Preferences/com.apple.alf globalstate 2>&1)
+			if [[ "$firewallState" = "1" ]]; then
+				result="Passed"
+			else
+				result="Failed"
+				comment="Firewall: Disabled"
+			fi
 		fi
 	fi
 fi

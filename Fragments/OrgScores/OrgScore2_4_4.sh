@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.4.4 Disable Printer Sharing (Automated)"
+audit="2.4.4 Ensure Printer Sharing Is Disabled (Automated)"
 orgScore="OrgScore2_4_4"
 emptyVariables
 # Verify organizational score

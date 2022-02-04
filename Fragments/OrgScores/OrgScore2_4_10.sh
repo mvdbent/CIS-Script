@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="2"
-audit="2.4.10 Disable Content Caching (Automated)"
+audit="2.4.10 Ensure Content Caching Is Disabled (Automated)"
 orgScore="OrgScore2_4_10"
 emptyVariables
 # Verify organizational score

@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="6.1.3 Disable guest account login (Automated)"
+audit="6.1.3 Ensure Guest Account Is Disabled (Automated)"
 orgScore="OrgScore6_1_3"
 emptyVariables
 # Verify organizational score

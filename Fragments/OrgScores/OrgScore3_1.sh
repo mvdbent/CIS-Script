@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="3.1 Enable security auditing (Automated)"
+audit="3.1 Ensure Security Auditing Is Enabled (Automated)"
 orgScore="OrgScore3_1"
 emptyVariables
 # Verify organizational score

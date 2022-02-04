@@ -6,8 +6,8 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="2"
-audit="2.6.1 iCloud configuration (Manual)"
-orgScore="OrgScore2_6_1"
+audit="2.6.1.1 Audit iCloud Configuration (Manual)"
+orgScore="OrgScore2_6_1_1"
 emptyVariables
 # Verify organizational score
 runAudit

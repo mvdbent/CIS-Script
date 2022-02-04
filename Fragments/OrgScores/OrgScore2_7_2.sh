@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.7.2 Time Machine Volumes Are Encrypted (Automated)"
+audit="2.7.2 Ensure Time Machine Volumes Are Encrypted (Automated)"
 orgScore="OrgScore2_7_2"
 emptyVariables
 # Verify organizational score

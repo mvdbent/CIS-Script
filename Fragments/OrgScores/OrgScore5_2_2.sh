@@ -6,29 +6,29 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="5.1.4 Ensure Library Validation Is Enabled (Automated)"
-orgScore="OrgScore5_1_4"
+audit="5.2.2 Ensure Password Minimum Length Is Configured (Automated)"
+orgScore="OrgScore5_2_2"
 emptyVariables
 # Verify organizational score
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Profile"
-	remediate="Configuration profile - payload > com.apple.security.libraryvalidation > DisableLibraryValidation=false"
+	remediate="Configuration profile - payload > com.apple.mobiledevice.passwordpolicy > minLength=15"
 
-	appidentifier="com.apple.security.libraryvalidation"
-	value="DisableLibraryValidation"
+	appidentifier="com.apple.mobiledevice.passwordpolicy"
+	value="minLength"
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
-	comment="Library Validation: Enabled"
-	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "false" ]]; then
+	comment="Password Minimum Length: Configured"
+	if [[ "${prefIsManaged}" == "true" && "${prefValue}" > "15" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" == "false" ]]; then
+		if [[ "${prefValue}" > "15" ]]; then
 			result="Passed"
 		else
 			result="Failed"
-			comment="Library Validation: Disabled"
+			comment="Password Minimum Length: not Configured"
 		fi
 	fi
 fi

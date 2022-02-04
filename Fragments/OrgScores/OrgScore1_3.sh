@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="1.3 Enable Download new updates when available (Automated)"
+audit="1.3 Ensure Download New Updates When Available is Enabled (Automated)"
 orgScore="OrgScore1_3"
 emptyVariables
 # Verify organizational score

@@ -5,8 +5,8 @@ projectfolder=$(dirname $script_dir)
 
 source ${projectfolder}/Header.sh
 
-CISLevel="2"
-audit="5.4 Automatically lock the login keychain for inactivity (Manual)"
+CISLevel="1"
+audit="5.4 Ensure a Separate Timestamp Is Enabled for Each User/tty Combo (Automated)"
 orgScore="OrgScore5_4"
 emptyVariables
 # Verify organizational score
@@ -14,23 +14,23 @@ runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
-	remediate="Script > sudo -u <username> security set-keychain-settings -t 21600 /Users/<username>/Library/Keychains/login.keychain"
+	remediate="Script > sudo sed -i '.old' '/Default !tty_tickets/d' /etc/sudoers && sudo chmod 644 /etc/sudoers && sudo chown root:wheel /etc/sudoers"
 
-	keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "no-timeout")"
-	if [[ "${keyTimeout}" == 0 ]]; then
+	ttyTimestamp="$(grep -c tty_tickets /etc/sudoers)"
+	if [[ "${ttyTimestamp}" == "1" ]]; then
 		result="Passed"
-		comment="Automatically lock the login keychain for inactivity: Enabled"
+		comment="Separate timestamp for each user/tty combo: Enabled"
 	else 
 		result="Failed"
-		comment="Automatically lock the login keychain for inactivity: Disabled"
+		comment="Separate timestamp for each user/tty combo: Disabled"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-			security set-keychain-settings -l -u -t 21600s /Users/"${currentUser}"/Library/Keychains/login.keychain
+			echo "Defaults tty_tickets" >> /etc/sudoers
 			# re-check
-			keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "no-timeout")"
-			if [[ "${keyTimeout}" == 0 ]]; then
+			ttyTimestamp="$(grep -c tty_tickets /etc/sudoers)"
+			if [[ "${ttyTimestamp}" == "1" ]]; then
 				result="Passed After Remediation"
-				comment="Automatically lock the login keychain for inactivity: Enabled"
+				comment="Separate timestamp for each user/tty combo: Enabled"
 			else
 				result="Failed After Remediation"
 			fi

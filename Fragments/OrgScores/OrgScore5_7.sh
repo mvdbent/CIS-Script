@@ -6,35 +6,33 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit='5.7 Do not enable the "root" account (Automated)'
+audit="5.7 Ensure Automatic Login Is Disabled (Automated)"
 orgScore="OrgScore5_7"
 emptyVariables
 # Verify organizational score
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
-	method="Script"
-	remediate="Script > sudo dscl . -create /Users/root UserShell /usr/bin/false"
+	method="Profile"
+	remediate="Configuration profile - payload > com.apple.loginwindow> DisableAutoLoginClient=true"
 
-	rootEnabled="$(dscl . -read /Users/root AuthenticationAuthority 2>&1 | grep -c "No such key")"
-	rootEnabledRemediate="$(dscl . -read /Users/root UserShell 2>&1 | grep -c "/usr/bin/false")"
-	if [[ "${rootEnabled}" == "1" || "${rootEnabledRemediate}" == "1" ]]; then
+	appidentifier="com.apple.loginwindow"
+	value="DisableAutoLoginClient"
+	prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
+	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
+	comment="Automatic login: Disabled"
+	if [[ "${prefIsManaged}" == "true" && "${prefValueAsUser}" == "true" ]]; then
 		result="Passed"
-		comment="root user account: Disabled"
-	else 
-		result="Failed"
-		comment="root user account: Enabled"
-		# Remediation
-		if [[ "${remediateResult}" == "enabled" ]]; then
-			dscl . -create /Users/root UserShell /usr/bin/false
-			# re-check
-			rootEnabled="$(dscl . -read /Users/root AuthenticationAuthority 2>&1 | grep -c "No such key")"
-			rootEnabledRemediate="$(dscl . -read /Users/root UserShell 2>&1 | grep -c "/usr/bin/false")"
-			if [[ "${rootEnabled}" == "1" || "${rootEnabledRemediate}" == "1" ]]; then
-				result="Passed After Remediation"
-				comment="root user account: Disabled"
+	else
+		if [[ "${prefValueAsUser}" == "true" ]]; then
+			result="Passed"
+		else
+			automaticLogin=$(defaults read /Library/Preferences/com.apple.loginwindow | grep -c "autoLoginUser")
+			if [[ "${automaticLogin}" == "0" ]]; then
+				result="Passed"
 			else
-				result="Failed After Remediation"
+				result="Failed"
+				comment="Automatic login: Enabled"
 			fi
 		fi
 	fi

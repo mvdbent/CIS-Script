@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="1.5 Enable system data files and security updates install (Automated)"
+audit="1.5 Ensure System Data Files and Security Updates Are Downloaded Automatically Is Enabled (Automated)"
 orgScore="OrgScore1_5"
 emptyVariables
 # Verify organizational score

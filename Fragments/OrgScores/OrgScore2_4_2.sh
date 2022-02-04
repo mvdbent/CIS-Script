@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.4.2 Disable Internet Sharing (Automated)"
+audit="2.4.2 Ensure Internet Sharing Is Disabled (Automated)"
 orgScore="OrgScore2_4_2"
 emptyVariables
 # Verify organizational score

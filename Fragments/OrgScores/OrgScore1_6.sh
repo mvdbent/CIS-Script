@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="1.6 Enable macOS update installs (Automated)"
+audit="1.6 Ensure Install of macOS Updates Is Enabled (Automated)"
 orgScore="OrgScore1_6"
 emptyVariables
 # Verify organizational score

@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="1.1 Verify all Apple-provided software is current (Automated)"
+audit="1.1 Ensure All Apple-provided Software Is Current (Automated)"
 orgScore="OrgScore1_1"
 emptyVariables
 method="Script"

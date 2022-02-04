@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="4.4 Ensure http server is not running (Automated)"
+audit="4.4 Ensure HTTP Server Is Disabled (Automated)"
 orgScore="OrgScore4_4"
 emptyVariables
 # Verify organizational score

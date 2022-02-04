@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="1.4 Enable app update installs (Automated)"
+audit="1.4 Ensure Installation of App Update Is Enabled (Automated)"
 orgScore="OrgScore1_4"
 emptyVariables
 # Verify organizational score

@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.3.1 Set an inactivity interval of 20 minutes or less for the screen saver (Automated)"
+audit="2.3.1 Ensure an Inactivity Interval of 20 Minutes Or Less for the Screen Saver Is Enabled (Automated)"
 orgScore="OrgScore2_3_1"
 emptyVariables
 # Verify organizational score

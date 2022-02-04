@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="5.1.1 Secure Home Folders (Automated)"
+audit="5.1.1 Ensure Home Folders Are Secure (Automated)"
 orgScore="OrgScore5_1_1"
 emptyVariables
 # Verify organizational score

@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="6.1.1 Display login window as name and password (Automated)"
+audit="6.1.1 Ensure Login Window Displays as Name and Password Is Enabled (Automated)"
 orgScore="OrgScore6_1_1"
 emptyVariables
 # Verify organizational score

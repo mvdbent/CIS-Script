@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="1.2 Enable Auto Update (Automated)"
+audit="1.2 Ensure Auto Update Is Enabled (Automated)"
 orgScore="OrgScore1_2"
 emptyVariables
 # Verify organizational score

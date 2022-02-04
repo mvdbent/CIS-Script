@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="5.3 Reduce the sudo timeout period (Automated)"
+audit="5.3 Ensure the Sudo Timeout Period Is Set to Zero (Automated)"
 orgScore="OrgScore5_3"
 emptyVariables
 # Verify organizational score

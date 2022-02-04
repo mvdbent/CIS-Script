@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="4.5 Ensure nfs server is not running. (Automated)"
+audit="4.5 Ensure NFS Server Is Disabled (Automated)"
 orgScore="OrgScore4_5"
 emptyVariables
 # Verify organizational score

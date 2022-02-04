@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.4.1 Disable Remote Apple Events (Automated)"
+audit="2.4.1 Ensure Remote Apple Events Is Disabled (Automated)"
 orgScore="OrgScore2_4_1"
 emptyVariables
 # Verify organizational score

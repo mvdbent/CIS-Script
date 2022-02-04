@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="5.1.3 Check System folder for world writable files (Automated)"
+audit="5.1.3 Ensure Apple Mobile File Integrity Is Enabled (Automated)"
 orgScore="OrgScore5_1_3"
 emptyVariables
 # Verify organizational score
@@ -14,31 +14,27 @@ runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
-	remediate="Script > sudo chmod -R o-w /Path/<baddirectory>"
+	remediate='Script > sudo /usr/sbin/nvram boot-args=""'
 
-	sysPermissions="$(find /System/Volumes/Data/System -type d -perm -2 -ls 2>&1 | grep -v "Public/Drop Box" | wc -l | xargs)"
-	if [[ "${sysPermissions}" == "0" ]]; then
+	mobileFileIntegrity="$(nvram -p | grep -c "amfi_get_out_of_my_way=1")"
+	if [[ "${mobileFileIntegrity}" == "0" ]]; then
 		result="Passed"
-		comment="All System folder for world are not writable files"
+		comment="Apple Mobile File Integrity: Enabled"
 	else 
 		result="Failed"
-		comment="Check ${sysPermissions} System folder for world writable files"
+		comment="Apple Mobile File Integrity: Disabled"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-			IFS=$'\n'
-			for sysPermissions in $( /usr/bin/find /System/Volumes/Data/System -type d -perm -2 -ls | /usr/bin/grep -v "Public/Drop Box" ); do
-			/bin/chmod -R o-w "$sysPermissions"
-			done
-			unset IFS
+			nvram boot-args=""
 			# re-check
-			sysPermissions="$(find /System/Volumes/Data/System -type d -perm -2 -ls 2>&1 | grep -v "Public/Drop Box" | wc -l | xargs)"
-			if [[ "${sysPermissions}" == "0" ]]; then
+			mobileFileIntegrity="$(nvram -p | grep -c "amfi_get_out_of_my_way=1")"
+			if [[ "${mobileFileIntegrity}" == "0" ]]; then
 				result="Passed After Remediation"
-				comment="All System folder for world are not writable files"
+				comment="Apple Mobile File Integrity: Enabled"
 			else
 				result="Failed After Remediation"
 			fi
-		fi	
+		fi
 	fi
 fi
 printReport

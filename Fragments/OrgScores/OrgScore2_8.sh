@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.8 Disable Wake for network access (Automated)"
+audit="2.8 Ensure Wake for Network Access Is Disabled (Automated)"
 orgScore="OrgScore2_8"
 emptyVariables
 # Verify organizational score

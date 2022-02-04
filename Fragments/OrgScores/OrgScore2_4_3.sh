@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.4.3 Disable Screen Sharing (Automated)"
+audit="2.4.3 Ensure Screen Sharing Is Disabled (Automated)"
 orgScore="OrgScore2_4_3"
 emptyVariables
 # Verify organizational score

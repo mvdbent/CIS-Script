@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="3.3 Retain install.log for 365 or more days with no maximum size (Automated)"
+audit="3.3 Ensure install.log Is Retained for 365 or More Days and No Maximum Size (Automated)"
 orgScore="OrgScore3_3"
 emptyVariables
 # Verify organizational score

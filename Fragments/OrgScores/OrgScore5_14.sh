@@ -5,34 +5,34 @@ projectfolder=$(dirname $script_dir)
 
 source ${projectfolder}/Header.sh
 
-CISLevel="2"
-audit="5.14 Create a Login window banner (Automated)"
-orgScore="OrgScore5_14"
+CISLevel="1"
+audit="5.14 Ensure Users' Accounts Do Not Have a Password Hint (Automated)"
+orgScore="OrgScore5_13"
 emptyVariables
 # Verify organizational score
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
-	remediate="https://support.apple.com/en-us/HT202277"
+	remediate="Script > sudo /usr/bin/dscl . -delete /Users/<username> hint"
 
-	policyBanner="$(find /Library/Security -name 'PolicyBanner.*' | wc -l | xargs)"
-	if [[ "${policyBanner}" == "1" ]]; then
+	passwordHint="$(dscl . -list /Users hint | awk '{print $2}' | wc -l | xargs)"
+	if [[ "${passwordHint}" == "0" ]]; then
 		result="Passed"
-		comment="Login window banner: Enabled"
+		comment="Password Hint: Disabled"
 	else 
 		result="Failed"
-		comment="Login window banner: Disabled"
+		comment="Password Hint: Enabled"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-			PolicyBannerText="CIS Example Login Window banner"
-			/bin/echo "$PolicyBannerText" > "/Library/Security/PolicyBanner.txt"
-			/bin/chmod 755 "/Library/Security/PolicyBanner."* 
+			for u in $(/usr/bin/dscl . -list /Users UniqueID | /usr/bin/awk '$2 > 500 {print $1}'); do
+			/usr/bin/dscl . -delete /Users/$u hint
+			done 
 			# re-check
-			policyBanner="$(find /Library/Security -name 'PolicyBanner.*' | wc -l | xargs)"
-			if [[ "${policyBanner}" == "1" ]]; then
+			passwordHint="$(dscl . -list /Users hint | awk '{print $2}' | wc -l | xargs)"
+			if [[ "${passwordHint}" == "0" ]]; then
 				result="Passed After Remediation"
-				comment="Login window banner: Enabled"
+				comment="Password Hint: Disabled"
 			else
 				result="Failed After Remediation"
 			fi

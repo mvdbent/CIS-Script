@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="2"
-audit="4.1 Disable Bonjour advertising service (Automated)"
+audit="4.1 Ensure Bonjour Advertising Services Is Disabled (Automated)"
 orgScore="OrgScore4_1"
 emptyVariables
 # Verify organizational score

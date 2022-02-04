@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.3.3 Familiarize users with screen lock tools or corner to Start Screen Saver (Manual)"
+audit="2.3.3 Audit Lock Screen and Start Screen Saver Tools (Manual)"
 orgScore="OrgScore2_3_3"
 emptyVariables
 # Verify organizational score

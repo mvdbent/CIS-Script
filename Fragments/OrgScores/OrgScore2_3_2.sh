@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="2"
-audit="2.3.2 Secure screen saver corners (Automated)"
+audit="2.3.2 Ensure Screen Saver Corners Are Secure (Automated)"
 orgScore="OrgScore2_3_2"
 emptyVariables
 # Verify organizational score
@@ -30,21 +30,11 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefIsManaged3=$(getPrefIsManagedrunAsUser "${appidentifier}" "${value3}")
 	prefIsManaged4=$(getPrefIsManagedrunAsUser "${appidentifier}" "${value4}")
 	comment="Secure screen saver corners: enabled"
-	if [[ "${prefIsManaged}" == "true" ]] || [[ "${prefIsManaged2}" == "true" ]] || [[ "${prefIsManaged3}" == "true" ]] || [[ "${prefIsManaged4}" == "true" ]]; then
+	if [[ "${prefIsManaged}" != "6" ]] || [[ "${prefIsManaged2}" != "6" ]] || [[ "${prefIsManaged3}" != "6" ]] || [[ "${prefIsManaged4}" != "6" ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValueAsUser}" == "5" ]] || [[ "${prefValue2AsUser}" == "5" ]] || [[ "${prefValue3AsUser}" == "5" ]] || [[ "${prefValue4AsUser}" == "5" ]]; then
-			result="Passed"
-		elif
-			[[ "${prefValueAsUser}" == "10" ]] || [[ "${prefValue2AsUser}" == "10" ]] || [[ "${prefValue3AsUser}" == "10" ]] || [[ "${prefValue4AsUser}" == "10" ]]; then
-				result="Passed"
-			elif
-				[[ "${prefValueAsUser}" == "13" ]] || [[ "${prefValue2AsUser}" == "13" ]] || [[ "${prefValue3AsUser}" == "13" ]] || [[ "${prefValue4AsUser}" == "13" ]]; then
-					result="Passed"
-				else
-					result="Failed"
-					comment="Secure screen saver corners: Disabled"
-				fi
+		result="Failed"
+		comment="Secure screen saver corners: Disabled"
 	fi
 fi
 value="${value}, ${value2}, ${value3}, ${value4}"

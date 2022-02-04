@@ -5,8 +5,8 @@ projectfolder=$(dirname $script_dir)
 
 source ${projectfolder}/Header.sh
 
-CISLevel="1"
-audit="5.5 Use a separate timestamp for each user/tty combo (Automated)"
+CISLevel="2"
+audit="5.5 Ensure login keychain is locked when the computer sleeps (Manual)"
 orgScore="OrgScore5_5"
 emptyVariables
 # Verify organizational score
@@ -14,23 +14,23 @@ runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
-	remediate="Script > sudo sed -i '.old' '/Default !tty_tickets/d' /etc/sudoers && sudo chmod 644 /etc/sudoers && sudo chown root:wheel /etc/sudoers"
+	remediate="Script > sudo -u <username> security set-keychain-settings -t 21600 /Users/<username>/Library/Keychains/login.keychain"
 
-	ttyTimestamp="$(grep -c tty_tickets /etc/sudoers)"
-	if [[ "${ttyTimestamp}" == "1" ]]; then
+	keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "no-timeout")"
+	if [[ "${keyTimeout}" == 0 ]]; then
 		result="Passed"
-		comment="Separate timestamp for each user/tty combo: Enabled"
+		comment="Automatically lock the login keychain for inactivity: Enabled"
 	else 
 		result="Failed"
-		comment="Separate timestamp for each user/tty combo: Disabled"
+		comment="Automatically lock the login keychain for inactivity: Disabled"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-			echo "Defaults tty_tickets" >> /etc/sudoers
+			security set-keychain-settings -l -u -t 21600s /Users/"${currentUser}"/Library/Keychains/login.keychain
 			# re-check
-			ttyTimestamp="$(grep -c tty_tickets /etc/sudoers)"
-			if [[ "${ttyTimestamp}" == "1" ]]; then
+			keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "no-timeout")"
+			if [[ "${keyTimeout}" == 0 ]]; then
 				result="Passed After Remediation"
-				comment="Separate timestamp for each user/tty combo: Enabled"
+				comment="Automatically lock the login keychain for inactivity: Enabled"
 			else
 				result="Failed After Remediation"
 			fi

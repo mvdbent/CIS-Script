@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit='2.2.1 "Enable Set time and date automatically" (Automated)'
+audit='2.2.1 Ensure "Set time and date automatically" Is Enabled (Automated)'
 orgScore="OrgScore2_2_1"
 emptyVariables
 # Verify organizational score

@@ -6,35 +6,23 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="2"
-audit="2.5.4 Enable Location Services (Automated)"
+audit="2.5.4 Audit Location Services Access (Manual)"
 orgScore="OrgScore2_5_4"
 emptyVariables
 # Verify organizational score
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
-	method="Script"
-	remediate="Script > sudo /usr/bin/defaults write /var/db/locationd/Library/Preferences/ByHost/com.apple.locationd LocationServicesEnabled -bool true && sudo /bin/launchctl kickstart -k system/com.apple.locationd"
+	method="Manual"
+	remediate="Manual - Disable unnecessary applications from accessing location services"
 	
-	locationServices=$(defaults read /var/db/locationd/Library/Preferences/ByHost/com.apple.locationd.plist LocationServicesEnabled 2>&1)
+	locationServices=$(defaults read /var/db/locationd/clients.plist 2>&1 | grep -c "Authorized")
 	if [[ "${locationServices}" != "0" ]]; then
-		result="Passed"
-		comment="Location Services: Enabled"
+		result="Notice"
+		comment="${locationServices} applications can accessing location services"
 	else 
-		result="Failed"
-		comment="Location Services: Disabled"
-		# Remediation
-		if [[ "${remediateResult}" == "enabled" ]]; then
-			sudo /usr/bin/defaults write /var/db/locationd/Library/Preferences/ByHost/com.apple.locationd LocationServicesEnabled -bool true && sudo /bin/launchctl kickstart -k system/com.apple.locationd
-			# re-check
-			locationServices=$(defaults read /var/db/locationd/Library/Preferences/ByHost/com.apple.locationd.plist LocationServicesEnabled 2>&1)
-			if [[ "${locationServices}" != "0" ]]; then
-				result="Passed After Remediation"
-				comment="Location Services: Enabled"
-			else 
-				result="Failed After Remediation"
-			fi
-		fi
+		result="Passed"
+		comment="No Location Services Access"
 	fi
 fi
 printReport

@@ -16,12 +16,12 @@ if [[ "${auditResult}" == "1" ]]; then
 	method="Manual"
 	remediate="Manual - Ensure all user CoreStorage volumes encrypted"
 
-	apfsyes=$(diskutil ap list)
-	if [[ "$apfsyes" == "No APFS Containers found" ]]; then
+	coreStorage=$(diskutil cs list)
+	if [[ "$coreStorage" != "No CoreStorage logical volume groups found" ]]; then
 		# get Logical Volume Family
-		LFV=$(diskutil cs list | grep "Logical Volume Family" | awk '/Logical Volume Family/ {print $5}')
+		lvf=$(diskutil cs list | grep "Logical Volume Family" | awk '/Logical Volume Family/ {print $5}')
 		# Check encryption status is complete
-		EncryptStatus=$(diskutil cs "$LFV" | awk '/Conversion Status/ {print $3}')
+		EncryptStatus=$(diskutil cs "$lfv" | awk '/Conversion Status/ {print $3}')
 		if [[ "$EncryptStatus" != "Complete" ]]; then
 			result="Failed"
 			comment="Ensure all user CoreStorage volumes encrypted"
@@ -31,7 +31,7 @@ if [[ "${auditResult}" == "1" ]]; then
 		fi
 	else 
 		result="Not applicable"
-		comment="Volumes: APFS"
+		comment="No CoreStorage logical volume groups found"
 	fi
 fi
 printReport

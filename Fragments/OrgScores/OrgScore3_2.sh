@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="2"
-audit="3.2 Configure Security Auditing Flags per local organizational requirements (Manual)"
+audit="3.2 Ensure Security Auditing Flags Are Configured Per Local Organizational Requirements (Automated)"
 orgScore="OrgScore3_2"
 emptyVariables
 # Verify organizational score

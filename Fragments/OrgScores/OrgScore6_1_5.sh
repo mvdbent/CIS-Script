@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="6.1.5 Remove Guest home folder (Automated)"
+audit="6.1.5 Ensure the Guest Home Folder Does Not Exist (Automated)"
 orgScore="OrgScore6_1_5"
 emptyVariables
 # Verify organizational score

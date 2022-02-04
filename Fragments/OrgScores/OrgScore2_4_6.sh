@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.4.6 Disable DVD or CD Sharing (Automated)"
+audit="2.4.6 Ensure DVD or CD Sharing Is Disabled (Automated)"
 orgScore="OrgScore2_4_6"
 emptyVariables
 # Verify organizational score

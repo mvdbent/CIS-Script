@@ -5,8 +5,8 @@ projectfolder=$(dirname $script_dir)
 
 source ${projectfolder}/Header.sh
 
-CISLevel="2"
-audit="5.6 Ensure login keychain is locked when the computer sleeps (Manual)"
+CISLevel="1"
+audit='5.6 Ensure the "root" Account Is Disabled (Automated)'
 orgScore="OrgScore5_6"
 emptyVariables
 # Verify organizational score
@@ -14,23 +14,25 @@ runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
-	remediate="Script > sudo -u <username> security set-keychain-settings -l /Users/<username>/Library/Keychains/login.keychain"
+	remediate="Script > sudo dscl . -create /Users/root UserShell /usr/bin/false"
 
-	lockSleep="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "lock-on-sleep")"
-	if [[ "${lockSleep}" == "1" ]]; then
+	rootEnabled="$(dscl . -read /Users/root AuthenticationAuthority 2>&1 | grep -c "No such key")"
+	rootEnabledRemediate="$(dscl . -read /Users/root UserShell 2>&1 | grep -c "/usr/bin/false")"
+	if [[ "${rootEnabled}" == "1" || "${rootEnabledRemediate}" == "1" ]]; then
 		result="Passed"
-		comment="Login keychain is locked when the computer sleeps: Enabled"
+		comment="root user account: Disabled"
 	else 
 		result="Failed"
-		comment="Login keychain is locked when the computer sleeps: Disabled"
+		comment="root user account: Enabled"
 		# Remediation
 		if [[ "${remediateResult}" == "enabled" ]]; then
-			security set-keychain-settings -l /Users/"$currentUser"/Library/Keychains/login.keychain
+			dscl . -create /Users/root UserShell /usr/bin/false
 			# re-check
-			keyTimeout="$(security show-keychain-info /Users/"${currentUser}"/Library/Keychains/login.keychain 2>&1 | grep -c "lock-on-sleep")"
-			if [[ "${keyTimeout}" == "1" ]]; then
+			rootEnabled="$(dscl . -read /Users/root AuthenticationAuthority 2>&1 | grep -c "No such key")"
+			rootEnabledRemediate="$(dscl . -read /Users/root UserShell 2>&1 | grep -c "/usr/bin/false")"
+			if [[ "${rootEnabled}" == "1" || "${rootEnabledRemediate}" == "1" ]]; then
 				result="Passed After Remediation"
-				comment="Login keychain is locked when the computer sleeps: Enabled"
+				comment="root user account: Disabled"
 			else
 				result="Failed After Remediation"
 			fi

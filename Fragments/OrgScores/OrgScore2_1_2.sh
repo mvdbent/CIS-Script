@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.1.2 Show Bluetooth status in menu bar (Automated)"
+audit="2.1.2 Ensure Show Bluetooth Status in Menu Bar Is Enabled (Automated)"
 orgScore="OrgScore2_1_2"
 emptyVariables
 # Verify organizational score

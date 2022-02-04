@@ -6,29 +6,29 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="2"
-audit="2.6.2 iCloud keychain (Manual)"
-orgScore="OrgScore2_6_2"
+audit="2.6.1.4 Ensure iCloud Drive Document and Desktop Sync is Disabled (Automated)"
+orgScore="OrgScore2_6_1_4"
 emptyVariables
 # Verify organizational score
 runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Profile"
-	remediate="Configuration profile - payload > com.apple.applicationaccess) allowCloudKeychainSync=false"
+	remediate="Configuration profile - payload > com.apple.applicationaccess > allowCloudDesktopAndDocuments=false"
 
 	appidentifier="com.apple.applicationaccess"
-	value="allowCloudKeychainSync"
+	value="allowCloudDesktopAndDocuments"
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
-	comment="iCloud keychain: Disabled"
+	comment="iCloud Drive Document and Desktop sync: Disabled"
 	if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "false" ]]; then
 		result="Passed"
 	else
 		if [[ "${prefValue}" == "false" ]]; then
 			result="Passed"
-			else
+		else
 			result="Failed"
-			comment="iCloud keychain: Enabled"
+			comment="iCloud Drive Document and Desktop sync: Enabled"
 		fi
 	fi
 fi

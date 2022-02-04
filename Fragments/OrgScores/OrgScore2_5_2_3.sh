@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.5.2.3 Enable Firewall Stealth Mode (Automated)"
+audit="2.5.2.3 Ensure Firewall Stealth Mode Is Enabled (Automated)"
 orgScore="OrgScore2_5_2_3"
 emptyVariables
 # Verify organizational score

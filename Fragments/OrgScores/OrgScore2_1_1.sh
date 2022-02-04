@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.1.1 Turn off Bluetooth, if no paired devices exist (Automated)"
+audit="2.1.1 Ensure Bluetooth Is Disabled If No Devices Are Paired (Automated)"
 orgScore="OrgScore2_1_1"
 emptyVariables
 # Verify organizational score

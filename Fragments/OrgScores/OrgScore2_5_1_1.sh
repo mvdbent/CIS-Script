@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="2.5.1.1 Enable FileVault (Automated)"
+audit="2.5.1.1 Ensure FileVault Is Enabled (Automated)"
 orgScore="OrgScore2_5_1_1"
 emptyVariables
 # Verify organizational score
