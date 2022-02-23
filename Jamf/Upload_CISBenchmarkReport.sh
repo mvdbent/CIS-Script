@@ -15,7 +15,7 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 #        Insert base64-encoded credentials within Parameter 4 in Jamf Pro
 #
 #        Created base64-encoded credentials:
-#        printf "username:password" | /usr/bin/iconv -t ISO-8859-1 | /usr/bin/base64 -i -
+#        printf "username:password" | iconv -t ISO-8859-1 | base64 -i -
 # 
 ####################################################################################################
 ####################################################################################################
@@ -76,17 +76,6 @@ function jamfapi_gettoken {
     api_expiration=$(json_get $json "expires")
 }
 
-function jamfapi_invalidatetoken {
-    if ! curl $curloptions \
-            --request POST \
-            --header "Authorization: Bearer $api_token" \
-            $url/api/v1/auth/invalidate-token
-    then
-        echo "could not invalidate api token"
-        exit 4
-    fi
-
-}
 
 # function that encapsulates Jamf API calls
 function jamfapi_request {
@@ -128,6 +117,15 @@ function jamfapi_post {
 
 function jamfapi_put {
 	jamfapi_request PUT $@
+}
+
+function jamfapi_invalidatetoken {
+    if ! jamfapi_post "v1/auth/invalidate-token"
+    then
+        echo "could not invalidate api token"
+        exit 4
+    fi
+
 }
 
 function json_list_attachments {
