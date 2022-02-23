@@ -92,13 +92,13 @@ function jamfapi_invalidatetoken {
 function jamfapi_request {
     # $1: request: GET, PUT, POST, or DELETE
     # $2: path, e.g. `computers/id/1`
+    # remaining arguments will be passed through to `curl`
     local request=${1:?"function jamfapi_request requires $1 (GET, PUT, POST, or DELETE)"}
     local api_path=${2:?"function jamfapi_request requires $2 (endpoint)"}
     local app_type="json"
-    
+
     # capture remaining arguments
-    shift 3
-    local remaining_args=$@
+    local remaining_args=( ${@[3,-1]} )
     
     # get token, when necessary
     if [[ -z $api_token ]]; then
@@ -110,19 +110,24 @@ function jamfapi_request {
          --request $request \
          --header "accept: application/$app_type" \
          "$url/api/$api_path" \
-         $@
+         $remaining_args
 }
 
+# convenience functions for each request type
 function jamfapi_get {
-    jamfapi_request GET $1 $@
+    jamfapi_request GET $@
 }
 
 function jamfapi_delete {
-    jamfapi_request DELETE $1 $@
+    jamfapi_request DELETE $@
 }
 
 function jamfapi_post {
-    jamfapi_request POST $1 $@
+    jamfapi_request POST $@
+}
+
+function jamfapi_put {
+	jamfapi_request PUT $@
 }
 
 function json_list_attachments {
