@@ -21,7 +21,7 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 ####################################################################################################
 
 # Check to see if a value was passed in parameter 4 and, if so, assign to `basic_auth`
-if [[ basic_auth == "" ]]; then
+if [[ $basic_auth == "" ]]; then
     if [[ $4 != "" ]]; then
         basic_auth=$4
     else
@@ -97,7 +97,7 @@ function jamfapi_request {
     local app_type="json"
     
     # capture remaining arguments
-    shift 2
+    shift 3
     local remaining_args=$@
     
     # get token, when necessary
@@ -114,15 +114,15 @@ function jamfapi_request {
 }
 
 function jamfapi_get {
-    jamfapi_request GET $1
+    jamfapi_request GET $1 $@
 }
 
 function jamfapi_delete {
-    jamfapi_request DELETE $1
+    jamfapi_request DELETE $1 $@
 }
 
 function jamfapi_post {
-    jamfapi_request POST $1
+    jamfapi_request POST $1 $@
 }
 
 function json_list_attachments {
