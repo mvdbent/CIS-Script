@@ -90,11 +90,17 @@ function jamfapi_invalidatetoken {
 
 # function that encapsulates Jamf API calls
 function jamfapi_request {
-    # $1: path, e.g. `computers/id/1`
-    # $2: request: GET, PUT, POST, or DELETE
-    local api_path=${1:?"function jamfapi_get requires $1 (path)"}
+    # $1: request: GET, PUT, POST, or DELETE
+    # $2: path, e.g. `computers/id/1`
+    local request=${1:?"function jamfapi_request requires $1 (GET, PUT, POST, or DELETE)"}
+    local api_path=${2:?"function jamfapi_request requires $2 (endpoint)"}
     local app_type="json"
-    local request=${2:-GET}
+    
+    # capture remaining arguments
+    shift 2
+    local remaining_args=$@
+    
+    # get token, when necessary
     if [[ -z $api_token ]]; then
         jamfapi_gettoken
     fi
@@ -103,15 +109,20 @@ function jamfapi_request {
          --header "Authorization: Bearer $api_token" \
          --request $request \
          --header "accept: application/$app_type" \
-         "$url/api/$api_path"
+         "$url/api/$api_path" \
+         $@
 }
 
 function jamfapi_get {
-    jamfapi_request $1 GET
+    jamfapi_request GET $1
 }
 
 function jamfapi_delete {
-    jamfapi_request $1 DELETE
+    jamfapi_request DELETE $1
+}
+
+function jamfapi_post {
+    jamfapi_request POST $1
 }
 
 function json_list_attachments {
@@ -181,11 +192,8 @@ if [[ ! -r "$FILE" ]]; then
     exit 1
 fi 
 
-if ! attachment_json=$(curl ${curloptions} \
-                            --request POST \
-                            "${url}api/v1/computers-inventory/${computer_id}/attachments" \
-                            --header "Authorization: Bearer $api_token" \
-                            --form "file=@${FILE};type=text/csv")
+if ! attachment_json=$(jamfapi_post "v1/computers-inventory/${computer_id}/attachments" \
+                                    --form "file=@${FILE};type=text/csv")
 then
     echo "could not upload attachment"
     exit 5
