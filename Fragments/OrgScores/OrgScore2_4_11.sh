@@ -22,10 +22,10 @@ if [[ "${auditResult}" == "1" ]]; then
 		prefValue=$(getPrefValue "${appidentifier}" "${value}")
 		prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 		comment="AirDrop: Disabled"
-			if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "false" ]]; then
+			if [[ "${prefIsManaged}" == "true" && "${prefValue}" == "true" ]]; then
 			result="Passed"
 		else
-			if [[ "${prefValue}" == "false" ]]; then
+			if [[ "${prefValue}" == "true" ]]; then
 				result="Passed"
 			else
 				result="Failed"
