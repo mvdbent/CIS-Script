@@ -382,15 +382,15 @@
             "description": "This boolean is true or false.",
             "default": "false"
         },
-        "OrgScore5_1_3": {
+        "OrgScore5_1_7": {
             "type": "boolean",
-            "title": "5.1.3 Check System folder for world writable files (Automated)",
+            "title": "5.1.7 Check System folder for world writable files (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
-        "OrgScore5_1_4": {
+        "OrgScore5_1_8": {
             "type": "boolean",
-            "title": "5.1.4 Check Library folder for world writable files (Automated)",
+            "title": "5.1.8 Check Library folder for world writable files (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
