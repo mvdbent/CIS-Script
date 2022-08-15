@@ -480,67 +480,67 @@
         },
         "OrgScore5_4": {
             "type": "boolean",
-            "title": "5.4 Automatically lock the login keychain for inactivity (Manual)",
+            "title": "5.4 Use a separate timestamp for each user/tty combo (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
         "OrgScore5_5": {
             "type": "boolean",
-            "title": "5.5 Use a separate timestamp for each user/tty combo (Automated)",
+            "title": "5.5 Ensure login keychain is locked when the computer sleeps (Manual)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
         "OrgScore5_6": {
             "type": "boolean",
-            "title": "5.6 Ensure login keychain is locked when the computer sleeps (Manual)",
+            "title": "5.6 Do not enable the “root” account (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
         "OrgScore5_7": {
             "type": "boolean",
-            "title": "5.7 Do not enable the “root” account (Automated)",
+            "title": "5.7 Disable automatic login (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
         "OrgScore5_8": {
             "type": "boolean",
-            "title": "5.8 Disable automatic login (Automated)",
+            "title": "5.8 Require a password to wake the computer from sleep or screen saver (Manual)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
         "OrgScore5_9": {
             "type": "boolean",
-            "title": "5.9 Require a password to wake the computer from sleep or screen saver (Manual)",
+            "title": "5.9 Ensure system is set to hibernate (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
         "OrgScore5_10": {
             "type": "boolean",
-            "title": "5.10 Ensure system is set to hibernate (Automated)",
+            "title": "5.10 Require an administrator password to access system-wide preferences (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
         "OrgScore5_11": {
             "type": "boolean",
-            "title": "5.11 Require an administrator password to access system-wide preferences (Automated)",
+            "title": "5.11 Ensure an administrator account cannot login to another user’s active and locked session (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
         "OrgScore5_12": {
             "type": "boolean",
-            "title": "5.12 Ensure an administrator account cannot login to another user’s active and locked session (Automated)",
+            "title": "5.12 Create a custom message for the Login Screen (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
         "OrgScore5_13": {
             "type": "boolean",
-            "title": "5.13 Create a custom message for the Login Screen (Automated)",
+            "title": "5.13 Create a Login window banner (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
         "OrgScore5_14": {
             "type": "boolean",
-            "title": "5.14 Create a Login window banner (Automated)",
+            "title": "5.14 Ensure User Accounts Do Not Have Password Hints (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
