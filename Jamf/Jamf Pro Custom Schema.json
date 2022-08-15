@@ -384,7 +384,31 @@
         },
         "OrgScore5_1_2": {
             "type": "boolean",
-            "title": "5.1.2 Check System Wide Applications for appropriate permissions (Automated)",
+            "title": "5.1.2 System Integrity Protection status (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_1_3": {
+            "type": "boolean",
+            "title": "5.1.3 Check if Apple Mobile File Integrity is Enabled (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_1_4": {
+            "type": "boolean",
+            "title": "5.1.4 Check if Library Validation is Enabled (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_1_5": {
+            "type": "boolean",
+            "title": "5.1.5 Check if Sealed System Volume (SSV) is enabled (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_1_6": {
+            "type": "boolean",
+            "title": "5.1.6 Check System Wide Applications for appropriate permissions (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
@@ -397,6 +421,54 @@
         "OrgScore5_1_8": {
             "type": "boolean",
             "title": "5.1.8 Check Library folder for world writable files (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_2_1": {
+            "type": "boolean",
+            "title": "5.2.1 Configure Password Account Lockout (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_2_2": {
+            "type": "boolean",
+            "title": "5.2.2 Configure Minimum Password Length (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_2_3": {
+            "type": "boolean",
+            "title": "5.2.3 Require Complex Password with Alphabetic Characters (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_2_4": {
+            "type": "boolean",
+            "title": "5.2.4 Require Complex Password with Numeric Characters (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_2_5": {
+            "type": "boolean",
+            "title": "5.2.5 Require Complex Password with Special Characters (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_2_6": {
+            "type": "boolean",
+            "title": "5.2.6 Require Complex Password with Uppercase and Lowercase Characters (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_2_7": {
+            "type": "boolean",
+            "title": "5.2.7 Configure Password Age (Automated)",
+            "description": "This boolean is true or false.",
+            "default": "false"
+        },
+        "OrgScore5_2_8": {
+            "type": "boolean",
+            "title": "5.2.8 Configure Password History (Automated)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
@@ -472,15 +544,9 @@
             "description": "This boolean is true or false.",
             "default": "false"
         },
-        "OrgScore5_16": {
+        "OrgScore5_15": {
             "type": "boolean",
-            "title": "5.16 Disable Fast User Switching (Manual)",
-            "description": "This boolean is true or false.",
-            "default": "false"
-        },
-        "OrgScore5_18": {
-            "type": "boolean",
-            "title": "5.18 System Integrity Protection status (Automated)",
+            "title": "5.15 Disable Fast User Switching (Manual)",
             "description": "This boolean is true or false.",
             "default": "false"
         },
