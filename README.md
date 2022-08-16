@@ -83,3 +83,16 @@ Setup the needed Configuration Profiles for the CIS Benchmarks rules you scoring
 
 ### Extension Attributes [Jamf Pro Server](https://github.com/mvdbent/CIS-Script/tree/main/Jamf/EA)
 Upload the Extension Attributes into your Jamf Pro Server.
+
+### Upload_CISBenchmarkReport.sh Script
+It is possible to upload the report to Jamf so that you can read it without requiring access to the computer. To do so, perform the following steps:
+* Create an account used for the script
+* Grant the account the following privileges:
+** Jamf Pro Server Objects > Computers: Create, Read, Update
+** Jamf Pro Server Objects > File Attachments: Create, Update, Delete
+* Upload the script /Git/CIS-Script/Jamf/Upload_CISBenchmarkReport.sh as a script in Jamf
+* Add this as a script to your existing CIS policy and use the priority "After" so that it runs second
+* Ensure you add the credentials in Variable 4 using this to create the encoded value:
+```bash
+$ printf "username:password" | iconv -t ISO-8859-1 | base64 -i -
+```
