@@ -84,6 +84,8 @@ If you want you can create a JSON file for Jamf Pro by running the script with t
 $ ./Assemble.sh -j
 ```
 
+You can find the build in ./Build/ directory
+
 ### Upload CIS Benchmark Settings Configuration Profile 
 Configure a Configuration Profile, see example, and if you are using Jamf Pro, you can use the **[Jamf Pro Custom Schema.json](https://github.com/mvdbent/CIS-Script/blob/main/Jamf/Jamf%20Pro%20Custom%20Schema.json)** to configure the reporting, remediation and scoring. Scope the CIS Benchmark Settings Profile to the target devices.
 
