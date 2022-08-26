@@ -254,7 +254,7 @@ osVersion=$(sw_vers -productVersion)
 buildVersion=$(sw_vers -buildVersion)
 if [[ "$osVersion" != "10.15."* ]] && [[ "$osVersion" != "11."* ]] && [[ "$osVersion" != "12."* ]]; then
 		echo ""
-		echo "*** This script support macOS Catalina, Big Sur and Monterey only"
+		echo "*** This script support macOS Catalina, Big Sur, Monterey and Ventura only"
 		echo
 		echo "*** Quitting..."
 		echo ""
@@ -270,6 +270,10 @@ if [[ "$osVersion" != "10.15."* ]] && [[ "$osVersion" != "11."* ]] && [[ "$osVer
 			echo "*** Current version - macOS Monterey ${osVersion} (${buildVersion})"
 			echo "" 1>&2
 		fi
+		elif [[ "$osVersion" = "13."* ]]; then
+			echo "*** Current version - macOS Ventura ${osVersion} (${buildVersion})"
+			echo "" 1>&2
+		fi		
 	fi
 
 # Check for admin/root permissions
