@@ -16,7 +16,7 @@ if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate="Script > sudo rm -rf /Users/Guest"
 
-	guestHomeFolder="$(ls /Users/ 2>&1 | grep -c Guest)"
+	guestHomeFolder="$(ls /Users/ 2>&1 | grep -cx Guest)"
 	if [[ "${guestHomeFolder}" == "0" ]]; then
 		result="Passed"
 		comment="Guest home folder: Not Available"
@@ -27,7 +27,7 @@ if [[ "${auditResult}" == "1" ]]; then
 		if [[ "${remediateResult}" == "enabled" ]]; then
 			rm -rf /Users/Guest
 			# re-check
-			guestHomeFolder="$(ls /Users/ 2>&1 | grep -c Guest)"
+			guestHomeFolder="$(ls /Users/ 2>&1 | grep -cx Guest)"
 			if [[ "${guestHomeFolder}" == "0" ]]; then
 				result="Passed After Remediation"
 				comment="Guest home folder: Not Available"
