@@ -4,6 +4,7 @@
 _**Current state of the scripts are:** "This project is 'As is" please be free to give me any feedback_
 
 ![GitHub](https://img.shields.io/badge/macOS-11-success)
+![GitHub](https://img.shields.io/badge/macOS-12-success)
 ![GitHub](https://img.shields.io/github/license/mvdbent/CIS-Script)
 <!-- ![GitHub](https://img.shields.io/github/v/release/mvdbent/CIS-Script) -->
 <!-- ![GitHub](https://img.shields.io/github/downloads/mvdbent/CIS-Script/latest/total) -->
@@ -74,6 +75,14 @@ Upload this into your MDM Server. With Jamf Pro you can create a policy:
 - add the Script
 - Include inventory update (to report result within Extension Attributes). 
 - Scope to the target devices
+
+### Assemble Jamf Pro Custom Schema JSON file
+
+If you want you can create a JSON file for Jamf Pro by running the script with the argument
+
+```bash
+$ ./Assemble.sh -j
+```
 
 ### Upload CIS Benchmark Settings Configuration Profile 
 Configure a Configuration Profile, see example, and if you are using Jamf Pro, you can use the **[Jamf Pro Custom Schema.json](https://github.com/mvdbent/CIS-Script/blob/main/Jamf/Jamf%20Pro%20Custom%20Schema.json)** to configure the reporting, remediation and scoring. Scope the CIS Benchmark Settings Profile to the target devices.
