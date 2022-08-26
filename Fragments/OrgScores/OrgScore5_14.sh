@@ -6,7 +6,7 @@ projectfolder=$(dirname $script_dir)
 source ${projectfolder}/Header.sh
 
 CISLevel="1"
-audit="5.14 Ensure Users' Accounts Do Not Have a Password Hint (Automated)"
+audit="5.14 Ensure Users Accounts Do Not Have a Password Hint (Automated)"
 orgScore="OrgScore5_14"
 emptyVariables
 # Verify organizational score
