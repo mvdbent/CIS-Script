@@ -1,7 +1,8 @@
 #!/bin/zsh
+# shellcheck shell=bash
 
-script_dir=$(dirname ${0:A})
-projectfolder=$(dirname $script_dir)
+script_dir=$(dirname "${0:A}")
+projectfolder=$(dirname "$script_dir")
 
 help () {
     echo
@@ -26,83 +27,85 @@ help () {
 
 buildScript () {
     # destination
-    endPath=${projectfolder}/Build
-    mkdir -p ${endPath}
-    endResult=${endPath}/CISBenchmarkScript.sh
+    endPath="${projectfolder}/Build"
+    mkdir -p "${endPath}"
+    endResult="${endPath}/CISBenchmarkScript.sh"
 
     # add shebang
-    echo "#!/bin/zsh" > ${endResult}
-    echo >> ${endResult}
+    echo "#!/bin/zsh" > "${endResult}"
+    # add shellcheck bypass for zsh
+    echo "# shellcheck shell=bash" >> "${endResult}"
+    echo >> "${endResult}"
 
     # add version and date
-    version=$(cat "${projectfolder}/Fragments/Version.sh")
+    version=$(cat "${projectfolder}/Fragments/Version.txt")
     versiondate=$(date +%F) 
-    echo "VERSION=\"$version\"" >> ${endResult}
-    echo "VERSIONDATE=\"$versiondate\"" >> ${endResult}
-    echo >> ${endResult}
+    echo "VERSION=\"$version\"" >> "${endResult}"
+    echo "VERSIONDATE=\"$versiondate\"" >> "${endResult}"
+    echo >> "${endResult}"
 
     # add header
-    cat ${projectfolder}/Fragments/Header.sh >> ${endResult}
+    tail -n +4 "${projectfolder}/Fragments/Header.sh" >> "${endResult}"
 
     # sort the filenames numerically
     setopt NUMERIC_GLOB_SORT
 
     # loop over fragments
-    for filePath in ${projectfolder}/Fragments/OrgScores/OrgScore*.sh; do
+    for filePath in "${projectfolder}/Fragments/OrgScores/"OrgScore*.sh; do
 
         # fragment name
-        fileName=$(basename ${filePath})
+        fileName=$(basename "${filePath}")
         echo "Add ${fileName} to script"
 
         # add script
-        tail -n +7 ${filePath} >> ${endResult}
-        echo >> ${endResult}
+        tail -n +8 "${filePath}" >> "${endResult}"
+        echo >> "${endResult}"
 
     done
 
     # add footer
-    cat ${projectfolder}/Fragments/Footer.sh >> ${endResult}
+    tail -n +4 "${projectfolder}/Fragments/Footer.sh" >> "${endResult}"
 
     # make script executable
-    chmod +x ${endResult}
+    chmod +x "${endResult}"
 }
 
 # build seperate Scripts
 buildSeperateScript () {
     # loop over fragments
-    for filePath in ${projectfolder}/Fragments/OrgScores/OrgScore*.sh; do
+    for filePath in "${projectfolder}/Fragments/OrgScores/"OrgScore*.sh; do
 
         # fragment name
-        fileName=$(basename ${filePath})
+        fileName=$(basename "${filePath}")
 
         # destination
-        endPath=${projectfolder}/Build/Scripts
-        mkdir -p ${endPath}
+        endPath="${projectfolder}/Build/Scripts"
+        mkdir -p "${endPath}"
         endResult="${endPath}/${fileName}"
 
         # add shebang
-        echo "#!/bin/zsh" > ${endResult}
-        echo >> ${endResult}
+        echo "#!/bin/zsh" > "${endResult}"
+        echo >> "${endResult}"
 
         # add version and date
-        version=$(cat "${projectfolder}/Fragments/Version.sh")
+        version=$(cat "${projectfolder}/Fragments/Version.txt")
         versiondate=$(date +%F)
-        echo "VERSION=\"$version\"" >> ${endResult}
-        echo "VERSIONDATE=\"$versiondate\"" >> ${endResult}
-        echo >> ${endResult}
+        echo "VERSION=\"$version\"" >> "${endResult}"
+        echo "VERSIONDATE=\"$versiondate\"" >> "${endResult}"
+        echo >> "${endResult}"
 
         # add header
-        cat ${projectfolder}/Fragments/Header.sh >> ${endResult}
+        tail --lines=+4 "${projectfolder}/Fragments/Header.sh" >> "${endResult}"
         
         # add script
-        tail -n +7 ${filePath} >> ${endResult}
-        echo >> ${endResult}
+        tail -n +8 "${filePath}" >> "${endResult}"
+        echo >> "${endResult}"
 
         # add footer
-        cat ${projectfolder}/Fragments/Footer.sh >> ${endResult}
+        tail -n +4 "${projectfolder}/Fragments/Footer.sh" >> "${endResult}"
         
         # make script executable
-        chmod +x ${endResult}
+        chmod +x "${endResult}"
 
         echo "${fileName} created"
     done
@@ -111,23 +114,23 @@ buildSeperateScript () {
 # build Jamf Pro Custom Schema.json file
 createJamfJSON () {
     # destination
-    endResultJSON=${projectfolder}/Build/"Jamf Pro Custom Schema.json"
+    endResultJSON="${projectfolder}/Build/Jamf Pro Custom Schema.json"
 
     # add header
-        cat ${projectfolder}/Fragments/Header.json > ${endResultJSON}
+        cat "${projectfolder}/Fragments/Header.json" > "${endResultJSON}"
 
     # loop over fragments
-    for filePath in ${projectfolder}/Fragments/OrgScores/OrgScore*.sh; do
+    for filePath in "${projectfolder}/Fragments/OrgScores/"OrgScore*.sh; do
 
         # fragment name
         # fileName=$(basename ${filePath})
 
         # variables
-        orgScore=$(awk -F '"' '/^orgScore=/ {print $2}' ${filePath})
-        audit=$(awk -F '"' '/^audit=/ {print $2}' ${filePath})
+        orgScore=$(awk -F '"' '/^orgScore=/ {print $2}' "${filePath}")
+        audit=$(awk -F '"' '/^audit=/ {print $2}' "${filePath}")
 
         # add orgScores
-        cat >> ${endResultJSON} << EOF
+        cat >> "${endResultJSON}" << EOF
         "${orgScore}": {
             "type": "boolean",
             "title": "${audit}",
@@ -138,12 +141,12 @@ EOF
     done
 
     # remove the last line to close the list
-    sed -i '' -e '$ d' ${endResultJSON}
+    sed -i '' -e '$ d' "${endResultJSON}"
     
     # add closer
-    echo "        }" >> ${endResultJSON}
-    echo "    }" >> ${endResultJSON}
-    echo "}" >> ${endResultJSON}
+    echo "        }" >> "${endResultJSON}"
+    echo "    }" >> "${endResultJSON}"
+    echo "}" >> "${endResultJSON}"
 
     echo "Jamf Pro Custom Schema.json created"
 }

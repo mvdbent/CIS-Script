@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<computer_extension_attribute>
+    <name>CIS-Script Scored</name>
+    <description/>
+    <data_type>String</data_type>
+    <input_type>
+        <type>script</type>
+        <platform>Mac</platform>
+        <script>#!/bin/zsh
+
+# CIS-Script Scored
+
+auditfile=/Library/Security/Reports/CISBenchmarkReport.csv
+echo "&lt;result&gt;$(grep -c "Scored" "$auditfile")&lt;/result&gt;"</script>
+    </input_type>
+    <inventory_display>Extension Attributes</inventory_display>
+    <recon_display>Extension Attributes</recon_display>
+</computer_extension_attribute>

@@ -1,9 +1,10 @@
 #!/bin/zsh
+# shellcheck shell=bash
 
 script_dir=$(dirname ${0:A})
 projectfolder=$(dirname $script_dir)
 
-source ${projectfolder}/Header.sh
+source "${projectfolder}/Header.sh"
 
 CISLevel="2"
 audit="3.2 Ensure Security Auditing Flags Are Configured Per Local Organizational Requirements (Automated)"

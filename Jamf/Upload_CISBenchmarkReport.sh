@@ -1,4 +1,5 @@
 #!/bin/zsh
+# shellcheck shell=bash
 
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
@@ -104,19 +105,19 @@ function jamfapi_request {
 
 # convenience functions for each request type
 function jamfapi_get {
-    jamfapi_request GET $@
+    jamfapi_request GET "$@"
 }
 
 function jamfapi_delete {
-    jamfapi_request DELETE $@
+    jamfapi_request DELETE "$@"
 }
 
 function jamfapi_post {
-    jamfapi_request POST $@
+    jamfapi_request POST "$@"
 }
 
 function jamfapi_put {
-	jamfapi_request PUT $@
+	jamfapi_request PUT "$@"
 }
 
 function jamfapi_invalidatetoken {

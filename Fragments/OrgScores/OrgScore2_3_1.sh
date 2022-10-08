@@ -1,9 +1,10 @@
 #!/bin/zsh
+# shellcheck shell=bash
 
 script_dir=$(dirname ${0:A})
 projectfolder=$(dirname $script_dir)
 
-source ${projectfolder}/Header.sh
+source "${projectfolder}/Header.sh"
 
 CISLevel="1"
 audit="2.3.1 Ensure an Inactivity Interval of 20 Minutes Or Less for the Screen Saver Is Enabled (Automated)"

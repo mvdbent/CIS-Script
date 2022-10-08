@@ -1,3 +1,7 @@
+#!/bin/zsh
+# shellcheck shell=bash
+# NOTE: this script is not designed to be run standalone. It is assembled by ./Assemble.sh
+
 ####################################################################################################
 #        License information
 ####################################################################################################
@@ -40,7 +44,7 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 ####################################################################################################
 
 CISBenchmarkReportPath="/Library/Security/Reports"
-CISBenchmarkReport=${CISBenchmarkReportPath}/CISBenchmarkReport.csv
+CISBenchmarkReport="${CISBenchmarkReportPath}/CISBenchmarkReport.csv"
 plistlocation="/Library/Managed Preferences/com.cis.benchmark.plist"
 currentUser=$(scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ { print $3 }')
 
@@ -48,7 +52,7 @@ currentUser=$(scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ { print
 #        Functions
 ####################################################################################################
 
-function help(){
+function help() {
   echo
   echo "The following options are available:"
   echo 
@@ -97,7 +101,7 @@ esac
 
 function runAudit() {
 	## Check if scoring file is present
-	if [[ ! -e ${plistlocation} ]]; then
+	if [[ ! -f "${plistlocation}" ]]; then
 		## No scoring file present, reporting all
 		auditResult="1"
 		scored=""
@@ -149,7 +153,7 @@ EndOfScript
 }
 
 function getPrefIsManagedrunAsUser() { # $1: domain, $2: key
-	runAsUser     osascript -l JavaScript << EndOfScript
+	runAsUser osascript -l JavaScript << EndOfScript
     ObjC.import('Foundation')
     ObjC.unwrap($.NSUserDefaults.alloc.initWithSuiteName('$1').objectIsForcedForKey('$2'))
 EndOfScript
@@ -164,25 +168,25 @@ function CISBenchmarkReportFolder() {
 	fi
 }
 
-function shortHeader(){
+function shortHeader() {
 	echo "Audit Number;Level;Scoring;Result;Managed;Method;Comments" >> "${CISBenchmarkReport}"
 }
 
-function fullHeader(){
+function fullHeader() {
 	echo "Audit Number;Level;Scoring;Result;Managed;Preference domain;Option;Value;Method;Comments;Remediate" >> "${CISBenchmarkReport}"
 }
 
-function shortReport(){
-	echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${method};${comment}">>"${CISBenchmarkReport}"
+function shortReport() {
+	echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${method};${comment}" >> "${CISBenchmarkReport}"
 }
 
-function fullReport(){
-	echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${appidentifier};${value};${prefValue};${method};${comment};${remediate}">>"${CISBenchmarkReport}"
+function fullReport() {
+	echo "${audit};${CISLevel};${scored};${result};${prefIsManaged};${appidentifier};${value};${prefValue};${method};${comment};${remediate}" >> "${CISBenchmarkReport}"
 }
 
-function printReport(){
+function printReport() {
 	## Check if scoring file is present
-	if [[ ! -e ${plistlocation} ]]; then
+	if [[ ! -f "${plistlocation}" ]]; then
 		## No scoring file present, check arguments
 		${argumentReportFunctionName}
 	else
@@ -195,9 +199,9 @@ function printReport(){
 	fi
 }
 
-function printReportHeaders(){
+function printReportHeaders() {
 	## Check if scoring file is present
-	if [[ ! -e ${plistlocation} ]]; then
+	if [[ ! -f "${plistlocation}" ]]; then
 		## No scoring file present, check arguments
 		${argumentHeaderFunctionName}
 	else
@@ -212,7 +216,7 @@ function printReportHeaders(){
 
 function runRemediate() {
 	## Check if scoring file is present
-	if [[ ! -e ${plistlocation} ]]; then
+	if [[ ! -f "${plistlocation}" ]]; then
 		## No scoring file present, check arguments
 		remediateResult="${argumentRemediateVariable}"
 	else
@@ -225,7 +229,7 @@ function runRemediate() {
 	fi
 }
 
-function emptyVariables(){
+function emptyVariables() {
 	prefIsManaged=""
 	appidentifier=""
 	value=""
@@ -236,7 +240,7 @@ function emptyVariables(){
 	remediate=""
 }
 
-function killcfpref(){
+function killcfpref() {
 	## Restart daemon responsible for prefrence caching
 	echo "Killing cfprefs daemon "
 	killall cfprefsd
@@ -252,25 +256,27 @@ echo "*** Security report started - $(date -u)"
 # Check for macOS version
 osVersion=$(sw_vers -productVersion)
 buildVersion=$(sw_vers -buildVersion)
-if [[ "$osVersion" != "10.15."* ]] && [[ "$osVersion" != "11."* ]] && [[ "$osVersion" != "12."* ]]; then
-		echo ""
-		echo "*** This script support macOS Catalina, Big Sur and Monterey only"
-		echo
-		echo "*** Quitting..."
-		echo ""
-		exit 1
-	else
-		if [[ "$osVersion" = "10.15."* ]]; then
-			echo "*** Current version - macOS Catalina ${osVersion} (${buildVersion})"
-			echo "" 1>&2
-		elif [[ "$osVersion" = "11."* ]]; then
-			echo "*** Current version - macOS Big Sur ${osVersion} (${buildVersion})"
-			echo "" 1>&2
-		elif [[ "$osVersion" = "12."* ]]; then
-			echo "*** Current version - macOS Monterey ${osVersion} (${buildVersion})"
-			echo "" 1>&2
-		fi
-	fi
+if [[ "$osVersion" = "10.15."* ]]; then
+    echo "*** Current version - macOS Catalina ${osVersion} (${buildVersion})"
+    echo "" 1>&2
+elif [[ "$osVersion" = "11."* ]]; then
+    echo "*** Current version - macOS Big Sur ${osVersion} (${buildVersion})"
+    echo "" 1>&2
+elif [[ "$osVersion" = "12."* ]]; then
+    echo "*** Current version - macOS Monterey ${osVersion} (${buildVersion})"
+    echo "" 1>&2
+elif [[ "$osVersion" = "13."* ]]; then
+    echo "*** Current version - macOS Ventura ${osVersion} (${buildVersion})"
+    echo "*** NOTE: experimental support only - based on Monterey benchmarks"
+    echo "" 1>&2
+else
+    echo ""
+    echo "*** This script supports macOS Catalina, Big Sur, Monterey and Ventura only"
+    echo
+    echo "*** Quitting..."
+    echo ""
+    exit 1
+fi
 
 # Check for admin/root permissions
 if [[ "$(id -u)" != "0" ]]; then

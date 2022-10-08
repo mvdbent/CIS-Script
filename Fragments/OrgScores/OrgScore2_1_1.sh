@@ -1,9 +1,10 @@
 #!/bin/zsh
+# shellcheck shell=bash
 
 script_dir=$(dirname ${0:A})
 projectfolder=$(dirname $script_dir)
 
-source ${projectfolder}/Header.sh
+source "${projectfolder}/Header.sh"
 
 CISLevel="1"
 audit="2.1.1 Ensure Bluetooth Is Disabled If No Devices Are Paired (Automated)"
@@ -14,10 +15,10 @@ runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
-	remediate="Script - defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool false"
+	remediate="Script > defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool false"
 
 	connectable=$(system_profiler SPBluetoothDataType 2>&1 | grep -c "Paired: Yes")
-	bluetoothEnabled=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool)
+	bluetoothEnabled=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState 2>/dev/null)
 	comment="Paired Devices: ${connectable}"
 	# if [[ "$connectable" == 0 ]] && [[ "$bluetoothEnabled" == 0 ]]; then
 	if [[ "$bluetoothEnabled" == 0 ]]; then
