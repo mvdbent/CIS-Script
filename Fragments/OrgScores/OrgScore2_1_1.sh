@@ -17,15 +17,17 @@ if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
 	remediate="Script > defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool false"
 
-	connectable=$(system_profiler SPBluetoothDataType 2>&1 | grep -c "Paired: Yes")
+	appidentifier="com.apple.controlcenter"
+	value="Bluetooth"
+	prefValueAsUser=$(getPrefValuerunAsUser "${appidentifier}" "${value}")
+
 	bluetoothEnabled=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState 2>/dev/null)
-	comment="Paired Devices: ${connectable}"
-	# if [[ "$connectable" == 0 ]] && [[ "$bluetoothEnabled" == 0 ]]; then
+	comment="Paired Devices: ${prefValueAsUser}"
 	if [[ "$bluetoothEnabled" == 0 ]]; then
-		# bluetooth is off: passes
+		# bluetooth is off
 		result="Passed"
-	elif [[ "$bluetoothEnabled" == 1 ]] && [[ "$connectable" -gt 0 ]]; then
-	        # bluetooth is on, and there are paired devices: passes
+	elif [[ "$bluetoothEnabled" == 1 ]] && [[ "${prefValueAsUser}" -gt 0 ]]; then
+		# bluetooth is on, and there are paired devices
 		result="Passed"
 	else
 		result="Failed"
@@ -36,8 +38,7 @@ if [[ "${auditResult}" == "1" ]]; then
 			killall -HUP bluetoothd
 			# re-check
 			# our remediation is turning Bluetooth off so no need to check for paired devices
-			# connectable=$(system_profiler SPBluetoothDataType 2>&1 | grep -c "Paired: Yes")
-			bluetoothEnabled=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState -bool)
+			bluetoothEnabled=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState 2>/dev/null)
 			if [[ "$bluetoothEnabled" == 0 ]]; then
 				result="Passed After Remediation"
 			else
