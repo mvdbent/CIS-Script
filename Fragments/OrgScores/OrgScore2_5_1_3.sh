@@ -1,9 +1,10 @@
 #!/bin/zsh
+# shellcheck shell=bash
 
 script_dir=$(dirname ${0:A})
 projectfolder=$(dirname $script_dir)
 
-source ${projectfolder}/Header.sh
+source "${projectfolder}/Header.sh"
 
 CISLevel="1"
 audit="2.5.1.3 Ensure all user storage CoreStorage volumes are encrypted (Manual)"
@@ -14,7 +15,7 @@ runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Manual"
-	remediate="Manual - Ensure all user CoreStorage volumes encrypted"
+	remediate="Manual > Ensure all user CoreStorage volumes encrypted"
 
 	coreStorage=$(diskutil cs list)
 	if [[ "$coreStorage" != "No CoreStorage logical volume groups found" ]]; then

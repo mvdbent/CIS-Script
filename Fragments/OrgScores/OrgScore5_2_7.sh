@@ -1,9 +1,10 @@
 #!/bin/zsh
+# shellcheck shell=bash
 
 script_dir=$(dirname ${0:A})
 projectfolder=$(dirname $script_dir)
 
-source ${projectfolder}/Header.sh
+source "${projectfolder}/Header.sh"
 
 CISLevel="1"
 audit="5.2.7 Ensure Password Age Is Configured (Automated)"
@@ -21,10 +22,10 @@ if [[ "${auditResult}" == "1" ]]; then
 	prefValue=$(getPrefValue "${appidentifier}" "${value}")
 	prefIsManaged=$(getPrefIsManaged "${appidentifier}" "${value}")
 	comment="Password Age: Configured"
-	if [[ "${prefIsManaged}" == "true" && "${prefValue}" < "365" ]]; then
+	if [[ "${prefIsManaged}" == "true" && ${prefValue} -lt 365 ]]; then
 		result="Passed"
 	else
-		if [[ "${prefValue}" < "365" ]]; then
+		if [[ ${prefValue} -lt 365 ]]; then
 			result="Passed"
 		else
 			result="Failed"

@@ -1,9 +1,12 @@
+#!/bin/zsh
+# shellcheck shell=bash
+# NOTE: this script is not designed to be run standalone. It is assembled by ./Assemble.sh
 
 ####################################################################################################
 ####################################################################################################
 
 # Creation date CISBenchmarkReport
-if [[ "${argumentHeaderFunctionName}" ==  "fullHeader" ]] || [[ "${reportSetting}" == "full" ]]; then
+if [[ "${argumentHeaderFunctionName}" == "fullHeader" ]] || [[ "${reportSetting}" == "full" ]]; then
 		## add creation date
 		echo ";;;;;;;;;;" >> "${CISBenchmarkReport}"
 		if [[ "$osVersion" = "10.15."* ]]; then

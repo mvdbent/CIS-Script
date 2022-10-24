@@ -1,9 +1,10 @@
 #!/bin/zsh
+# shellcheck shell=bash
 
 script_dir=$(dirname ${0:A})
 projectfolder=$(dirname $script_dir)
 
-source ${projectfolder}/Header.sh
+source "${projectfolder}/Header.sh"
 
 CISLevel="1"
 audit="2.3.3 Audit Lock Screen and Start Screen Saver Tools (Manual)"
@@ -14,7 +15,7 @@ runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Manual"
-	remediate="Familiarise users with screen lock tools or corner to Start Screen Saver"
+	remediate="Manual > Familiarise users with screen lock tools or corner to Start Screen Saver"
 	
 	appidentifier="com.apple.dock"
 	value="wvous-bl-corner"

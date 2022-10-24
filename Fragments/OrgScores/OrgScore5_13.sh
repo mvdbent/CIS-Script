@@ -1,9 +1,10 @@
 #!/bin/zsh
+# shellcheck shell=bash
 
 script_dir=$(dirname ${0:A})
 projectfolder=$(dirname $script_dir)
 
-source ${projectfolder}/Header.sh
+source "${projectfolder}/Header.sh"
 
 CISLevel="2"
 audit="5.13 Ensure a Login Window Banner Exists (Automated)"
@@ -14,7 +15,7 @@ runAudit
 # If organizational score is 1 or true, check status of client
 if [[ "${auditResult}" == "1" ]]; then
 	method="Script"
-	remediate="https://support.apple.com/en-us/HT202277"
+	remediate="Script > see https://support.apple.com/en-us/HT202277"
 
 	policyBanner="$(find /Library/Security -name 'PolicyBanner.*' | wc -l | xargs)"
 	if [[ "${policyBanner}" == "1" ]]; then
